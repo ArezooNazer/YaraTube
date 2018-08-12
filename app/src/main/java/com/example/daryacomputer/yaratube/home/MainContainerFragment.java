@@ -4,20 +4,25 @@ package com.example.daryacomputer.yaratube.home;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 
 
-public class MainContainerFragment extends Fragment  {
+public class MainContainerFragment extends Fragment {
 
     private static final String TAG = MainContainerFragment.class.getName();
     DrawerLayout drawerLayout;
@@ -30,10 +35,10 @@ public class MainContainerFragment extends Fragment  {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof MainActivity){
+        if (context instanceof MainActivity) {
             transferToFragment = (TransferToFragment) context;
-        }else{
-            throw new ClassCastException(context.toString()+" must implement OnMainActivityCallback!");
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
         }
     }
 
@@ -50,6 +55,13 @@ public class MainContainerFragment extends Fragment  {
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
         drawerLayout = homeView.findViewById(R.id.homePage);
+
+        NavigationView navigationView = homeView.findViewById(R.id.homeDrawerLayout);
+
+        //set a user profile photo on drawer header
+        View header = navigationView.getHeaderView(0);
+        ImageView imageView = header.findViewById(R.id.drawerUserPhoto);
+        Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTWkfQwNEw7GXCwMekUtAZIkIl3qowafpYe2Icr-e9wF46V0O5").into(imageView);
 
         BottomNavigationView bottomNavigationView = homeView.findViewById(R.id.homeBottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
