@@ -6,8 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
 import java.util.List;
@@ -15,9 +17,11 @@ import java.util.List;
 public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductViewHolder> implements UpdateListData<List<Product>>{
 
     private List<Product> productList;
+    private Context context;
 
-    public HomeProductAdapter(List<Product> productList) {
+    public HomeProductAdapter(List<Product> productList, Context context) {
         this.productList = productList;
+        this.context = context;
     }
 
     @NonNull
@@ -30,6 +34,10 @@ public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductViewHold
     public void onBindViewHolder(@NonNull HomeProductViewHolder holder, int position) {
 
         holder.onBind(getItem(position));
+
+        String url = ServiceGenerator.BASE_URL + getItem(position).getavatar();
+        Glide.with(context).load(url).into(holder.productImage);
+
     }
 
     private Product getItem(int position) {
@@ -44,7 +52,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductViewHold
     @Override
     public void updateData(List<Product> productList) {
 
-        productList = productList;
+        this.productList = productList;
         notifyDataSetChanged();
 
     }

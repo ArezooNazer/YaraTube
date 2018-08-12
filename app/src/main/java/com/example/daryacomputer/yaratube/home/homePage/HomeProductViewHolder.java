@@ -10,7 +10,7 @@ import com.example.daryacomputer.yaratube.data.model.Product;
 
 public class HomeProductViewHolder extends RecyclerView.ViewHolder {
 
-    private ImageView productImage;
+    public ImageView productImage;
     private TextView productName;
     private TextView productDescription;
 

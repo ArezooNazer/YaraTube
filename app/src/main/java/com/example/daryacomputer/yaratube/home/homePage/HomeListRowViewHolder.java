@@ -23,7 +23,7 @@ public class HomeListRowViewHolder extends RecyclerView.ViewHolder {
     public void onBind(HomeItem homeItem , Context context) {
         eachProductListTitle.setText(homeItem.getTitle());
         eachProductListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        HomeListAdapter adapter = new HomeListAdapter();
+        HomeListAdapter adapter = new HomeListAdapter(context);
         eachProductListRecyclerView.setAdapter(adapter);
     }
 }
