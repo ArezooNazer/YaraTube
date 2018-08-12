@@ -64,7 +64,7 @@ public class MainContainerFragment extends Fragment  {
                                 return true;
 
                             case R.id.categoryBottomItem:
-//                                transferToFragment.goToCategoryFragment();
+                                transferToFragment.goToCategoryFragment();
                                 return true;
                         }
 

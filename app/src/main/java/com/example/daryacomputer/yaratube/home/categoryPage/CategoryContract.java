@@ -6,5 +6,13 @@ import java.util.List;
 
 public interface CategoryContract {
 
-    void showCategoryList(List<Category> categoryList);
+    interface View{
+        void showCategoryList(List<Category> categoryList);
+    }
+
+    interface Presenter{
+        void getCategoryList();
+    }
+
+
 }

@@ -1,21 +1,22 @@
 package com.example.daryacomputer.yaratube.data.source;
 
+import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.HomeItem;
 
+import java.util.List;
+
+import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
 
-public class ApiService {
+public interface ApiService {
 
-    private Retrofit retrofit = null;
-    private static String BASE_URL = "https://api.vasapi.click/";
+    @GET("/store/16")
+    Call<List<HomeItem>> getHomeItemListRequest();
 
-    public Retrofit getRetrofit() {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-        }
-        return retrofit;
-    }
+
+    @GET("/category/16/463")
+    Call<List<Category>> getCategoryListRequest();
+
 }
