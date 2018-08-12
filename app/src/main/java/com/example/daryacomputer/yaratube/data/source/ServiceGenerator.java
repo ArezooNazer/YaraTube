@@ -13,7 +13,7 @@ import retrofit2.http.GET;
 public class ServiceGenerator {
 
     private static Retrofit retrofit = null;
-    private static String BASE_URL = "https://api.vasapi.click/";
+    public static String BASE_URL = "https://api.vasapi.click/";
 
     public static Retrofit getInstance() {
         if (retrofit == null) {

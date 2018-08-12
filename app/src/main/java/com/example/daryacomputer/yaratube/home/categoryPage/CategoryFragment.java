@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Category;
@@ -56,5 +57,10 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void showCategoryList(List<Category> categoryList) {
         categoryAdapter.updateData(categoryList);
+    }
+
+    @Override
+    public void ShowMessage(String message) {
+        Toast.makeText(getContext(),message,Toast.LENGTH_LONG);
     }
 }

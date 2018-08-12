@@ -13,10 +13,13 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
+
+    private static String TAG = CategoryAdapter.class.getName();
 
     private List<Category> categoryList;
     private Context context;
@@ -36,7 +39,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.onBind(getItem(position));
 
-//        Glide.with(context).load(uri).into(holder.categoryAvatar);
+        String url = ServiceGenerator.BASE_URL + getItem(position).getAvatar();
+        Glide.with(context).load(url).into(holder.categoryAvatar);
 
     }
 

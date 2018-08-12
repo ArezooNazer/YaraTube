@@ -30,7 +30,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
             @Override
             public void onFailure() {
-//               Toast.makeText( , "can not load category List", Toast.LENGTH_LONG);
+                mView.ShowMessage("Error: can not show Category list");
             }
         });
 

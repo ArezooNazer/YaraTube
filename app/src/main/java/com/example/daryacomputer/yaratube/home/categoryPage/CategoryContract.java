@@ -8,6 +8,7 @@ public interface CategoryContract {
 
     interface View{
         void showCategoryList(List<Category> categoryList);
+        void ShowMessage(String message);
     }
 
     interface Presenter{
