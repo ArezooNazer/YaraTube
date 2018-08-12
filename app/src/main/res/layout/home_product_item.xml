@@ -8,7 +8,7 @@
 
 
     <ImageView
-        android:id="@+id/homeListItemAvatar"
+        android:id="@+id/productAvatar"
         android:layout_width="0dp"
         android:layout_height="137dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,23 +16,23 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/homeListItemTitle"
+        android:id="@+id/productName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/homeListItemDescription"
+        app:layout_constraintBaseline_toBaselineOf="@+id/productDescription"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/homeListItemDescription"
+        android:id="@+id/productDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/homeListItemAvatar" />
+        app:layout_constraintTop_toTopOf="@+id/productAvatar" />
 
 </android.support.constraint.ConstraintLayout>

@@ -14,10 +14,11 @@ import com.example.daryacomputer.yaratube.R;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
+import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
 import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> implements UpdateListData<List<Category>>{
 
     private static String TAG = CategoryAdapter.class.getName();
 
@@ -53,6 +54,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
         return categoryList.get(position);
     }
 
+
+    @Override
     public void updateData(List<Category> categories) {
         categoryList = categories;
         notifyDataSetChanged();
