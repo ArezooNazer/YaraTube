@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/homeBottomItem"
+            android:icon="@drawable/ic_insert_invitation_black_24dp"
+            android:title="@string/mainPage" />
+        <item
+            android:id="@+id/categoryBottomItem"
+            android:icon="@drawable/ic_menu_black_24dp"
+            android:title="@string/category" />
+
+    </group>
+
+
+</menu>
