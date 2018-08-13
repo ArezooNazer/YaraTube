@@ -12,20 +12,15 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.data.model.Headeritem;
-import com.example.daryacomputer.yaratube.data.model.Homeitem;
 import com.example.daryacomputer.yaratube.data.model.Store;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class HomePageFragment extends Fragment  implements HomeContract.View{
 
     private HomeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
-    HomeListAdapter homeListAdapter;
-    HomeHeaderAdapter homeHeaderAdapter;
+    HomeAdapter homeListAdapter;
+//    HeaderAdapter homeHeaderAdapter;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -35,8 +30,8 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        homeListAdapter = new HomeListAdapter(getContext());
-//        homeListAdapter = new  HomeHeaderAdapter(getContext());
+        homeListAdapter = new HomeAdapter(getContext());
+//        homeHeaderAdapter = new HeaderAdapter(getContext());
         mPresenter = new HomePresenter(this);
     }
 
@@ -60,13 +55,8 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
 
     }
 
-    public void showHomeItemList(List<Homeitem> homeItems) {
-        homeListAdapter.updateData(homeItems);
-    }
-
-    @Override
-    public void showHomeHeader(List<Headeritem> headerItemList) {
-
+    public void showHomeItemList(Store store) {
+        homeListAdapter.updateData(store);
     }
 
     @Override

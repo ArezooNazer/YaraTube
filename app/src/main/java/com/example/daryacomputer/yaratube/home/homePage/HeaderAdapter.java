@@ -4,39 +4,39 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Headeritem;
-import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeHeaderAdapter extends RecyclerView.Adapter<HomeHeaderViewHolder> implements UpdateListData<List<Headeritem>> {
+public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.HeaderItemViewHolder> implements UpdateListData<List<Headeritem>> {
 
     private List<Headeritem> headerItemList = new ArrayList<>();
     private Context context;
 
-    public HomeHeaderAdapter(Context context) {
+    public HeaderAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public HomeHeaderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeHeaderViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_header_item,parent,false));
+    public HeaderItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new HeaderItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_header_item,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeHeaderViewHolder holder, int position) {
-        String url = ServiceGenerator.BASE_URL + getItem(position).getAvatar().getHdpi();
-        Glide.with(context).load(url).into(holder.headerImageView);
-
+    public void onBindViewHolder(@NonNull HeaderItemViewHolder holder, int position) {
+        holder.onBind(getItem(position));
     }
+
     private Headeritem getItem(int position) {
         return headerItemList.get(position);
     }
@@ -50,5 +50,21 @@ public class HomeHeaderAdapter extends RecyclerView.Adapter<HomeHeaderViewHolder
     public void updateData(List<Headeritem> data) {
         headerItemList = data;
         notifyDataSetChanged();
+    }
+
+    class HeaderItemViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView headerImage;
+
+        HeaderItemViewHolder(View itemView) {
+            super(itemView);
+            headerImage = itemView.findViewById(R.id.headerImageItem);
+        }
+
+        void onBind(Headeritem headeritem) {
+
+           String url = ServiceGenerator.BASE_URL + '/' + headeritem.getFeatureAvatar().getXxhdpi();
+            Glide.with(itemView.getContext()).load(url).into(headerImage);
+        }
     }
 }

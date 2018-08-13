@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
@@ -15,7 +14,7 @@ import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
 import java.util.List;
 
-public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<List<Homeitem>>{
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<Store> {
 
     private List<Homeitem> homeItemList;
     private List<Headeritem> headerItemList;
@@ -25,7 +24,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     final static int Home_ITEM_VIEW_HOLDER =1;
 
 
-    public HomeListAdapter(Context context) {
+    public HomeAdapter(Context context) {
         this.context = context;
     }
 
@@ -35,11 +34,11 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if(viewType == HEADER_VIEW_HOLDER ){
 
-            return new HomeHeaderViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_header_item,parent,false));
+            return new HeaderViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_header,parent,false));
         }
         else if(viewType == Home_ITEM_VIEW_HOLDER ){
 
-            return new HomeListRowViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_list_row,parent,false));
+            return new HomeViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_list_row,parent,false));
         }
         return null;
     }
@@ -49,33 +48,33 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         if(position == HEADER_VIEW_HOLDER ){
 
-            ( (HomeHeaderViewHolder) holder).onBind(getItem(position),context,homeItemList , position);
+            ((HeaderViewHolder) holder).onBind(context,headerItemList);
 
         }
         else if(position == Home_ITEM_VIEW_HOLDER ){
 
-            ((HomeListRowViewHolder) holder).onBind(getItem(position),context,homeItemList , position);
+            ((HomeViewHolder) holder).onBind(homeItemList.get(position),context);
 
         }
     }
 
 
-
-    private Homeitem getItem(int position){
-        return  homeItemList.get(position);
-    }
-
     @Override
     public int getItemCount() {
-        return (null != homeItemList ? homeItemList.size() : 0);
+
+        if( homeItemList == null && headerItemList == null)
+            return 0;
+
+        else if (homeItemList != null && headerItemList == null)
+            return headerItemList.size();
+
+        else if (homeItemList == null && headerItemList != null)
+            return 1;
+
+        else
+            return homeItemList.size();
     }
 
-    @Override
-    public void updateData(List<Homeitem> homeItems) {
-
-       homeItemList = homeItems;
-       notifyDataSetChanged();
-    }
 
     @Override
     public int getItemViewType(int position) {
@@ -88,5 +87,12 @@ public class HomeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
 
         return super.getItemViewType(position);
+    }
+
+    @Override
+    public void updateData(Store data) {
+        this.headerItemList = data.getHeaderitem();
+        this.homeItemList = data.getHomeitem();
+        notifyDataSetChanged();
     }
 }

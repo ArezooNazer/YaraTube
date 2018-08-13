@@ -2,13 +2,14 @@ package com.example.daryacomputer.yaratube.home.homePage;
 
 import com.example.daryacomputer.yaratube.data.model.Headeritem;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
+import com.example.daryacomputer.yaratube.data.model.Store;
+
 import java.util.List;
 
 public interface HomeContract {
 
     interface View{
-        void showHomeItemList(List<Homeitem> homeItemList);
-        void showHomeHeader(List<Headeritem> headerItemList);
+        void showHomeItemList(Store store);
         void ShowMassage(String massage);
     }
 

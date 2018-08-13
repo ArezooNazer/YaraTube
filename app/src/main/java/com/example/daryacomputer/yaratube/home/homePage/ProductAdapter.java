@@ -9,36 +9,31 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductViewHolder> implements UpdateListData<List<Product>>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductViewHolder> implements UpdateListData<List<Product>>{
 
     private List<Product> productList = new ArrayList<>();
     private Context context;
 
-    public HomeProductAdapter(Context context) {
+    public ProductAdapter(Context context) {
         this.context = context;
     }
 
     @NonNull
     @Override
-    public HomeProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new HomeProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_product_item, parent, false));
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ProductViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.home_product_item, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HomeProductViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
 
         holder.onBind(getItem(position));
-
-        String url = ServiceGenerator.BASE_URL + getItem(position).getAvatar().getHdpi();
-        Glide.with(context).load(url).into(holder.productImage);
-
     }
 
     private Product getItem(int position) {

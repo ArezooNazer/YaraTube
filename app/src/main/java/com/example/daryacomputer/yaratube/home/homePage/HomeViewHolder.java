@@ -11,22 +11,25 @@ import com.example.daryacomputer.yaratube.data.model.Homeitem;
 
 import java.util.List;
 
-public class HomeListRowViewHolder extends RecyclerView.ViewHolder {
+public class HomeViewHolder extends RecyclerView.ViewHolder {
 
     private TextView eachProductListTitle;
     private RecyclerView eachProductListRecyclerView;
 
-    public HomeListRowViewHolder(View itemView) {
+    public HomeViewHolder(View itemView) {
         super(itemView);
         eachProductListTitle = itemView.findViewById(R.id.homeListTitle);
         eachProductListRecyclerView = itemView.findViewById(R.id.homeListRecyclerView);
     }
 
-    public void onBind(Homeitem homeItem , Context context , List<Homeitem> homeitemList, int i) {
+    public void onBind(Homeitem homeItem , Context context) {
+
         eachProductListTitle.setText(homeItem.getTitle());
+
         eachProductListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        HomeProductAdapter productAdapter = new HomeProductAdapter(context);
+        ProductAdapter productAdapter = new ProductAdapter(context);
+        productAdapter.updateData(homeItem.getProducts());
         eachProductListRecyclerView.setAdapter(productAdapter);
-        productAdapter.updateData(homeitemList.get(i).getProducts());
+
     }
 }
