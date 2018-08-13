@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
@@ -35,7 +36,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductViewHold
 
         holder.onBind(getItem(position));
 
-        String url = ServiceGenerator.BASE_URL + getItem(position).getavatar();
+        String url = ServiceGenerator.BASE_URL + getItem(position).getAvatar().getHdpi();
         Glide.with(context).load(url).into(holder.productImage);
 
     }

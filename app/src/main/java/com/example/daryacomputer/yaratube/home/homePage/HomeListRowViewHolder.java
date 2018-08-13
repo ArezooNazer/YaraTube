@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
 
+import java.util.List;
+
 public class HomeListRowViewHolder extends RecyclerView.ViewHolder {
 
     private TextView eachProductListTitle;
@@ -20,10 +22,11 @@ public class HomeListRowViewHolder extends RecyclerView.ViewHolder {
         eachProductListRecyclerView = itemView.findViewById(R.id.homeListRecyclerView);
     }
 
-    public void onBind(Homeitem homeItem , Context context) {
+    public void onBind(Homeitem homeItem , Context context , List<Homeitem> homeitemList, int i) {
         eachProductListTitle.setText(homeItem.getTitle());
         eachProductListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         HomeProductAdapter productAdapter = new HomeProductAdapter(context);
         eachProductListRecyclerView.setAdapter(productAdapter);
+        productAdapter.updateData(homeitemList.get(i).getProducts());
     }
 }

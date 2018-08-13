@@ -1,6 +1,7 @@
 package com.example.daryacomputer.yaratube.home.homePage;
 
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
+import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
 import com.example.daryacomputer.yaratube.data.source.HomeRepository;
 
@@ -18,19 +19,21 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void getHomeItems() {
         homeRepository = new HomeRepository();
-        homeRepository.getHomeItems(new ApiResult<List<Homeitem>>() {
+        homeRepository.getHomeItems(new ApiResult<Store>() {
+
             @Override
-            public void onSuccess(List<Homeitem> result) {
-                mView.showHomeItemList(result);
+            public void onSuccess(Store result) {
+                mView.showHomeItemList(result.getHomeitem());
+                mView.showHomeHeader(result.getHeaderitem());
+
             }
 
             @Override
             public void onFailure() {
-                {
-                    mView.ShowMassage("Error: can not show HomeItem list");
-                }
+                mView.ShowMassage("Error: can not show HomeItem list");
             }
-
         });
+
     }
 }
+

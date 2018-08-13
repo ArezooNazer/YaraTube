@@ -12,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.data.model.Headeritem;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
+import com.example.daryacomputer.yaratube.data.model.Store;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +22,10 @@ import java.util.List;
 
 public class HomePageFragment extends Fragment  implements HomeContract.View{
 
-    private List<Homeitem> homeItemList = new ArrayList<>();
-    private HomeListAdapter homeListAdapter;
     private HomeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
+    HomeListAdapter homeListAdapter;
+    HomeHeaderAdapter homeHeaderAdapter;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -33,7 +35,8 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        homeListAdapter = new HomeListAdapter(homeItemList, getContext());
+        homeListAdapter = new HomeListAdapter(getContext());
+//        homeListAdapter = new  HomeHeaderAdapter(getContext());
         mPresenter = new HomePresenter(this);
     }
 
@@ -59,6 +62,11 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
 
     public void showHomeItemList(List<Homeitem> homeItems) {
         homeListAdapter.updateData(homeItems);
+    }
+
+    @Override
+    public void showHomeHeader(List<Headeritem> headerItemList) {
+
     }
 
     @Override

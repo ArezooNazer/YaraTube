@@ -6,12 +6,12 @@ import android.widget.ImageView;
 
 import com.example.daryacomputer.yaratube.R;
 
-public class HeaderViewHolder extends RecyclerView.ViewHolder {
+public class HomeHeaderViewHolder extends RecyclerView.ViewHolder {
 
-    ImageView headerItem;
+    ImageView headerImageView;
 
-    public HeaderViewHolder(View itemView) {
+    public HomeHeaderViewHolder(View itemView) {
         super(itemView);
-        headerItem = itemView.findViewById(R.id.headerImageItem);
+        headerImageView = itemView.findViewById(R.id.headerImageItem);
     }
 }
