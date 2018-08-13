@@ -5,7 +5,7 @@
     android:layout_width="200dp"
     android:layout_height="268dp"
     android:elevation="5dp"
-    app:layout_constraintCircleRadius="5dp"
+    app:layout_constraintCircleRadius="10dp"
     android:orientation="horizontal"
     android:layout_margin="3dp">
 

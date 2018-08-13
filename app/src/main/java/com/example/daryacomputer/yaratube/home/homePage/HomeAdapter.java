@@ -20,8 +20,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private List<Headeritem> headerItemList;
     Context context;
 
-    final static int HEADER_VIEW_HOLDER =0;
-    final static int Home_ITEM_VIEW_HOLDER =1;
+    final static int HEADER_VIEW_HOLDER =1;
+    final static int Home_ITEM_VIEW_HOLDER =2;
 
 
     public HomeAdapter(Context context) {
@@ -46,14 +46,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        if(position == HEADER_VIEW_HOLDER ){
+        int viewType = holder.getItemViewType();
+
+        if(viewType == HEADER_VIEW_HOLDER ){
 
             ((HeaderViewHolder) holder).onBind(context,headerItemList);
 
         }
-        else if(position == Home_ITEM_VIEW_HOLDER ){
+        else if(viewType == Home_ITEM_VIEW_HOLDER ){
 
-            ((HomeViewHolder) holder).onBind(homeItemList.get(position),context);
+            ((HomeViewHolder) holder).onBind(homeItemList.get(position - 1),context);
 
         }
     }
@@ -72,21 +74,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
             return 1;
 
         else
-            return homeItemList.size();
+            return 1 + homeItemList.size() ;
     }
 
 
     @Override
     public int getItemViewType(int position) {
 
-        if(position == 0){
+        if(position == 0)
             return HEADER_VIEW_HOLDER;
-        }
-        else if(position == 1) {
-            return Home_ITEM_VIEW_HOLDER;
-        }
-
-        return super.getItemViewType(position);
+         return Home_ITEM_VIEW_HOLDER;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
         eachProductListRecyclerView = itemView.findViewById(R.id.homeListRecyclerView);
     }
 
-    public void onBind(Homeitem homeItem , Context context) {
+    public void onBind(Homeitem homeItem , Context context ) {
 
         eachProductListTitle.setText(homeItem.getTitle());
 
