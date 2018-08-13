@@ -26,7 +26,7 @@
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/homeBottomNavigation"
             android:layout_width="match_parent"
-            android:layout_height="85dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +35,8 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1"
-            app:menu="@menu/bottom_navigation_menu" />
+            app:menu="@menu/bottom_navigation_menu"
+            android:padding="3dp"/>
     </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.NavigationView
