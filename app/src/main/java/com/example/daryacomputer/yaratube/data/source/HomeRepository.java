@@ -1,35 +1,40 @@
 package com.example.daryacomputer.yaratube.data.source;
 
-import com.example.daryacomputer.yaratube.data.model.HomeItem;
+import android.util.Log;
+
+import com.example.daryacomputer.yaratube.data.model.Homeitem;
 
 import java.util.List;
-
-import javax.security.auth.callback.Callback;
 
 import retrofit2.Call;
 import retrofit2.Response;
 
 public class HomeRepository {
 
-    public void getHomeItems(final ApiResult<List<HomeItem>> callback){
+    public static String TAG = HomeRepository.class.getName();
+
+    public void getHomeItems(final ApiResult<List<Homeitem>> callback){
 
         ServiceGenerator.getInstance().create(ApiService.class)
-                .getHomeItemListRequest().enqueue(new retrofit2.Callback<List<HomeItem>>() {
+                .getHomeItemListRequest().enqueue(new retrofit2.Callback<List<Homeitem>>() {
             @Override
-            public void onResponse(Call<List<HomeItem>> call, Response<List<HomeItem>> response) {
+            public void onResponse(Call<List<Homeitem>> call, Response<List<Homeitem>> response) {
 
                 if(response.isSuccessful()){
-                    List<HomeItem> homeItems = response.body();
+                    Log.i("homeItem", "onResponse: " + response.body().get(0).getTitle());
+                    List<Homeitem> homeItems = response.body();
                     if(homeItems != null){
-
+                        callback.onSuccess(homeItems);
                     }
 
+                }else{
+                    Log.e(TAG, "get user onResponse ErrorBody ");
                 }
             }
 
             @Override
-            public void onFailure(Call<List<HomeItem>> call, Throwable t) {
-
+            public void onFailure(Call<List<Homeitem>> call, Throwable t) {
+                callback.onFailure();
             }
         });
     }

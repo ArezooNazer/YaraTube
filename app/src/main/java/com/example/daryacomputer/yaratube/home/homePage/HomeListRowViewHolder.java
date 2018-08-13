@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.data.model.HomeItem;
+import com.example.daryacomputer.yaratube.data.model.Homeitem;
 
 public class HomeListRowViewHolder extends RecyclerView.ViewHolder {
 
@@ -20,10 +20,10 @@ public class HomeListRowViewHolder extends RecyclerView.ViewHolder {
         eachProductListRecyclerView = itemView.findViewById(R.id.homeListRecyclerView);
     }
 
-    public void onBind(HomeItem homeItem , Context context) {
+    public void onBind(Homeitem homeItem , Context context) {
         eachProductListTitle.setText(homeItem.getTitle());
         eachProductListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
-        HomeListAdapter adapter = new HomeListAdapter(context);
-        eachProductListRecyclerView.setAdapter(adapter);
+        HomeProductAdapter productAdapter = new HomeProductAdapter(context);
+        eachProductListRecyclerView.setAdapter(productAdapter);
     }
 }

@@ -1,11 +1,10 @@
 package com.example.daryacomputer.yaratube.data.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
-public class HomeItem {
+public class Homeitem {
 
     @SerializedName("id")
     @Expose

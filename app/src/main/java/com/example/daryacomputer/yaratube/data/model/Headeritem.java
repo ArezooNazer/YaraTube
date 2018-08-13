@@ -1,4 +1,5 @@
 package com.example.daryacomputer.yaratube.data.model;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +8,7 @@ public class Headeritem {
 
     @SerializedName("id")
     @Expose
-    private Integer id;
+    private int id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -16,7 +17,7 @@ public class Headeritem {
     private String nameEnglish;
     @SerializedName("product_type")
     @Expose
-    private Integer productType;
+    private int productType;
     @SerializedName("producer_name")
     @Expose
     private String producerName;
@@ -25,22 +26,28 @@ public class Headeritem {
     private List<Object> paymentType = null;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private int price;
+    @SerializedName("avatar")
+    @Expose
+    private Avatar avatar;
+    @SerializedName("feature_avatar")
+    @Expose
+    private FeatureAvatar featureAvatar;
     @SerializedName("rank")
     @Expose
-    private Integer rank;
+    private double rank;
     @SerializedName("short_description")
     @Expose
     private String shortDescription;
     @SerializedName("is_purchased")
     @Expose
-    private Boolean isPurchased;
+    private boolean isPurchased;
     @SerializedName("comments")
     @Expose
-    private Integer comments;
+    private int comments;
     @SerializedName("is_bookmarked")
     @Expose
-    private Boolean isBookmarked;
+    private boolean isBookmarked;
     @SerializedName("sku")
     @Expose
     private String sku;
@@ -49,7 +56,7 @@ public class Headeritem {
     private String priceUnit;
     @SerializedName("total_view")
     @Expose
-    private Integer totalView;
+    private int totalView;
     @SerializedName("date_added")
     @Expose
     private String dateAdded;
@@ -59,9 +66,12 @@ public class Headeritem {
     @SerializedName("product_staff")
     @Expose
     private List<Object> productStaff = null;
+    @SerializedName("support")
+    @Expose
+    private Support support;
     @SerializedName("is_special")
     @Expose
-    private Boolean isSpecial;
+    private boolean isSpecial;
     @SerializedName("additional_attributes")
     @Expose
     private List<Object> additionalAttributes = null;
@@ -72,11 +82,11 @@ public class Headeritem {
     @Expose
     private Object customjson;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -96,11 +106,11 @@ public class Headeritem {
         this.nameEnglish = nameEnglish;
     }
 
-    public Integer getProductType() {
+    public int getProductType() {
         return productType;
     }
 
-    public void setProductType(Integer productType) {
+    public void setProductType(int productType) {
         this.productType = productType;
     }
 
@@ -120,19 +130,35 @@ public class Headeritem {
         this.paymentType = paymentType;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public Integer getRank() {
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
+
+    public FeatureAvatar getFeatureAvatar() {
+        return featureAvatar;
+    }
+
+    public void setFeatureAvatar(FeatureAvatar featureAvatar) {
+        this.featureAvatar = featureAvatar;
+    }
+
+    public double getRank() {
         return rank;
     }
 
-    public void setRank(Integer rank) {
+    public void setRank(double rank) {
         this.rank = rank;
     }
 
@@ -144,27 +170,27 @@ public class Headeritem {
         this.shortDescription = shortDescription;
     }
 
-    public Boolean getIsPurchased() {
+    public boolean isIsPurchased() {
         return isPurchased;
     }
 
-    public void setIsPurchased(Boolean isPurchased) {
+    public void setIsPurchased(boolean isPurchased) {
         this.isPurchased = isPurchased;
     }
 
-    public Integer getComments() {
+    public int getComments() {
         return comments;
     }
 
-    public void setComments(Integer comments) {
+    public void setComments(int comments) {
         this.comments = comments;
     }
 
-    public Boolean getIsBookmarked() {
+    public boolean isIsBookmarked() {
         return isBookmarked;
     }
 
-    public void setIsBookmarked(Boolean isBookmarked) {
+    public void setIsBookmarked(boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
     }
 
@@ -184,11 +210,11 @@ public class Headeritem {
         this.priceUnit = priceUnit;
     }
 
-    public Integer getTotalView() {
+    public int getTotalView() {
         return totalView;
     }
 
-    public void setTotalView(Integer totalView) {
+    public void setTotalView(int totalView) {
         this.totalView = totalView;
     }
 
@@ -216,12 +242,19 @@ public class Headeritem {
         this.productStaff = productStaff;
     }
 
+    public Support getSupport() {
+        return support;
+    }
 
-    public Boolean getIsSpecial() {
+    public void setSupport(Support support) {
+        this.support = support;
+    }
+
+    public boolean isIsSpecial() {
         return isSpecial;
     }
 
-    public void setIsSpecial(Boolean isSpecial) {
+    public void setIsSpecial(boolean isSpecial) {
         this.isSpecial = isSpecial;
     }
 

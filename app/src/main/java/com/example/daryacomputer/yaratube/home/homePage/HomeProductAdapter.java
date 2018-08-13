@@ -12,15 +12,15 @@ import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductViewHolder> implements UpdateListData<List<Product>>{
 
-    private List<Product> productList;
+    private List<Product> productList = new ArrayList<>();
     private Context context;
 
-    public HomeProductAdapter(List<Product> productList, Context context) {
-        this.productList = productList;
+    public HomeProductAdapter(Context context) {
         this.context = context;
     }
 

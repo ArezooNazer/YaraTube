@@ -7,18 +7,18 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.data.model.HomeItem;
+import com.example.daryacomputer.yaratube.data.model.Homeitem;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class HomeListAdapter extends RecyclerView.Adapter<HomeListRowViewHolder> implements UpdateListData<List<HomeItem>>{
+public class HomeListAdapter extends RecyclerView.Adapter<HomeListRowViewHolder> implements UpdateListData<List<Homeitem>>{
 
-    private List<HomeItem> homeItemList = new ArrayList<>();
+    private List<Homeitem> homeItemList;
     Context context;
 
-    public HomeListAdapter(Context context) {
+    public HomeListAdapter(List<Homeitem> homeItemList, Context context) {
+        this.homeItemList = homeItemList;
         this.context = context;
     }
 
@@ -32,10 +32,9 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListRowViewHolder>
     public void onBindViewHolder(@NonNull HomeListRowViewHolder holder, int position) {
 
         holder.onBind(getItem(position),context);
-        
     }
 
-    private HomeItem getItem(int position){
+    private Homeitem getItem(int position){
         return  homeItemList.get(position);
     }
 
@@ -45,7 +44,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListRowViewHolder>
     }
 
     @Override
-    public void updateData(List<HomeItem> homeItems) {
+    public void updateData(List<Homeitem> homeItems) {
 
        homeItemList = homeItems;
        notifyDataSetChanged();

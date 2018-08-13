@@ -59,6 +59,5 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
     public void updateData(List<Category> categories) {
         categoryList = categories;
         notifyDataSetChanged();
-
     }
 }
