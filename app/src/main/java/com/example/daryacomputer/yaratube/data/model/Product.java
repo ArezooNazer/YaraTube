@@ -143,6 +143,9 @@ public class Product {
     public Avatar_ getAvatar() {
         return avatar;
     }
+    public String getAvatarUrl(){
+        return BASE_URL + getAvatar().getHdpi();
+    }
     public void setAvatar(Avatar_ avatar) {
         this.avatar = avatar;
     }

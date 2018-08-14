@@ -16,8 +16,8 @@ import com.example.daryacomputer.yaratube.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.home.categoryPage.CategoryFragment;
 import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
 
-public class MainActivity extends AppCompatActivity implements TransferToFragment {
-    FragmentManager fm = getSupportFragmentManager();
+public class MainActivity extends AppCompatActivity  {
+
     DrawerLayout drawerLayout;
 
     @Override
@@ -40,23 +40,11 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
 
-    @Override
+
     public void goToMainContainerFragment() {
         MainContainerFragment mainContainerFragment = new MainContainerFragment();
-        fm.beginTransaction().replace(R.id.mainContainer, mainContainerFragment).commit();
-        goHomePageFragment();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, mainContainerFragment).commit();
     }
 
-    @Override
-    public void goHomePageFragment() {
 
-        HomePageFragment homePageFragment = new HomePageFragment();
-        fm.beginTransaction().replace(R.id.homeContainer, homePageFragment).commit();
-    }
-
-    @Override
-    public void goToCategoryFragment() {
-        CategoryFragment categoryFragment = new CategoryFragment();
-        fm.beginTransaction().replace(R.id.homeContainer, categoryFragment).commit();
-    }
 }

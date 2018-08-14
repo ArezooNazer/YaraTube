@@ -64,7 +64,7 @@ public class Category {
         return avatar;
     }
     public String getAvatarUrl(){
-        return BASE_URL + getAvatar().toString();
+        return BASE_URL + getAvatar();
     }
 
     public void setAvatar(Object avatar) {

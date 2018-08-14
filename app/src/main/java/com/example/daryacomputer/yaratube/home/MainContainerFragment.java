@@ -20,9 +20,11 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.home.categoryPage.CategoryFragment;
+import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
 
 
-public class MainContainerFragment extends Fragment {
+public class MainContainerFragment extends Fragment implements TransferToFragment{
 
     private static final String TAG = MainContainerFragment.class.getName();
     private TransferToFragment transferToFragment;
@@ -34,11 +36,11 @@ public class MainContainerFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof MainActivity) {
-            transferToFragment = (TransferToFragment) context;
-        } else {
-            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
-        }
+//        if (context instanceof MainActivity) {
+//            transferToFragment = (TransferToFragment) context;
+//        } else {
+//            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
+//        }
     }
 
     @Override
@@ -53,9 +55,16 @@ public class MainContainerFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
+        goHomePageFragment();
+        onBottomNavigationListener(homeView);
+
+        return homeView;
+    }
 
 
-        BottomNavigationView bottomNavigationView = homeView.findViewById(R.id.homeBottomNavigation);
+    public void onBottomNavigationListener(View view){
+
+        BottomNavigationView bottomNavigationView = view.findViewById(R.id.homeBottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -64,21 +73,32 @@ public class MainContainerFragment extends Fragment {
                         switch (item.getItemId()) {
                             case R.id.homeBottomItem:
 
-                                transferToFragment.goHomePageFragment();
+                                goHomePageFragment();
                                 return true;
 
                             case R.id.categoryBottomItem:
-                                transferToFragment.goToCategoryFragment();
+                                goToCategoryFragment();
                                 return true;
                         }
 
                         return true;
                     }
                 });
-
-        return homeView;
     }
 
+    @Override
+    public void goHomePageFragment() {
 
+        HomePageFragment homePageFragment = new HomePageFragment();
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.homeContainer, homePageFragment).commit();
+    }
+
+    @Override
+    public void goToCategoryFragment() {
+        CategoryFragment categoryFragment = new CategoryFragment();
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.homeContainer, categoryFragment).commit();
+    }
 }
 

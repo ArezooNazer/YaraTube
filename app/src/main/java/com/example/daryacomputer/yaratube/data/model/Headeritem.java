@@ -143,9 +143,6 @@ public class Headeritem {
     public Avatar getAvatar() {
         return avatar;
     }
-    public String getAvatarUrl(){
-        return BASE_URL + getAvatar().getHdpi();
-    }
 
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
@@ -153,6 +150,10 @@ public class Headeritem {
 
     public FeatureAvatar getFeatureAvatar() {
         return featureAvatar;
+    }
+
+    public String getAvatarUrl(){
+        return BASE_URL + getFeatureAvatar().getHdpi();
     }
 
     public void setFeatureAvatar(FeatureAvatar featureAvatar) {

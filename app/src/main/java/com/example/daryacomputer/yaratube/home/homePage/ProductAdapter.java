@@ -72,7 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         public void onBind(Product product){
 
-            String url = ServiceGenerator.BASE_URL + product.getAvatar().getHdpi();
+            String url = product.getAvatarUrl();
             Glide.with(itemView.getContext()).load(url).into(productImage);
 
             productName.setText(product.getName());
