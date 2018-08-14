@@ -2,6 +2,7 @@ package com.example.daryacomputer.yaratube;
 
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,7 @@ import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
 
 public class MainActivity extends AppCompatActivity  {
 
+    FragmentManager fragmentManager = getSupportFragmentManager();
     DrawerLayout drawerLayout;
 
     @Override
@@ -43,8 +45,17 @@ public class MainActivity extends AppCompatActivity  {
 
     public void goToMainContainerFragment() {
         MainContainerFragment mainContainerFragment = new MainContainerFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainContainer, mainContainerFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.mainContainer, mainContainerFragment).commit();
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+
+    }
 }

@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -34,26 +35,22 @@ public class MainContainerFragment extends Fragment implements TransferToFragmen
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-//        if (context instanceof MainActivity) {
-//            transferToFragment = (TransferToFragment) context;
-//        } else {
-//            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
-//        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-    }
+        }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
+
+        Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
+        if (mToolbar != null) {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+        }
+
+        mToolbar.setTitle("home");
 
         goHomePageFragment();
         onBottomNavigationListener(homeView);
@@ -100,5 +97,6 @@ public class MainContainerFragment extends Fragment implements TransferToFragmen
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.homeContainer, categoryFragment).commit();
     }
+
 }
 
