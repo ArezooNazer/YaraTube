@@ -63,7 +63,7 @@ public class HeaderAdapter extends RecyclerView.Adapter<HeaderAdapter.HeaderItem
 
         void onBind(Headeritem headeritem) {
 
-           String url = ServiceGenerator.BASE_URL + '/' + headeritem.getFeatureAvatar().getXxhdpi();
+           String url = headeritem.getAvatarUrl();
             Glide.with(itemView.getContext()).load(url).into(headerImage);
         }
     }

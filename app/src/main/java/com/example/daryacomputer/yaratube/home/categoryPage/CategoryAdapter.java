@@ -38,11 +38,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
 
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+
         holder.onBind(getItem(position));
-
-        String url = ServiceGenerator.BASE_URL + getItem(position).getAvatar();
-        Glide.with(context).load(url).into(holder.categoryAvatar);
-
     }
 
     @Override

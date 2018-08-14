@@ -25,7 +25,6 @@ import com.example.daryacomputer.yaratube.TransferToFragment;
 public class MainContainerFragment extends Fragment {
 
     private static final String TAG = MainContainerFragment.class.getName();
-    DrawerLayout drawerLayout;
     private TransferToFragment transferToFragment;
 
     public MainContainerFragment() {
@@ -54,14 +53,7 @@ public class MainContainerFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
-        drawerLayout = homeView.findViewById(R.id.homePage);
 
-        NavigationView navigationView = homeView.findViewById(R.id.homeDrawerLayout);
-
-        //set a user profile photo on drawer header
-        View header = navigationView.getHeaderView(0);
-        ImageView imageView = header.findViewById(R.id.drawerUserPhoto);
-        Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTWkfQwNEw7GXCwMekUtAZIkIl3qowafpYe2Icr-e9wF46V0O5").into(imageView);
 
         BottomNavigationView bottomNavigationView = homeView.findViewById(R.id.homeBottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(

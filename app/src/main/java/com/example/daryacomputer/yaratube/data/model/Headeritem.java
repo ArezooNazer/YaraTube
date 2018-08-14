@@ -4,6 +4,8 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
+
 public class Headeritem {
 
     @SerializedName("id")
@@ -140,6 +142,9 @@ public class Headeritem {
 
     public Avatar getAvatar() {
         return avatar;
+    }
+    public String getAvatarUrl(){
+        return BASE_URL + getAvatar().getHdpi();
     }
 
     public void setAvatar(Avatar avatar) {

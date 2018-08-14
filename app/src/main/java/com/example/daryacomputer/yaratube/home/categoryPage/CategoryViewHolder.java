@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
     TextView categoryTitle;
@@ -21,6 +22,10 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBind(Category category) {
+
         categoryTitle.setText(category.getTitle());
+
+        String url =  category.getAvatarUrl();
+        Glide.with(itemView.getContext()).load(url).into(categoryAvatar);
     }
 }

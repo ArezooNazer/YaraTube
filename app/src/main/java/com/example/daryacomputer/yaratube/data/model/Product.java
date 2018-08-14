@@ -4,6 +4,8 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
+
 public class Product {
 
     @SerializedName("id")
@@ -141,7 +143,6 @@ public class Product {
     public Avatar_ getAvatar() {
         return avatar;
     }
-
     public void setAvatar(Avatar_ avatar) {
         this.avatar = avatar;
     }
