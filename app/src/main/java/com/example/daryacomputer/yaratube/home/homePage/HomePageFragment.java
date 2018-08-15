@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.MainActivity;
@@ -23,7 +24,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     private HomeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     HomeAdapter homeListAdapter;
-    private static Context context;
+    ProgressBar progressBar;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -55,6 +56,8 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(homeListAdapter);
 
+        progressBar = view.findViewById(R.id.homeProgressBar);
+
         mPresenter.getHomeItems();
 
     }
@@ -65,6 +68,17 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
 
     @Override
     public void ShowMassage(String massage) {
-        Toast.makeText(((AppCompatActivity)getActivity()).getApplicationContext(),massage,Toast.LENGTH_LONG);
+        Toast.makeText(getContext(),massage,Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 }

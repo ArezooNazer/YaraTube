@@ -17,8 +17,7 @@
         android:layout_height="64dp"
         android:layout_marginLeft="21dp"
         android:layout_marginRight="21dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="21dp"
         android:layout_marginRight="21dp"
+        android:layout_marginTop="16dp"
         android:text="@string/Username"
         android:textColor="@color/black"
         android:textDirection="rtl"
@@ -50,7 +50,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/drawerHeaderUsername"
-        android:background="#8a000000"/>
+        android:background="#57000000"/>
 
 
 </android.support.constraint.ConstraintLayout>

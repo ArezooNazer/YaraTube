@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
@@ -22,6 +23,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     private List<Category> categoryList = new ArrayList<>();
     private CategoryContract.Presenter mPresenter;
     private CategoryAdapter categoryAdapter;
+    private ProgressBar progressBar;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -50,6 +52,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(categoryAdapter);
 
+        progressBar = view.findViewById(R.id.categoryProgressBar);
+
         mPresenter.getCategoryList();
     }
 
@@ -61,5 +65,16 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void ShowMessage(String message) {
         Toast.makeText(getContext(),message,Toast.LENGTH_LONG);
+    }
+
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 }

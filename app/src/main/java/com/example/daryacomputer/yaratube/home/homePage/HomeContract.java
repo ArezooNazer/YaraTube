@@ -11,6 +11,9 @@ public interface HomeContract {
     interface View{
         void showHomeItemList(Store store);
         void ShowMassage(String massage);
+
+        void showProgressBar();
+        void hideProgressBar();
     }
 
     interface Presenter{

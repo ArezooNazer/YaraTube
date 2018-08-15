@@ -25,15 +25,18 @@ public class CategoryPresenter implements CategoryContract.Presenter {
         categoryRepository.getCategoryList(new ApiResult<List<Category>>() {
             @Override
             public void onSuccess(List<Category> result) {
+
+                mView.showProgressBar();
                 mView.showCategoryList(result);
+                mView.hideProgressBar();
             }
 
             @Override
-            public void onFailure() {
-                mView.ShowMessage("Error: can not show Category list");
+            public void onError(String massage) {
+                mView.ShowMessage(massage);
             }
-        });
 
+        });
 
     }
 }

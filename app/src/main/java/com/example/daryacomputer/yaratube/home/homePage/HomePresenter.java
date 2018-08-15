@@ -24,14 +24,18 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onSuccess(Store result) {
+
+                mView.showProgressBar();
                 mView.showHomeItemList(result);
+                mView.hideProgressBar();
 
             }
 
             @Override
-            public void onFailure() {
-                mView.ShowMassage("Error: can not show HomeItem list");
+            public void onError(String massage) {
+                mView.ShowMassage(massage);
             }
+
         });
 
     }
