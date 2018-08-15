@@ -48,9 +48,12 @@ public class MainContainerFragment extends Fragment implements TransferToFragmen
         Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
         if (mToolbar != null) {
             ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-        }
 
-        mToolbar.setTitle("home");
+            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setTitle("یارا تیوب");
+        }
 
         goHomePageFragment();
         onBottomNavigationListener(homeView);

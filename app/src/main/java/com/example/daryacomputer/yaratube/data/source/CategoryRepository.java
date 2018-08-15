@@ -3,6 +3,7 @@ package com.example.daryacomputer.yaratube.data.source;
 import android.util.Log;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.home.categoryPage.CategoryContract;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import retrofit2.Response;
 
 public class CategoryRepository {
 
+    private CategoryContract.View mView;
     public static String TAG = CategoryRepository.class.getName();
 
     public void getCategoryList(final ApiResult<List<Category>> callback) {
@@ -30,6 +32,7 @@ public class CategoryRepository {
                     }
                 }else{
                     Log.e(TAG, "get user onResponse ErrorBody ");
+                    mView.ShowMessage("Error: response was not successful, try again.");
                 }
             }
 
