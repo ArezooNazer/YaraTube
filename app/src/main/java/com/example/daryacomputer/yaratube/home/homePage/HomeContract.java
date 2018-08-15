@@ -1,10 +1,6 @@
 package com.example.daryacomputer.yaratube.home.homePage;
 
-import com.example.daryacomputer.yaratube.data.model.Headeritem;
-import com.example.daryacomputer.yaratube.data.model.Homeitem;
 import com.example.daryacomputer.yaratube.data.model.Store;
-
-import java.util.List;
 
 public interface HomeContract {
 

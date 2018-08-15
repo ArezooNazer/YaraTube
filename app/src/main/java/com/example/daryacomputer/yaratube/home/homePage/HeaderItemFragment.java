@@ -1,31 +1,21 @@
 package com.example.daryacomputer.yaratube.home.homePage;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
-
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Headeritem;
-
 import org.parceler.Parcels;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HeaderItemFragment extends Fragment {
 
     private Headeritem headeritem;
-    List<Headeritem> headeritemList;
 
     public HeaderItemFragment() {
         // Required empty public constructor

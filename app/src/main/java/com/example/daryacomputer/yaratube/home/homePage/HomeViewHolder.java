@@ -1,7 +1,6 @@
 package com.example.daryacomputer.yaratube.home.homePage;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,11 +22,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder {
 
     public void onBind(Homeitem homeItem , Context context ) {
 
-
         eachProductListTitle.setText(homeItem.getTitle());
-
-//        Typeface face= Typeface.createFromAsset( context.getAssets(), "font/iran_sans.ttf");
-//        eachProductListTitle.setTypeface(face);
 
         eachProductListRecyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         ProductAdapter productAdapter = new ProductAdapter(context);

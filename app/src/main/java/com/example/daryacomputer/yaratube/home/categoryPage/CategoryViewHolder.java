@@ -9,7 +9,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.data.source.ServiceGenerator;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
     TextView categoryTitle;

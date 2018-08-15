@@ -1,6 +1,5 @@
 package com.example.daryacomputer.yaratube.home.categoryPage;
 
-import android.widget.Toast;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
 import com.example.daryacomputer.yaratube.data.source.CategoryRepository;
