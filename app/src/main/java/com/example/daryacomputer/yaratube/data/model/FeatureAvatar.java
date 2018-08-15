@@ -3,7 +3,15 @@ package com.example.daryacomputer.yaratube.data.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
+@Parcel
 public class FeatureAvatar {
+
+    @ParcelConstructor
+    public FeatureAvatar() {
+    }
 
     @SerializedName("mdpi")
     @Expose

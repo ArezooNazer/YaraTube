@@ -2,6 +2,7 @@ package com.example.daryacomputer.yaratube.home.homePage;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -19,13 +20,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     private List<Homeitem> homeItemList;
     private List<Headeritem> headerItemList;
     Context context;
+    FragmentManager fm;
 
     final static int HEADER_VIEW_HOLDER =1;
     final static int Home_ITEM_VIEW_HOLDER =2;
 
 
-    public HomeAdapter(Context context) {
+    public HomeAdapter(Context context ,FragmentManager fm) {
+
         this.context = context;
+        this.fm = fm;
     }
 
     @NonNull
@@ -50,7 +54,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         if(viewType == HEADER_VIEW_HOLDER ){
 
-            ((HeaderViewHolder) holder).onBind(context,headerItemList);
+            ((HeaderViewHolder) holder).onBind(fm,headerItemList);
 
         }
         else if(viewType == Home_ITEM_VIEW_HOLDER ){

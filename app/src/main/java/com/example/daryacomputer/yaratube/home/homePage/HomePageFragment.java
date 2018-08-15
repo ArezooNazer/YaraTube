@@ -34,9 +34,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-        homeListAdapter = new HomeAdapter(getContext());
+        homeListAdapter = new HomeAdapter(getContext(), getChildFragmentManager());
         mPresenter = new HomePresenter(this);
     }
 

@@ -4,9 +4,17 @@ import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.parceler.Parcel;
+import org.parceler.ParcelConstructor;
+
 import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
 
+@Parcel
 public class Headeritem {
+
+    @ParcelConstructor
+    public Headeritem() {
+    }
 
     @SerializedName("id")
     @Expose
@@ -23,9 +31,9 @@ public class Headeritem {
     @SerializedName("producer_name")
     @Expose
     private String producerName;
-    @SerializedName("payment_type")
-    @Expose
-    private List<Object> paymentType = null;
+//    @SerializedName("payment_type")
+//    @Expose
+//    private List<Object> paymentType = null;
     @SerializedName("price")
     @Expose
     private int price;
@@ -62,27 +70,27 @@ public class Headeritem {
     @SerializedName("date_added")
     @Expose
     private String dateAdded;
-    @SerializedName("invest_goal")
-    @Expose
-    private Object investGoal;
-    @SerializedName("product_staff")
-    @Expose
-    private List<Object> productStaff = null;
-    @SerializedName("support")
-    @Expose
-    private Support support;
+//    @SerializedName("invest_goal")
+//    @Expose
+//    private Object investGoal;
+//    @SerializedName("product_staff")
+//    @Expose
+//    private List<Object> productStaff = null;
+//    @SerializedName("support")
+//    @Expose
+//    private Support support;
     @SerializedName("is_special")
     @Expose
     private boolean isSpecial;
-    @SerializedName("additional_attributes")
-    @Expose
-    private List<Object> additionalAttributes = null;
+//    @SerializedName("additional_attributes")
+//    @Expose
+//    private List<Object> additionalAttributes = null;
     @SerializedName("date_published")
     @Expose
     private String datePublished;
-    @SerializedName("customjson")
-    @Expose
-    private Object customjson;
+//    @SerializedName("customjson")
+//    @Expose
+//    private Object customjson;
 
     public int getId() {
         return id;
@@ -124,13 +132,13 @@ public class Headeritem {
         this.producerName = producerName;
     }
 
-    public List<Object> getPaymentType() {
-        return paymentType;
-    }
+//    public List<Object> getPaymentType() {
+//        return paymentType;
+//    }
 
-    public void setPaymentType(List<Object> paymentType) {
-        this.paymentType = paymentType;
-    }
+//    public void setPaymentType(List<Object> paymentType) {
+//        this.paymentType = paymentType;
+//    }
 
     public int getPrice() {
         return price;
@@ -232,29 +240,29 @@ public class Headeritem {
         this.dateAdded = dateAdded;
     }
 
-    public Object getInvestGoal() {
-        return investGoal;
-    }
+//    public Object getInvestGoal() {
+//        return investGoal;
+//    }
 
-    public void setInvestGoal(Object investGoal) {
-        this.investGoal = investGoal;
-    }
+//    public void setInvestGoal(Object investGoal) {
+//        this.investGoal = investGoal;
+//    }
 
-    public List<Object> getProductStaff() {
-        return productStaff;
-    }
+//    public List<Object> getProductStaff() {
+//        return productStaff;
+//    }
 
-    public void setProductStaff(List<Object> productStaff) {
-        this.productStaff = productStaff;
-    }
+//    public void setProductStaff(List<Object> productStaff) {
+//        this.productStaff = productStaff;
+//    }
 
-    public Support getSupport() {
-        return support;
-    }
+//    public Support getSupport() {
+//        return support;
+//    }
 
-    public void setSupport(Support support) {
-        this.support = support;
-    }
+//    public void setSupport(Support support) {
+//        this.support = support;
+//    }
 
     public boolean isIsSpecial() {
         return isSpecial;
@@ -264,13 +272,13 @@ public class Headeritem {
         this.isSpecial = isSpecial;
     }
 
-    public List<Object> getAdditionalAttributes() {
-        return additionalAttributes;
-    }
+//    public List<Object> getAdditionalAttributes() {
+//        return additionalAttributes;
+//    }
 
-    public void setAdditionalAttributes(List<Object> additionalAttributes) {
-        this.additionalAttributes = additionalAttributes;
-    }
+//    public void setAdditionalAttributes(List<Object> additionalAttributes) {
+//        this.additionalAttributes = additionalAttributes;
+//    }
 
     public String getDatePublished() {
         return datePublished;
@@ -280,12 +288,12 @@ public class Headeritem {
         this.datePublished = datePublished;
     }
 
-    public Object getCustomjson() {
-        return customjson;
-    }
+//    public Object getCustomjson() {
+//        return customjson;
+//    }
 
-    public void setCustomjson(Object customjson) {
-        this.customjson = customjson;
-    }
+//    public void setCustomjson(Object customjson) {
+//        this.customjson = customjson;
+//    }
 
 }

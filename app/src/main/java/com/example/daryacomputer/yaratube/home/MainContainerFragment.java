@@ -37,7 +37,8 @@ public class MainContainerFragment extends Fragment implements TransferToFragmen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        }
+
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
