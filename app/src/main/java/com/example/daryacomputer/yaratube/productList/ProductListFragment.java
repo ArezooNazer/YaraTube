@@ -1,10 +1,10 @@
-package com.example.daryacomputer.yaratube.home.categoryPage;
+package com.example.daryacomputer.yaratube.productList;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,54 +13,57 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements CategoryContract.View {
 
-    private List<Category> categoryList = new ArrayList<>();
-    private CategoryContract.Presenter mPresenter;
-    private CategoryAdapter categoryAdapter;
+public class ProductListFragment extends Fragment implements ProductListContract.View{
+
+    private List<Product> productList = new ArrayList<>();
+    private ProductListContract.Presenter mPresenter;
+    private ProductListAdapter productListAdapter;
     private ProgressBar progressBar;
+    int categoryId;
 
-
-    public CategoryFragment() {
+    public ProductListFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        categoryAdapter = new CategoryAdapter(categoryList,getContext());
-        mPresenter = new CategoryPresenter(this);
+        productListAdapter = new ProductListAdapter(productList , getContext());
+        mPresenter = new ProductListPresenter(this);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        return inflater.inflate(R.layout.fragment_product_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.categoryRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(categoryAdapter);
+        RecyclerView recyclerView = view.findViewById(R.id.ProductListRecyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        recyclerView.setAdapter(productListAdapter);
 
-        progressBar = view.findViewById(R.id.categoryProgressBar);
+        progressBar = view.findViewById(R.id.ProductListProgressBar);
 
-        mPresenter.getCategoryList();
+        mPresenter.getProductList(categoryId);
     }
 
     @Override
-    public void showCategoryList(List<Category> categoryList) {
-        categoryAdapter.updateData(categoryList);
+    public void showProductList(List<Product> productList) {
+        productListAdapter.updateData(productList);
     }
 
     @Override
@@ -70,12 +73,13 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
 
     @Override
     public void showProgressBar() {
+
         progressBar.setVisibility(View.VISIBLE);
     }
-
 
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+
     }
 }

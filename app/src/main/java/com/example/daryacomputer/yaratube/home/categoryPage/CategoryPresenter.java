@@ -32,7 +32,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.ShowMessage(massage);
+                mView.ShowMassage(massage);
             }
 
         });

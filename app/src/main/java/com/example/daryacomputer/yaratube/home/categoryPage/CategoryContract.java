@@ -8,7 +8,7 @@ public interface CategoryContract {
 
     interface View{
         void showCategoryList(List<Category> categoryList);
-        void ShowMessage(String message);
+        void ShowMassage(String message);
 
         void showProgressBar();
         void hideProgressBar();

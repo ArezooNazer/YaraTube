@@ -1,6 +1,7 @@
 package com.example.daryacomputer.yaratube.data.source;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 
 
@@ -12,14 +13,16 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
+    //homepage (homeitem + headeritem) list
     @GET("/store/16")
     Call<Store> getStoreRequest();
 
-
+    //categoryPage (all category list)
     @GET("/category/16/463")
     Call<List<Category>> getCategoryListRequest();
 
-    @GET("/category/16/463")
-    Call<List<Category>> getEachCategoryChildRequest(@Query("id") int id);
+    // category grid (all the products of a category item)
+    @GET("listproducts/")
+    Call<List<Product>> getProductListRequest(@Query("categoryId") int categoryId);
 
 }
