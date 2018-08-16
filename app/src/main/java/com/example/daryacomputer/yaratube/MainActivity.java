@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity  {
 
     public void goToMainContainerFragment() {
         MainContainerFragment mainContainerFragment = new MainContainerFragment();
-        fragmentManager.beginTransaction().add(R.id.mainContainer, mainContainerFragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.mainContainer, mainContainerFragment).commit();
     }
 
     @Override
