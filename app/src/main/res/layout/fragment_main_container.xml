@@ -47,6 +47,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1"
             app:menu="@menu/bottom_navigation_menu"
-            android:padding="3dp"/>
+            android:padding="3dp"
+            style="@style/BottomNavigation"/>
 
 </android.support.constraint.ConstraintLayout>
