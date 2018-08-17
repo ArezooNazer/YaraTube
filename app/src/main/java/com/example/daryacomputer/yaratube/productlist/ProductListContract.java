@@ -16,8 +16,12 @@ public interface ProductListContract {
         void hideProgressBar();
     }
 
-
     interface Presenter{
         void getProductList(int categoryId);
+    }
+
+    interface OnCategoryItemListener{
+
+        void onCategoryItemClick(int id);
     }
 }

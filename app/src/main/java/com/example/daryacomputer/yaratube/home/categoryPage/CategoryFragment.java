@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.home.categoryPage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,29 +13,44 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.productList.ProductListContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements CategoryContract.View {
+public class CategoryFragment extends Fragment implements CategoryContract.View , ProductListContract.OnCategoryItemListener{
 
     private List<Category> categoryList = new ArrayList<>();
     private CategoryContract.Presenter mPresenter;
     private CategoryAdapter categoryAdapter;
     private ProgressBar progressBar;
-
+    private TransferToFragment goToProductListFragment;
 
     public CategoryFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if(context instanceof MainActivity) {
+            goToProductListFragment = (TransferToFragment) context;
+        }else{
+            throw new ClassCastException(context.toString()+" must implement OnMainActivityCallback!");
+        }
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        categoryAdapter = new CategoryAdapter(categoryList,getContext());
+        categoryAdapter = new CategoryAdapter(categoryList,getContext(),this);
         mPresenter = new CategoryPresenter(this);
     }
 
@@ -77,5 +93,11 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onCategoryItemClick(int id) {
+
+        goToProductListFragment.goToProductListFragment(id);
     }
 }

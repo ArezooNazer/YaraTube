@@ -11,6 +11,7 @@ import com.example.daryacomputer.yaratube.R;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
+import com.example.daryacomputer.yaratube.productList.ProductListContract;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
 
     private static String TAG = CategoryAdapter.class.getName();
 
+    private ProductListContract.OnCategoryItemListener onCategoryItemListener ;
     private List<Category> categoryList;
     private Context context;
 
-    public CategoryAdapter(List<Category> categoryList, Context context) {
+    public CategoryAdapter(List<Category> categoryList, Context context , ProductListContract.OnCategoryItemListener onCategoryItemListener) {
         this.categoryList = categoryList;
         this.context = context;
+        this.onCategoryItemListener = onCategoryItemListener;
     }
 
     @NonNull
@@ -35,7 +38,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
     @Override
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
 
-        holder.onBind(getItem(position));
+        holder.onBind(getItem(position) , position ,categoryList ,onCategoryItemListener );
     }
 
     @Override

@@ -19,7 +19,7 @@ import com.example.daryacomputer.yaratube.home.categoryPage.CategoryFragment;
 import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
 
 
-public class MainContainerFragment extends Fragment implements TransferToFragment{
+public class MainContainerFragment extends Fragment {
 
     private static final String TAG = MainContainerFragment.class.getName();
     private TransferToFragment transferToFragment;
@@ -83,7 +83,7 @@ public class MainContainerFragment extends Fragment implements TransferToFragmen
                 });
     }
 
-    @Override
+
     public void goHomePageFragment() {
 
         if ( homePageFragment.isVisible()) {
@@ -104,7 +104,7 @@ public class MainContainerFragment extends Fragment implements TransferToFragmen
         }
     }
 
-    @Override
+
     public void goToCategoryFragment() {
 
         if ( categoryFragment.isVisible() ){

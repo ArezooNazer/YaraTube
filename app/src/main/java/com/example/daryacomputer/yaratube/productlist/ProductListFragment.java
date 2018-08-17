@@ -4,8 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +28,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
     private ProductListContract.Presenter mPresenter;
     private ProductListAdapter productListAdapter;
     private ProgressBar progressBar;
-    int categoryId;
+    static int categoryId;
 
     public ProductListFragment() {
         // Required empty public constructor
@@ -44,8 +47,23 @@ public class ProductListFragment extends Fragment implements ProductListContract
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_product_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_list, container, false);
+
+        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+
+        if (mToolbar != null) {
+            ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+
+            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setTitle("یارا تیوب");
+        }
+
+
+        return view;
     }
 
     @Override
@@ -59,6 +77,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
         progressBar = view.findViewById(R.id.ProductListProgressBar);
 
         mPresenter.getProductList(categoryId);
+
     }
 
     @Override
@@ -82,4 +101,19 @@ public class ProductListFragment extends Fragment implements ProductListContract
         progressBar.setVisibility(View.GONE);
 
     }
+
+    public static  ProductListFragment newInstance(int catId){
+
+       categoryId = catId;
+
+       Bundle arg = new Bundle();
+       arg.putInt("catId" , catId);
+
+       ProductListFragment productListFragment = new ProductListFragment();
+       productListFragment.setArguments(arg);
+       return productListFragment;
+
+    }
+
+
 }

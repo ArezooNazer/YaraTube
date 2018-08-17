@@ -9,6 +9,7 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -22,7 +23,7 @@ public interface ApiService {
     Call<List<Category>> getCategoryListRequest();
 
     // category grid (all the products of a category item)
-    @GET("listproducts/")
-    Call<List<Product>> getProductListRequest(@Query("categoryId") int categoryId);
+    @GET("/listproducts/{category_id}")
+    Call<List<Product>> getProductListRequest(@Path("category_id") int categoryId);
 
 }

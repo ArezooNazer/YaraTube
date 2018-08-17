@@ -29,6 +29,7 @@ public class ProductListPresenter implements ProductListContract.Presenter{
 
             @Override
             public void onError(String massage) {
+                mView.hideProgressBar();
                 mView.ShowMassage(massage);
             }
         });

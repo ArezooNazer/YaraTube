@@ -2,6 +2,6 @@ package com.example.daryacomputer.yaratube;
 
 public interface TransferToFragment {
 
-    void goHomePageFragment();
-    void goToCategoryFragment();
+    void goToMainContainerFragment();
+    void goToProductListFragment(int catId);
 }

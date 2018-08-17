@@ -16,8 +16,9 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.home.categoryPage.CategoryFragment;
 import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
+import com.example.daryacomputer.yaratube.productList.ProductListFragment;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity  implements TransferToFragment{
 
     FragmentManager fragmentManager = getSupportFragmentManager();
     DrawerLayout drawerLayout;
@@ -42,10 +43,19 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-
+    @Override
     public void goToMainContainerFragment() {
+
         MainContainerFragment mainContainerFragment = new MainContainerFragment();
         fragmentManager.beginTransaction().replace(R.id.mainContainer, mainContainerFragment).commit();
+    }
+
+    @Override
+    public void goToProductListFragment(int catId) {
+
+        ProductListFragment productListFragment = ProductListFragment.newInstance(catId);
+        fragmentManager.beginTransaction().replace(R.id.mainContainer , productListFragment).commit();
+
     }
 
     @Override
