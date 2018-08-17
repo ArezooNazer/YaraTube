@@ -9,10 +9,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.productList.ProductListContract;
+import com.example.daryacomputer.yaratube.productlist.ProductListContract;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryViewHolder extends RecyclerView.ViewHolder {

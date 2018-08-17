@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.productList;
+package com.example.daryacomputer.yaratube.productlist;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

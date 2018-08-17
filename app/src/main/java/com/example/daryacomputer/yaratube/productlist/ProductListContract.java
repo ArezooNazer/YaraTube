@@ -1,6 +1,5 @@
-package com.example.daryacomputer.yaratube.productList;
+package com.example.daryacomputer.yaratube.productlist;
 
-import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;

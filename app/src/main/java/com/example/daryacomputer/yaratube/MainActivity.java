@@ -4,22 +4,18 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.home.MainContainerFragment;
-import com.example.daryacomputer.yaratube.home.categoryPage.CategoryFragment;
-import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
-import com.example.daryacomputer.yaratube.productList.ProductListFragment;
+import com.example.daryacomputer.yaratube.productlist.ProductListFragment;
 
 public class MainActivity extends AppCompatActivity  implements TransferToFragment{
 
+    final static String PRODUCT_LIST_FRAGMENT = ProductListFragment.class.getSimpleName();
     FragmentManager fragmentManager = getSupportFragmentManager();
     DrawerLayout drawerLayout;
 
@@ -54,7 +50,9 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
     public void goToProductListFragment(int catId) {
 
         ProductListFragment productListFragment = ProductListFragment.newInstance(catId);
-        fragmentManager.beginTransaction().replace(R.id.mainContainer , productListFragment).commit();
+        fragmentManager.beginTransaction()
+                .addToBackStack(PRODUCT_LIST_FRAGMENT)
+                .add(R.id.mainContainer , productListFragment).commit();
 
     }
 
@@ -66,6 +64,7 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
         } else {
             super.onBackPressed();
         }
+        fragmentManager.popBackStack();
 
     }
 }

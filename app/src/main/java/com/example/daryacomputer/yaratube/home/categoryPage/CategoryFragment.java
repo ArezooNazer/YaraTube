@@ -17,7 +17,7 @@ import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.productList.ProductListContract;
+import com.example.daryacomputer.yaratube.productlist.ProductListContract;
 
 import java.util.ArrayList;
 import java.util.List;

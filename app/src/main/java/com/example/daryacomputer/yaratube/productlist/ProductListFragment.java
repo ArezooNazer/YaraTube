@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.productList;
+package com.example.daryacomputer.yaratube.productlist;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +24,8 @@ import java.util.List;
 
 public class ProductListFragment extends Fragment implements ProductListContract.View{
 
+
+    final static String CATEGORY_ID = "categoryId";
     private List<Product> productList = new ArrayList<>();
     private ProductListContract.Presenter mPresenter;
     private ProductListAdapter productListAdapter;
@@ -107,7 +109,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
        categoryId = catId;
 
        Bundle arg = new Bundle();
-       arg.putInt("catId" , catId);
+       arg.putInt(CATEGORY_ID , catId);
 
        ProductListFragment productListFragment = new ProductListFragment();
        productListFragment.setArguments(arg);

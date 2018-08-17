@@ -11,7 +11,7 @@ import com.example.daryacomputer.yaratube.R;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
-import com.example.daryacomputer.yaratube.productList.ProductListContract;
+import com.example.daryacomputer.yaratube.productlist.ProductListContract;
 
 import java.util.List;
 
