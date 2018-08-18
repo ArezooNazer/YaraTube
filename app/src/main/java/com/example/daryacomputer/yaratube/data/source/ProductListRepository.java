@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.data.source;
 
+import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;
@@ -9,10 +10,10 @@ import retrofit2.Response;
 
 public class ProductListRepository {
 
-    public void getProductList(int categoryId , final ApiResult<List<Product>> callback){
+    public void getProductList(Category category , final ApiResult<List<Product>> callback){
 
         ServiceGenerator.getInstance().create(ApiService.class)
-                .getProductListRequest(categoryId).enqueue(new retrofit2.Callback<List<Product>>() {
+                .getProductListRequest(category.getId()).enqueue(new retrofit2.Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 

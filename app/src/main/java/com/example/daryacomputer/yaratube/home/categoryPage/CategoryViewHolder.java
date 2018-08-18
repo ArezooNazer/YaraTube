@@ -38,7 +38,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onCategoryItemListener.onCategoryItemClick(categoryList.get(i).getId());
+                onCategoryItemListener.onCategoryItemClick(categoryList.get(i));
             }
         });
     }

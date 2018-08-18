@@ -6,11 +6,10 @@ import com.example.daryacomputer.yaratube.data.source.HomeRepository;
 
 
 public class HomePresenter implements HomeContract.Presenter {
-
     private HomeRepository homeRepository;
     private HomeContract.View mView;
 
-    public HomePresenter( HomeContract.View mView) {
+    public HomePresenter(HomeContract.View mView) {
         this.mView = mView;
         homeRepository = new HomeRepository();
     }
@@ -24,10 +23,10 @@ public class HomePresenter implements HomeContract.Presenter {
             @Override
             public void onSuccess(Store result) {
 
-                mView.showHomeItemList(result);
                 mView.hideProgressBar();
-
+                mView.showHomeItemList(result);
             }
+
             @Override
             public void onError(String massage) {
                 mView.ShowMassage(massage);

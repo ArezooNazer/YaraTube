@@ -1,12 +1,15 @@
 package com.example.daryacomputer.yaratube.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
 
-public class Category {
+public class Category implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -35,6 +38,43 @@ public class Category {
     @SerializedName("childs")
     @Expose
     private List<Object> childs = null;
+
+    protected Category(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
+        byte tmpIsDefault = in.readByte();
+        isDefault = tmpIsDefault == 0 ? null : tmpIsDefault == 1;
+        title = in.readString();
+        if (in.readByte() == 0) {
+            position = null;
+        } else {
+            position = in.readInt();
+        }
+        byte tmpIsEnable = in.readByte();
+        isEnable = tmpIsEnable == 0 ? null : tmpIsEnable == 1;
+        byte tmpIsVisible = in.readByte();
+        isVisible = tmpIsVisible == 0 ? null : tmpIsVisible == 1;
+        if (in.readByte() == 0) {
+            parent = null;
+        } else {
+            parent = in.readInt();
+        }
+    }
+
+    public static final Creator<Category> CREATOR = new Creator<Category>() {
+        @Override
+        public Category createFromParcel(Parcel in) {
+            return new Category(in);
+        }
+
+        @Override
+        public Category[] newArray(int size) {
+            return new Category[size];
+        }
+    };
 
     public Integer getId() {
         return id;
@@ -111,4 +151,34 @@ public class Category {
         this.childs = childs;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(id);
+        }
+        parcel.writeByte((byte) (isDefault == null ? 0 : isDefault ? 1 : 2));
+        parcel.writeString(title);
+        if (position == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(position);
+        }
+        parcel.writeByte((byte) (isEnable == null ? 0 : isEnable ? 1 : 2));
+        parcel.writeByte((byte) (isVisible == null ? 0 : isVisible ? 1 : 2));
+        if (parent == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(parent);
+        }
+    }
 }

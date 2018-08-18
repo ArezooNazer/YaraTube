@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.productlist.ProductListFragment;
 
@@ -48,9 +49,9 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
     }
 
     @Override
-    public void goToProductListFragment(int catId) {
+    public void goToProductListFragment(Category category) {
 
-        ProductListFragment productListFragment = ProductListFragment.newInstance(catId);
+        ProductListFragment productListFragment = ProductListFragment.newInstance(category);
         fragmentManager.beginTransaction()
                 .addToBackStack(PRODUCT_LIST_FRAGMENT)
                 .add(R.id.mainContainer , productListFragment).commit();
@@ -65,5 +66,12 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
         } else {
             super.onBackPressed();
         }
+
+
+
+
+
+
+
     }
 }

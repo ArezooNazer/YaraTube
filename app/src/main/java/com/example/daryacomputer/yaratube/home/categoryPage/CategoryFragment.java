@@ -96,8 +96,8 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     }
 
     @Override
-    public void onCategoryItemClick(int id) {
+    public void onCategoryItemClick(Category category) {
 
-        goToProductListFragment.goToProductListFragment(id);
+        goToProductListFragment.goToProductListFragment(category);
     }
 }

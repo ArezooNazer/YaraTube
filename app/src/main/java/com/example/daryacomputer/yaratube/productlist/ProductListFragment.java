@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.ArrayList;
@@ -25,12 +26,12 @@ import java.util.List;
 public class ProductListFragment extends Fragment implements ProductListContract.View{
 
     public final static String PRODUCT_LIST_FRAGMENT = ProductListFragment.class.getSimpleName();
-    final static String CATEGORY_ID = "categoryId";
+    final static String CATEGORY = "categoryId";
     private List<Product> productList = new ArrayList<>();
     private ProductListContract.Presenter mPresenter;
     private ProductListAdapter productListAdapter;
     private ProgressBar progressBar;
-    static int categoryId;
+    private Category category;
 
     public ProductListFragment() {
         // Required empty public constructor
@@ -41,6 +42,10 @@ public class ProductListFragment extends Fragment implements ProductListContract
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Bundle bundle = getArguments();
+        if (bundle==null)return;
+
+        setCategory((Category) bundle.getParcelable(CATEGORY));
         productListAdapter = new ProductListAdapter(productList , getContext());
         mPresenter = new ProductListPresenter(this);
 
@@ -78,7 +83,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
         progressBar = view.findViewById(R.id.ProductListProgressBar);
 
-        mPresenter.getProductList(categoryId);
+        mPresenter.getProductList(category);
 
     }
 
@@ -104,18 +109,20 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     }
 
-    public static  ProductListFragment newInstance(int catId){
-
-       categoryId = catId;
-
+    public static  ProductListFragment newInstance(Category category){
        Bundle arg = new Bundle();
-       arg.putInt(CATEGORY_ID , catId);
-
+       arg.putParcelable(CATEGORY , category);
        ProductListFragment productListFragment = new ProductListFragment();
        productListFragment.setArguments(arg);
        return productListFragment;
-
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.productlist;
 
+import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
 import com.example.daryacomputer.yaratube.data.source.ProductListRepository;
@@ -16,11 +17,11 @@ public class ProductListPresenter implements ProductListContract.Presenter{
     }
 
     @Override
-    public void getProductList(int categoryId) {
+    public void getProductList(Category category) {
         productListRepository = new ProductListRepository();
 
         mView.showProgressBar();
-        productListRepository.getProductList(categoryId, new ApiResult<List<Product>>() {
+        productListRepository.getProductList(category, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> result) {
 
