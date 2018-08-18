@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.productlist;
+package com.example.daryacomputer.yaratube.ui.productlist;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailContract;
 
 import java.util.List;
 
@@ -15,10 +16,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
 
     private List<Product> productList;
     private Context context;
+    private ProductListContract.OnProductListItemListener onProductListItemListener;
 
-    public ProductListAdapter(List<Product> productList, Context context) {
+    public ProductListAdapter(List<Product> productList, Context context ,ProductListContract.OnProductListItemListener onProductListItemListener ) {
         this.productList = productList;
         this.context = context;
+        this.onProductListItemListener = onProductListItemListener;
     }
 
     @NonNull
@@ -30,7 +33,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
     @Override
     public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
 
-        holder.onBind(getItem(position), context);
+        holder.onBind(getItem(position),onProductListItemListener );
     }
 
     private Product getItem(int position){

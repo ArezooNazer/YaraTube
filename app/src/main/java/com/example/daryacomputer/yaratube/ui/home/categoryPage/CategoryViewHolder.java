@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.categoryPage;
+package com.example.daryacomputer.yaratube.ui.home.categoryPage;
 
 
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void onBind(Category category ,final int i ,final List<Category> categoryList ,final ProductListContract.OnCategoryItemListener onCategoryItemListener) {
+    public void onBind(Category category ,final int i ,final List<Category> categoryList ,final CategoryContract.OnCategoryItemListener onCategoryItemListener) {
 
         categoryTitle.setText(category.getTitle());
 

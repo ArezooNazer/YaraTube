@@ -1,6 +1,9 @@
 package com.example.daryacomputer.yaratube.data.source;
 
+import android.support.v7.widget.CardView;
+
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 
@@ -25,5 +28,8 @@ public interface ApiService {
     // category grid (all the products of a category item)
     @GET("/listproducts/{category_id}")
     Call<List<Product>> getProductListRequest(@Path("category_id") int categoryId);
+
+    @GET("/comment/{product_id}")
+    Call<List<Comment>> getProductDetailCommentRequest(@Path("product_id") int productId);
 
 }

@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.homePage;
+package com.example.daryacomputer.yaratube.ui.home.homePage;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

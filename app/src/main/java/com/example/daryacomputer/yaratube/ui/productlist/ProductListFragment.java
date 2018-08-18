@@ -1,5 +1,6 @@
-package com.example.daryacomputer.yaratube.productlist;
+package com.example.daryacomputer.yaratube.ui.productlist;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,15 +16,18 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductListFragment extends Fragment implements ProductListContract.View{
+public class ProductListFragment extends Fragment implements ProductListContract.View, ProductListContract.OnProductListItemListener {
 
     public final static String PRODUCT_LIST_FRAGMENT = ProductListFragment.class.getSimpleName();
     final static String CATEGORY = "categoryId";
@@ -32,9 +36,22 @@ public class ProductListFragment extends Fragment implements ProductListContract
     private ProductListAdapter productListAdapter;
     private ProgressBar progressBar;
     private Category category;
+    private TransferToFragment goToProductDetailFragment;
 
     public ProductListFragment() {
         // Required empty public constructor
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity) {
+            goToProductDetailFragment = (TransferToFragment) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
+        }
     }
 
 
@@ -43,10 +60,10 @@ public class ProductListFragment extends Fragment implements ProductListContract
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        if (bundle==null)return;
-
+        if (bundle == null) return;
         setCategory((Category) bundle.getParcelable(CATEGORY));
-        productListAdapter = new ProductListAdapter(productList , getContext());
+
+        productListAdapter = new ProductListAdapter(productList, getContext(), this);
         mPresenter = new ProductListPresenter(this);
 
     }
@@ -61,9 +78,9 @@ public class ProductListFragment extends Fragment implements ProductListContract
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
         if (mToolbar != null) {
-            ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
-            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setTitle(category.getTitle());
@@ -94,7 +111,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     @Override
     public void ShowMassage(String message) {
-        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -109,12 +126,12 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     }
 
-    public static  ProductListFragment newInstance(Category category){
-       Bundle arg = new Bundle();
-       arg.putParcelable(CATEGORY , category);
-       ProductListFragment productListFragment = new ProductListFragment();
-       productListFragment.setArguments(arg);
-       return productListFragment;
+    public static ProductListFragment newInstance(Category category) {
+        Bundle arg = new Bundle();
+        arg.putParcelable(CATEGORY, category);
+        ProductListFragment productListFragment = new ProductListFragment();
+        productListFragment.setArguments(arg);
+        return productListFragment;
     }
 
     public Category getCategory() {
@@ -125,4 +142,10 @@ public class ProductListFragment extends Fragment implements ProductListContract
         this.category = category;
     }
 
+
+    @Override
+    public void onProductListItemClick(Product product) {
+
+        goToProductDetailFragment.goToProductDetailFragment(product);
+    }
 }

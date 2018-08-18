@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.homePage;
+package com.example.daryacomputer.yaratube.ui.home.homePage;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,6 +12,7 @@ import com.example.daryacomputer.yaratube.data.model.Headeritem;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
 import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
+import com.example.daryacomputer.yaratube.ui.home.homePage.header.HeaderViewHolder;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.categoryPage;
+package com.example.daryacomputer.yaratube.ui.home.categoryPage;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;

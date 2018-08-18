@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.categoryPage;
+package com.example.daryacomputer.yaratube.ui.home.categoryPage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -17,12 +17,12 @@ import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements CategoryContract.View , ProductListContract.OnCategoryItemListener{
+public class CategoryFragment extends Fragment implements CategoryContract.View , CategoryContract.OnCategoryItemListener{
 
     private List<Category> categoryList = new ArrayList<>();
     private CategoryContract.Presenter mPresenter;

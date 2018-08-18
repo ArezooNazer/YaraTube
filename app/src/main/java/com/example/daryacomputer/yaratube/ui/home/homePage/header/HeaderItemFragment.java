@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.homePage;
+package com.example.daryacomputer.yaratube.ui.home.homePage.header;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

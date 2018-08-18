@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.homePage;
+package com.example.daryacomputer.yaratube.ui.home.homePage.header;
 
 
 import android.support.v4.app.FragmentManager;

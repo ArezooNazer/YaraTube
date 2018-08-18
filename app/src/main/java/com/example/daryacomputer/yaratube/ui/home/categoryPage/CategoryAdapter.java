@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home.categoryPage;
+package com.example.daryacomputer.yaratube.ui.home.categoryPage;
 
 
 import android.content.Context;
@@ -8,10 +8,9 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
-
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
-import com.example.daryacomputer.yaratube.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.List;
 
@@ -19,11 +18,11 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> im
 
     private static String TAG = CategoryAdapter.class.getName();
 
-    private ProductListContract.OnCategoryItemListener onCategoryItemListener ;
+    private CategoryContract.OnCategoryItemListener onCategoryItemListener ;
     private List<Category> categoryList;
     private Context context;
 
-    public CategoryAdapter(List<Category> categoryList, Context context , ProductListContract.OnCategoryItemListener onCategoryItemListener) {
+    public CategoryAdapter(List<Category> categoryList, Context context , CategoryContract.OnCategoryItemListener onCategoryItemListener) {
         this.categoryList = categoryList;
         this.context = context;
         this.onCategoryItemListener = onCategoryItemListener;

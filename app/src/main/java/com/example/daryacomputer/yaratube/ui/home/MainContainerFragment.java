@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.home;
+package com.example.daryacomputer.yaratube.ui.home;
 
 
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
-import com.example.daryacomputer.yaratube.home.categoryPage.CategoryFragment;
-import com.example.daryacomputer.yaratube.home.homePage.HomePageFragment;
+import com.example.daryacomputer.yaratube.ui.home.categoryPage.CategoryFragment;
+import com.example.daryacomputer.yaratube.ui.home.homePage.HomePageFragment;
 
 
 public class MainContainerFragment extends Fragment {
@@ -42,16 +42,16 @@ public class MainContainerFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
-        Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
-
-        if (mToolbar != null) {
-            ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-
-            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setTitle("یارا تیوب");
-        }
+//        Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
+//
+//        if (mToolbar != null) {
+//            ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
+//
+//            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+//            actionBar.setDisplayHomeAsUpEnabled(true);
+//            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+//            actionBar.setTitle("یارا تیوب");
+//        }
 
         goHomePageFragment();
         onBottomNavigationListener(homeView);

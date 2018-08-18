@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.productlist;
+package com.example.daryacomputer.yaratube.ui.productlist;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailContract;
 
 public class ProductListViewHolder extends RecyclerView.ViewHolder{
 
@@ -24,14 +25,19 @@ public class ProductListViewHolder extends RecyclerView.ViewHolder{
         productDesc = itemView.findViewById(R.id.productListDescription);
     }
 
-    public void onBind(Product product, Context context){
+    public void onBind(final Product product , final ProductListContract.OnProductListItemListener onProductListItemListener){
         productTitle.setText(product.getName());
         productDesc.setText(product.getShortDescription());
 
         String url =  product.getAvatarUrl();
         Glide.with(itemView.getContext()).load(url).into(productAvatar);
 
-
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onProductListItemListener.onProductListItemClick(product);
+            }
+        });
 
 
     }

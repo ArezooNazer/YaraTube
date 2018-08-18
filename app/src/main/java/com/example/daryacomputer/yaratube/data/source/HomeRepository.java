@@ -1,10 +1,8 @@
 package com.example.daryacomputer.yaratube.data.source;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.example.daryacomputer.yaratube.data.model.Store;
-import com.example.daryacomputer.yaratube.home.homePage.HomeContract;
 
 import retrofit2.Call;
 import retrofit2.Callback;

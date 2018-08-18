@@ -11,15 +11,19 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.home.MainContainerFragment;
-import com.example.daryacomputer.yaratube.productlist.ProductListFragment;
+import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
+import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
 
-import static com.example.daryacomputer.yaratube.productlist.ProductListFragment.PRODUCT_LIST_FRAGMENT;
+import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
+import static com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment.PRODUCT_LIST_FRAGMENT;
 
-public class MainActivity extends AppCompatActivity  implements TransferToFragment{
+public class MainActivity extends AppCompatActivity  implements TransferToFragment {
 
     FragmentManager fragmentManager = getSupportFragmentManager();
     DrawerLayout drawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,14 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
 
         //mirror layout to right
         getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
+
+//        Toolbar toolbar = findViewById(R.id.mainToolbar);
+//        setSupportActionBar(toolbar);
+//
+//        ActionBar actionBar = getSupportActionBar();
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+//        actionBar.setTitle("یارا تیوب");
 
         drawerLayout = findViewById(R.id.homePage);
         NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
@@ -38,6 +50,7 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
         Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTWkfQwNEw7GXCwMekUtAZIkIl3qowafpYe2Icr-e9wF46V0O5").into(imageView);
 
         goToMainContainerFragment();
+
     }
 
 
@@ -56,6 +69,15 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
                 .addToBackStack(PRODUCT_LIST_FRAGMENT)
                 .add(R.id.mainContainer , productListFragment).commit();
 
+    }
+
+    @Override
+    public void goToProductDetailFragment(Product product) {
+
+        ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product)    ;
+        fragmentManager.beginTransaction()
+                .addToBackStack(PRODUCT_DETAIL_FRAGMENT)
+                .add(R.id.mainContainer, productDetailFragment).commit();
     }
 
     @Override
