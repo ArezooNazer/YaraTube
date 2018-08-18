@@ -17,7 +17,7 @@ public class HeaderItemFragment extends Fragment {
 
     private Headeritem headeritem;
 
-    public HeaderItemFragment() {
+    public HeaderItemFragment( ) {
         // Required empty public constructor
 
     }

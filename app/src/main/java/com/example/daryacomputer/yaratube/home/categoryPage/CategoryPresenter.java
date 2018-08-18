@@ -21,11 +21,12 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     public void getCategoryList() {
 
         categoryRepository = new CategoryRepository();
+
+        mView.showProgressBar();
         categoryRepository.getCategoryList(new ApiResult<List<Category>>() {
             @Override
             public void onSuccess(List<Category> result) {
 
-                mView.showProgressBar();
                 mView.showCategoryList(result);
                 mView.hideProgressBar();
             }

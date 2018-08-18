@@ -18,12 +18,12 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void getHomeItems() {
 
+        mView.showProgressBar();
         homeRepository.getHomeItems(new ApiResult<Store>() {
 
             @Override
             public void onSuccess(Store result) {
 
-                mView.showProgressBar();
                 mView.showHomeItemList(result);
                 mView.hideProgressBar();
 

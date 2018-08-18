@@ -18,11 +18,12 @@ public class ProductListPresenter implements ProductListContract.Presenter{
     @Override
     public void getProductList(int categoryId) {
         productListRepository = new ProductListRepository();
+
+        mView.showProgressBar();
         productListRepository.getProductList(categoryId, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> result) {
 
-                mView.showProgressBar();
                 mView.showProductList(result);
                 mView.hideProgressBar();
             }

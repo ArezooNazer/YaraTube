@@ -13,9 +13,10 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.productlist.ProductListFragment;
 
+import static com.example.daryacomputer.yaratube.productlist.ProductListFragment.PRODUCT_LIST_FRAGMENT;
+
 public class MainActivity extends AppCompatActivity  implements TransferToFragment{
 
-    final static String PRODUCT_LIST_FRAGMENT = ProductListFragment.class.getSimpleName();
     FragmentManager fragmentManager = getSupportFragmentManager();
     DrawerLayout drawerLayout;
 
@@ -64,7 +65,5 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
         } else {
             super.onBackPressed();
         }
-        fragmentManager.popBackStack();
-
     }
 }

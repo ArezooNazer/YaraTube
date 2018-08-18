@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ProductListFragment extends Fragment implements ProductListContract.View{
 
-
+    public final static String PRODUCT_LIST_FRAGMENT = ProductListFragment.class.getSimpleName();
     final static String CATEGORY_ID = "categoryId";
     private List<Product> productList = new ArrayList<>();
     private ProductListContract.Presenter mPresenter;
@@ -89,7 +89,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     @Override
     public void ShowMassage(String message) {
-        Toast.makeText(getContext(),message,Toast.LENGTH_LONG);
+        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
     }
 
     @Override

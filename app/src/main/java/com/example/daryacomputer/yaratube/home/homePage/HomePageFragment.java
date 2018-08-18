@@ -1,11 +1,9 @@
 package com.example.daryacomputer.yaratube.home.homePage;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Store;
 
@@ -23,7 +20,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
 
     private HomeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
-    HomeAdapter homeListAdapter;
+    HomeAdapter homeAdapter;
     ProgressBar progressBar;
 
     public HomePageFragment() {
@@ -34,7 +31,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        homeListAdapter = new HomeAdapter(getContext(), getChildFragmentManager());
+        homeAdapter = new HomeAdapter(getContext(), getChildFragmentManager());
         mPresenter = new HomePresenter(this);
     }
 
@@ -52,7 +49,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
 
         mRecyclerView = view.findViewById(R.id.homePageRecycler);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(homeListAdapter);
+        mRecyclerView.setAdapter(homeAdapter);
 
         progressBar = view.findViewById(R.id.homeProgressBar);
 
@@ -61,12 +58,12 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     }
 
     public void showHomeItemList(Store store) {
-        homeListAdapter.updateData(store);
+        homeAdapter.updateData(store);
     }
 
     @Override
     public void ShowMassage(String massage) {
-        Toast.makeText(getContext(),massage,Toast.LENGTH_LONG);
+        Toast.makeText(getContext(),massage,Toast.LENGTH_LONG).show();
     }
 
     @Override
