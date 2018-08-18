@@ -66,7 +66,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
             ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            actionBar.setTitle("یارا تیوب");
+            actionBar.setTitle(category.getTitle());
         }
 
 
