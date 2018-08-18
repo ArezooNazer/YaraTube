@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailContract;
 
 import java.util.List;
 

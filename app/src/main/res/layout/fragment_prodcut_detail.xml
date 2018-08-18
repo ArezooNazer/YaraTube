@@ -29,6 +29,21 @@
     </android.support.design.widget.AppBarLayout>
 
 
+    <ProgressBar
+        android:id="@+id/detailProgressBar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:foregroundGravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <!--coordinate Layout can have only 1 child-->
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/productDetailNv"
@@ -77,13 +92,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
+                        android:text="عنوان"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.885"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/productDetailIv"
-                        app:layout_constraintVertical_bias="1.0"
-                        android:text="عنوان"/>
+                        app:layout_constraintVertical_bias="1.0" />
 
                     <ImageView
                         android:id="@+id/productDetailIvIcon"
@@ -105,20 +120,20 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:elevation="5dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="24dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toTopOf="@+id/productDetailCvComment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDetailCvVideo"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="24dp"
-                android:paddingBottom="12dp">
+                app:layout_constraintTop_toBottomOf="@+id/productDetailCvVideo">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="توضیحات"/>
+                    android:text="توضیحات" />
 
 
                 <TextView
@@ -126,7 +141,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="17dp"
-                    android:text="توضیحات یافت نشد."/>
+                    android:text="توضیحات یافت نشد." />
 
             </android.support.v7.widget.CardView>
 
@@ -135,35 +150,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:elevation="5dp"
+                android:paddingBottom="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="24dp"
                 app:cardCornerRadius="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/productDetailCvVideo"
-                android:paddingRight="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="24dp"
-                android:paddingBottom="12dp">
+                app:layout_constraintTop_toTopOf="@+id/productDetailCvVideo">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" 
-                    android:text="نظرات"
-                    android:layout_gravity="right"/>
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:text="نظرات" />
+
                 <Button
                     android:id="@+id/sendCommentButton"
                     android:layout_width="128dp"
                     android:layout_height="48dp"
+                    android:layout_gravity="left"
                     android:background="@color/colorPrimary"
                     android:text="نظر دهید"
-                    android:layout_gravity="left"
-                    android:textColor="@color/white"/>
-                
+                    android:textColor="@color/white" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/productDetailRvComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"/>
+                    android:layout_marginTop="17dp" />
 
             </android.support.v7.widget.CardView>
 
