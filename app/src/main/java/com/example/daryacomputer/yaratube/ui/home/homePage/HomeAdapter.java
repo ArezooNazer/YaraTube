@@ -7,31 +7,47 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Headeritem;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
+import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 import com.example.daryacomputer.yaratube.ui.home.homePage.header.HeaderViewHolder;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<Store> {
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<Store> , ProductListContract.OnProductListItemListener{
 
     private List<Homeitem> homeItemList;
     private List<Headeritem> headerItemList;
     Context context;
     FragmentManager fm;
+    ProductListContract.OnProductListItemListener onProductListItemListener;
+
+    private TransferToFragment goToProductDetailFragment;
 
     final static int HEADER_VIEW_HOLDER =1;
     final static int Home_ITEM_VIEW_HOLDER =2;
 
 
-    public HomeAdapter(Context context ,FragmentManager fm) {
+    public HomeAdapter(Context context ,FragmentManager fm , ProductListContract.OnProductListItemListener onProductListItemListener) {
 
+        this.onProductListItemListener = onProductListItemListener;
         this.context = context;
         this.fm = fm;
+
+        if (context instanceof MainActivity) {
+            goToProductDetailFragment = (TransferToFragment) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
+        }
     }
+
+
 
     @NonNull
     @Override
@@ -60,7 +76,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         }
         else if(viewType == Home_ITEM_VIEW_HOLDER ){
 
-            ((HomeViewHolder) holder).onBind(homeItemList.get(position - 1),context);
+            ((HomeViewHolder) holder).onBind(homeItemList.get(position - 1),context, this);
 
         }
     }
@@ -88,7 +104,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
         if(position == 0)
             return HEADER_VIEW_HOLDER;
-         return Home_ITEM_VIEW_HOLDER;
+        return Home_ITEM_VIEW_HOLDER;
     }
 
     @Override
@@ -96,5 +112,10 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
         this.headerItemList = data.getHeaderitem();
         this.homeItemList = data.getHomeitem();
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onProductListItemClick(Product product) {
+        goToProductDetailFragment.goToProductDetailFragment(product);
     }
 }

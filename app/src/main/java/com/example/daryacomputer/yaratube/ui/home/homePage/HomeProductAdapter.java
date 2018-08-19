@@ -13,19 +13,20 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements UpdateListData<List<Product>>{
+public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.ProductViewHolder> implements UpdateListData<List<Product>>{
 
-    private List<Product> productList = new ArrayList<>();
-//    private HomeContract.OnHomeItemListener onHomeItemListener;
+    private ProductListContract.OnProductListItemListener onProductListItemListener;
+    private List<Product> productList ;
     private Context context;
 
-    public ProductAdapter(Context context) {
+    public HomeProductAdapter(Context context , ProductListContract.OnProductListItemListener onProductListItemListener) {
         this.context = context;
-//        this.onHomeItemListener = onHomeItemListener;
+        this.onProductListItemListener = onProductListItemListener;
     }
 
     @NonNull
@@ -37,7 +38,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
 
-        holder.onBind(getItem(position));
+        holder.onBind(getItem(position), onProductListItemListener);
     }
 
     private Product getItem(int position) {
@@ -71,7 +72,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productDescription = itemView.findViewById(R.id.productDescription);
         }
 
-        public void onBind(final Product product ){
+        public void onBind(final Product product ,final ProductListContract.OnProductListItemListener onProductListItemListener){
 
             String url = product.getAvatarUrl();
             Glide.with(itemView.getContext()).load(url).into(productImage);
@@ -79,12 +80,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productName.setText(product.getName());
             productDescription.setText(product.getShortDescription());
 
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                  onHomeItemListener.onHomeItemClick(product);
-//                }
-//            });
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onProductListItemListener.onProductListItemClick(product);
+                }
+            });
+
         }
 
     }

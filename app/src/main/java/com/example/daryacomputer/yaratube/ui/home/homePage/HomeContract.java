@@ -17,7 +17,4 @@ public interface HomeContract {
         void getHomeItems();
     }
 
-    interface OnHomeItemListener{
-        void onHomeItemClick(Product product);
-    }
 }

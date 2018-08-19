@@ -37,6 +37,5 @@ public class ProductListViewHolder extends RecyclerView.ViewHolder{
             }
         });
 
-
     }
 }

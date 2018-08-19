@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.home.homePage;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,26 +13,55 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
 
 
-public class HomePageFragment extends Fragment  implements HomeContract.View{
+public class HomePageFragment extends Fragment  implements HomeContract.View , ProductListContract.OnProductListItemListener{
 
+    final static String PRODUCT = "product";
     private HomeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     HomeAdapter homeAdapter;
     ProgressBar progressBar;
+    TransferToFragment goToDetailFragment;
+    private Product product;
+    ProductListContract.OnProductListItemListener onProductListItemListener;
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public HomePageFragment() {
         // Required empty public constructor
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity) {
+            goToDetailFragment = (TransferToFragment) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
+        }
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        homeAdapter = new HomeAdapter(getContext(), getChildFragmentManager());
+//        Bundle arg = getArguments();
+//        if (arg == null) return;
+//        setProduct((Product) arg.getParcelable(PRODUCT));
+
+        homeAdapter = new HomeAdapter(getContext(), getChildFragmentManager() , this);
         mPresenter = new HomePresenter(this);
     }
 
@@ -76,4 +106,18 @@ public class HomePageFragment extends Fragment  implements HomeContract.View{
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onProductListItemClick(Product product) {
+        goToDetailFragment.goToProductDetailFragment(product);
+    }
+
+//    public static HomePageFragment newInstance(Product product) {
+//        Bundle arg = new Bundle();
+//        arg.putParcelable(PRODUCT , product);
+//        HomePageFragment homePageFragment = new HomePageFragment();
+//        homePageFragment.setArguments(arg);
+//        return homePageFragment;
+//    }
+
 }

@@ -89,11 +89,5 @@ public class MainActivity extends AppCompatActivity  implements TransferToFragme
             super.onBackPressed();
         }
 
-
-
-
-
-
-
     }
 }
