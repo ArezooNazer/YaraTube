@@ -2,7 +2,6 @@ package com.example.daryacomputer.yaratube.data.source;
 
 import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetailCommentContract;
 
 import java.util.List;
 

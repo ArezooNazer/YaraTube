@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.home.homePage;
 
+import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 
 public interface HomeContract {
@@ -14,5 +15,9 @@ public interface HomeContract {
 
     interface Presenter{
         void getHomeItems();
+    }
+
+    interface OnHomeItemListener{
+        void onHomeItemClick(Product product);
     }
 }

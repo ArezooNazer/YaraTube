@@ -7,7 +7,6 @@ public interface Tool {
     void hideProgressBar();
 
     public interface NewInstanceOfFragment<F,M>{
-
         F newInstance(M model);
     }
 }

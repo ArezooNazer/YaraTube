@@ -9,11 +9,11 @@ import com.google.gson.annotations.SerializedName;
 
 import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
 
-public class Product implements Parcelable {
+public class Product implements Parcelable{
 
     @SerializedName("id")
     @Expose
-    private int id;
+    private Integer id;
     @SerializedName("name")
     @Expose
     private String name;
@@ -22,46 +22,100 @@ public class Product implements Parcelable {
     private String nameEnglish;
     @SerializedName("product_type")
     @Expose
-    private int productType;
+    private Integer productType;
+    @SerializedName("producer")
+    @Expose
+    private Producer producer;
     @SerializedName("producer_name")
     @Expose
     private String producerName;
     @SerializedName("payment_type")
     @Expose
     private List<Object> paymentType = null;
+    @SerializedName("category")
+    @Expose
+    private List<Integer> category = null;
     @SerializedName("price")
     @Expose
-    private int price;
+    private Integer price;
     @SerializedName("avatar")
     @Expose
-    private Avatar_ avatar;
+    private Avatar avatar;
     @SerializedName("feature_avatar")
     @Expose
-    private FeatureAvatar_ featureAvatar;
+    private FeatureAvatar featureAvatar;
     @SerializedName("rank")
     @Expose
-    private double rank;
+    private Float rank;
+    @SerializedName("totalInstalled")
+    @Expose
+    private Integer totalInstalled;
     @SerializedName("short_description")
     @Expose
     private String shortDescription;
+    @SerializedName("description")
+    @Expose
+    private String description;
+    @SerializedName("promotionalContainers")
+    @Expose
+    private List<Object> promotionalContainers = null;
     @SerializedName("is_purchased")
     @Expose
-    private boolean isPurchased;
+    private Boolean isPurchased;
     @SerializedName("comments")
     @Expose
-    private int comments;
+    private Integer comments;
+    @SerializedName("files")
+    @Expose
+    private List<File> files = null;
+    @SerializedName("generic_files")
+    @Expose
+    private List<Object> genericFiles = null;
+    @SerializedName("director")
+    @Expose
+    private List<Object> director = null;
+    @SerializedName("movie_producer")
+    @Expose
+    private List<Object> movieProducer = null;
+    @SerializedName("cast")
+    @Expose
+    private List<Object> cast = null;
+    @SerializedName("date_create")
+    @Expose
+    private Object dateCreate;
+    @SerializedName("is_jalali")
+    @Expose
+    private Boolean isJalali;
     @SerializedName("is_bookmarked")
     @Expose
-    private boolean isBookmarked;
+    private Boolean isBookmarked;
     @SerializedName("sku")
     @Expose
     private String sku;
+    @SerializedName("tags")
+    @Expose
+    private List<String> tags = null;
+    @SerializedName("category_model")
+    @Expose
+    private List<CategoryModel> categoryModel = null;
+    @SerializedName("comments_summery")
+    @Expose
+    private List<CommentsSummery> commentsSummery = null;
     @SerializedName("price_unit")
     @Expose
     private String priceUnit;
     @SerializedName("total_view")
     @Expose
-    private int totalView;
+    private Integer totalView;
+    @SerializedName("is_enable")
+    @Expose
+    private Boolean isEnable;
+    @SerializedName("custom_json")
+    @Expose
+    private Object customJson;
+    @SerializedName("polls")
+    @Expose
+    private List<Object> polls = null;
     @SerializedName("date_added")
     @Expose
     private String dateAdded;
@@ -73,10 +127,10 @@ public class Product implements Parcelable {
     private List<Object> productStaff = null;
     @SerializedName("support")
     @Expose
-    private Support_ support;
+    private Support support;
     @SerializedName("is_special")
     @Expose
-    private boolean isSpecial;
+    private Boolean isSpecial;
     @SerializedName("additional_attributes")
     @Expose
     private List<Object> additionalAttributes = null;
@@ -86,24 +140,65 @@ public class Product implements Parcelable {
     @SerializedName("customjson")
     @Expose
     private Object customjson;
+    @SerializedName("last_checked_file")
+    @Expose
+    private Object lastCheckedFile;
 
     protected Product(Parcel in) {
-        id = in.readInt();
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readInt();
+        }
         name = in.readString();
         nameEnglish = in.readString();
-        productType = in.readInt();
+        if (in.readByte() == 0) {
+            productType = null;
+        } else {
+            productType = in.readInt();
+        }
         producerName = in.readString();
-        price = in.readInt();
-        rank = in.readDouble();
+        if (in.readByte() == 0) {
+            price = null;
+        } else {
+            price = in.readInt();
+        }
+        if (in.readByte() == 0) {
+            rank = null;
+        } else {
+            rank = in.readFloat();
+        }
+        if (in.readByte() == 0) {
+            totalInstalled = null;
+        } else {
+            totalInstalled = in.readInt();
+        }
         shortDescription = in.readString();
-        isPurchased = in.readByte() != 0;
-        comments = in.readInt();
-        isBookmarked = in.readByte() != 0;
+        description = in.readString();
+        byte tmpIsPurchased = in.readByte();
+        isPurchased = tmpIsPurchased == 0 ? null : tmpIsPurchased == 1;
+        if (in.readByte() == 0) {
+            comments = null;
+        } else {
+            comments = in.readInt();
+        }
+        byte tmpIsJalali = in.readByte();
+        isJalali = tmpIsJalali == 0 ? null : tmpIsJalali == 1;
+        byte tmpIsBookmarked = in.readByte();
+        isBookmarked = tmpIsBookmarked == 0 ? null : tmpIsBookmarked == 1;
         sku = in.readString();
+        tags = in.createStringArrayList();
         priceUnit = in.readString();
-        totalView = in.readInt();
+        if (in.readByte() == 0) {
+            totalView = null;
+        } else {
+            totalView = in.readInt();
+        }
+        byte tmpIsEnable = in.readByte();
+        isEnable = tmpIsEnable == 0 ? null : tmpIsEnable == 1;
         dateAdded = in.readString();
-        isSpecial = in.readByte() != 0;
+        byte tmpIsSpecial = in.readByte();
+        isSpecial = tmpIsSpecial == 0 ? null : tmpIsSpecial == 1;
         datePublished = in.readString();
     }
 
@@ -119,11 +214,11 @@ public class Product implements Parcelable {
         }
     };
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -143,12 +238,20 @@ public class Product implements Parcelable {
         this.nameEnglish = nameEnglish;
     }
 
-    public int getProductType() {
+    public Integer getProductType() {
         return productType;
     }
 
-    public void setProductType(int productType) {
+    public void setProductType(Integer productType) {
         this.productType = productType;
+    }
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
     }
 
     public String getProducerName() {
@@ -167,38 +270,56 @@ public class Product implements Parcelable {
         this.paymentType = paymentType;
     }
 
-    public int getPrice() {
+    public List<Integer> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Integer> category) {
+        this.category = category;
+    }
+
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public Avatar_ getAvatar() {
+    public Avatar getAvatar() {
         return avatar;
     }
+
     public String getAvatarUrl(){
         return BASE_URL + getAvatar().getHdpi();
     }
-    public void setAvatar(Avatar_ avatar) {
+
+    public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }
 
-    public FeatureAvatar_ getFeatureAvatar() {
+    public FeatureAvatar getFeatureAvatar() {
         return featureAvatar;
     }
 
-    public void setFeatureAvatar(FeatureAvatar_ featureAvatar) {
+    public void setFeatureAvatar(FeatureAvatar featureAvatar) {
         this.featureAvatar = featureAvatar;
     }
 
-    public double getRank() {
+    public Float getRank() {
         return rank;
     }
 
-    public void setRank(double rank) {
+    public void setRank(Float rank) {
         this.rank = rank;
+    }
+
+    public Integer getTotalInstalled() {
+        return totalInstalled;
+    }
+
+    public void setTotalInstalled(Integer totalInstalled) {
+        this.totalInstalled = totalInstalled;
     }
 
     public String getShortDescription() {
@@ -209,27 +330,99 @@ public class Product implements Parcelable {
         this.shortDescription = shortDescription;
     }
 
-    public boolean isIsPurchased() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Object> getPromotionalContainers() {
+        return promotionalContainers;
+    }
+
+    public void setPromotionalContainers(List<Object> promotionalContainers) {
+        this.promotionalContainers = promotionalContainers;
+    }
+
+    public Boolean getIsPurchased() {
         return isPurchased;
     }
 
-    public void setIsPurchased(boolean isPurchased) {
+    public void setIsPurchased(Boolean isPurchased) {
         this.isPurchased = isPurchased;
     }
 
-    public int getComments() {
+    public Integer getComments() {
         return comments;
     }
 
-    public void setComments(int comments) {
+    public void setComments(Integer comments) {
         this.comments = comments;
     }
 
-    public boolean isIsBookmarked() {
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
+    }
+
+    public List<Object> getGenericFiles() {
+        return genericFiles;
+    }
+
+    public void setGenericFiles(List<Object> genericFiles) {
+        this.genericFiles = genericFiles;
+    }
+
+    public List<Object> getDirector() {
+        return director;
+    }
+
+    public void setDirector(List<Object> director) {
+        this.director = director;
+    }
+
+    public List<Object> getMovieProducer() {
+        return movieProducer;
+    }
+
+    public void setMovieProducer(List<Object> movieProducer) {
+        this.movieProducer = movieProducer;
+    }
+
+    public List<Object> getCast() {
+        return cast;
+    }
+
+    public void setCast(List<Object> cast) {
+        this.cast = cast;
+    }
+
+    public Object getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(Object dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public Boolean getIsJalali() {
+        return isJalali;
+    }
+
+    public void setIsJalali(Boolean isJalali) {
+        this.isJalali = isJalali;
+    }
+
+    public Boolean getIsBookmarked() {
         return isBookmarked;
     }
 
-    public void setIsBookmarked(boolean isBookmarked) {
+    public void setIsBookmarked(Boolean isBookmarked) {
         this.isBookmarked = isBookmarked;
     }
 
@@ -241,6 +434,30 @@ public class Product implements Parcelable {
         this.sku = sku;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<CategoryModel> getCategoryModel() {
+        return categoryModel;
+    }
+
+    public void setCategoryModel(List<CategoryModel> categoryModel) {
+        this.categoryModel = categoryModel;
+    }
+
+    public List<CommentsSummery> getCommentsSummery() {
+        return commentsSummery;
+    }
+
+    public void setCommentsSummery(List<CommentsSummery> commentsSummery) {
+        this.commentsSummery = commentsSummery;
+    }
+
     public String getPriceUnit() {
         return priceUnit;
     }
@@ -249,12 +466,36 @@ public class Product implements Parcelable {
         this.priceUnit = priceUnit;
     }
 
-    public int getTotalView() {
+    public Integer getTotalView() {
         return totalView;
     }
 
-    public void setTotalView(int totalView) {
+    public void setTotalView(Integer totalView) {
         this.totalView = totalView;
+    }
+
+    public Boolean getIsEnable() {
+        return isEnable;
+    }
+
+    public void setIsEnable(Boolean isEnable) {
+        this.isEnable = isEnable;
+    }
+
+    public Object getCustomJson() {
+        return customJson;
+    }
+
+    public void setCustomJson(Object customJson) {
+        this.customJson = customJson;
+    }
+
+    public List<Object> getPolls() {
+        return polls;
+    }
+
+    public void setPolls(List<Object> polls) {
+        this.polls = polls;
     }
 
     public String getDateAdded() {
@@ -281,19 +522,19 @@ public class Product implements Parcelable {
         this.productStaff = productStaff;
     }
 
-    public Support_ getSupport() {
+    public Support getSupport() {
         return support;
     }
 
-    public void setSupport(Support_ support) {
+    public void setSupport(Support support) {
         this.support = support;
     }
 
-    public boolean isIsSpecial() {
+    public Boolean getIsSpecial() {
         return isSpecial;
     }
 
-    public void setIsSpecial(boolean isSpecial) {
+    public void setIsSpecial(Boolean isSpecial) {
         this.isSpecial = isSpecial;
     }
 
@@ -321,6 +562,14 @@ public class Product implements Parcelable {
         this.customjson = customjson;
     }
 
+    public Object getLastCheckedFile() {
+        return lastCheckedFile;
+    }
+
+    public void setLastCheckedFile(Object lastCheckedFile) {
+        this.lastCheckedFile = lastCheckedFile;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -328,22 +577,62 @@ public class Product implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
+        if (id == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(id);
+        }
         parcel.writeString(name);
         parcel.writeString(nameEnglish);
-        parcel.writeInt(productType);
+        if (productType == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(productType);
+        }
         parcel.writeString(producerName);
-        parcel.writeInt(price);
-        parcel.writeDouble(rank);
+        if (price == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(price);
+        }
+        if (rank == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeFloat(rank);
+        }
+        if (totalInstalled == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(totalInstalled);
+        }
         parcel.writeString(shortDescription);
-        parcel.writeByte((byte) (isPurchased ? 1 : 0));
-        parcel.writeInt(comments);
-        parcel.writeByte((byte) (isBookmarked ? 1 : 0));
+        parcel.writeString(description);
+        parcel.writeByte((byte) (isPurchased == null ? 0 : isPurchased ? 1 : 2));
+        if (comments == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(comments);
+        }
+        parcel.writeByte((byte) (isJalali == null ? 0 : isJalali ? 1 : 2));
+        parcel.writeByte((byte) (isBookmarked == null ? 0 : isBookmarked ? 1 : 2));
         parcel.writeString(sku);
+        parcel.writeStringList(tags);
         parcel.writeString(priceUnit);
-        parcel.writeInt(totalView);
+        if (totalView == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeInt(totalView);
+        }
+        parcel.writeByte((byte) (isEnable == null ? 0 : isEnable ? 1 : 2));
         parcel.writeString(dateAdded);
-        parcel.writeByte((byte) (isSpecial ? 1 : 0));
+        parcel.writeByte((byte) (isSpecial == null ? 0 : isSpecial ? 1 : 2));
         parcel.writeString(datePublished);
     }
 }

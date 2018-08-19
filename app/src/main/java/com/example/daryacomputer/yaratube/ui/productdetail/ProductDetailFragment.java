@@ -1,8 +1,7 @@
 package com.example.daryacomputer.yaratube.ui.productdetail;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.Tool;
 import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetailCommentAdapter;
@@ -31,10 +29,11 @@ import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetail
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailFragment extends Fragment implements ProductDetailCommentContract.View{
+public class ProductDetailFragment extends Fragment implements ProductDetailCommentContract.View , ProductDetailContract.View{
 
     final public static String PRODUCT_DETAIL_FRAGMENT = ProductDetailFragment.class.getSimpleName();
     final public static String PRODUCT = "product";
+    private ProductDetailContract.Presenter detailPresenter;
     private ProductDetailCommentContract.Presenter mPresenter;
     private ProductDetailCommentAdapter productDetailCommentAdapter;
     private List<Comment> commentList = new ArrayList<>();
@@ -54,7 +53,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         setProduct((Product) arg.getParcelable(PRODUCT));
 
         productDetailCommentAdapter = new ProductDetailCommentAdapter(commentList);
-        mPresenter = new ProductDetailCommentPresenter((ProductDetailCommentContract.View) this);
+        mPresenter = new ProductDetailCommentPresenter( this);
+        detailPresenter = new ProductDetailPresenter( this);
     }
 
     @Override
@@ -83,16 +83,12 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        setProductDetailData(view);
-
         mPresenter.getCommentList(product);
+        detailPresenter.getProductDetail(product);
+        setProductDetailData(view);
     }
 
     public void setProductDetailData(View view) {
-
-        RecyclerView productDetailComment = view.findViewById(R.id.productDetailRvComment);
-        productDetailComment.setLayoutManager(new LinearLayoutManager(getContext()));
-        productDetailComment.setAdapter(productDetailCommentAdapter);
 
         ImageView productDetailImageView = view.findViewById(R.id.productDetailIv);
         TextView productDetailTitle = view.findViewById(R.id.productDetailTvTitle);
@@ -104,14 +100,19 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         if(product.getName() != null)
           productDetailTitle.setText(product.getName());
         if (product.getShortDescription() != null)
-          productDetailDesc.setText(product.getShortDescription());
+          productDetailDesc.setText(product.getDescription());
+
+
+        RecyclerView productDetailComment = view.findViewById(R.id.productDetailRvComment);
+        productDetailComment.setLayoutManager(new LinearLayoutManager(getContext()));
+        productDetailComment.setAdapter(productDetailCommentAdapter);
     }
 
 
     public static ProductDetailFragment newInstance(Product product) {
 
         Bundle arg = new Bundle();
-        arg.putParcelable(PRODUCT, product);
+        arg.putParcelable(PRODUCT, (Parcelable) product);
 
         ProductDetailFragment productDetailFragment = new ProductDetailFragment();
         productDetailFragment.setArguments(arg);
@@ -142,4 +143,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         progressBar.setVisibility(View.GONE);
     }
 
+    @Override
+    public void showProductDetail(Product product) {
+         this.product = product;
+    }
 }

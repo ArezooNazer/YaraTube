@@ -20,10 +20,12 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> implements UpdateListData<List<Product>>{
 
     private List<Product> productList = new ArrayList<>();
+//    private HomeContract.OnHomeItemListener onHomeItemListener;
     private Context context;
 
     public ProductAdapter(Context context) {
         this.context = context;
+//        this.onHomeItemListener = onHomeItemListener;
     }
 
     @NonNull
@@ -56,7 +58,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
 
-    class ProductViewHolder extends RecyclerView.ViewHolder {
+    class ProductViewHolder extends RecyclerView.ViewHolder{
 
         public ImageView productImage;
         private TextView productName;
@@ -69,14 +71,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             productDescription = itemView.findViewById(R.id.productDescription);
         }
 
-        public void onBind(Product product){
+        public void onBind(final Product product ){
 
             String url = product.getAvatarUrl();
             Glide.with(itemView.getContext()).load(url).into(productImage);
 
             productName.setText(product.getName());
             productDescription.setText(product.getShortDescription());
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                  onHomeItemListener.onHomeItemClick(product);
+//                }
+//            });
         }
+
     }
 
 

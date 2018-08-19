@@ -25,8 +25,8 @@ public class ProductListPresenter implements ProductListContract.Presenter{
             @Override
             public void onSuccess(List<Product> result) {
 
-                mView.showProductList(result);
                 mView.hideProgressBar();
+                mView.showProductList(result);
             }
 
             @Override
