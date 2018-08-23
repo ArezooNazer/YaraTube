@@ -79,11 +79,9 @@
                           <map>
                             <entry key="assetSourceType" value="FILE" />
                             <entry key="color" value="ffffff" />
-                            <entry key="height" value="36" />
-                            <entry key="outputName" value="ic_shape" />
+                            <entry key="outputName" value="ic_smartphone" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\DaryaComputer\src\Downloads\drawable\shape.svg" />
-                            <entry key="width" value="248" />
+                            <entry key="sourceFile" value="C:\Users\DaryaComputer\src\Downloads\smartphone.svg" />
                           </map>
                         </option>
                       </PersistentState>

@@ -39,16 +39,19 @@
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/iran_sans"
                 android:text="از طریق شماره موبایل"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:drawableRight="@drawable/ic_smartphone"
+                android:paddingRight="10dp"/>
 
             <Button
                 android:id="@+id/loginViaGoogle"
                 android:layout_width="260dp"
                 android:layout_height="48dp"
-                android:background="#dc4a39"
+                android:background="@drawable/ic_shape"
                 android:fontFamily="@font/iran_sans"
                 android:text="از طریق حساب گوگل"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:paddingRight="22dp"/>
 
         </LinearLayout>
 

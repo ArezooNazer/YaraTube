@@ -57,7 +57,7 @@ public class HeaderItemFragment extends Fragment {
         ImageView headerImageView;
         headerImageView = view.findViewById(R.id.headerImageItem);
 
-        String url = BASE_URL + headeritem.getFeatureAvatar().getHdpi();
+        String url = headeritem.getAvatarUrl();
         Glide.with(view.getContext()).load(url).into(headerImageView);
 
 
