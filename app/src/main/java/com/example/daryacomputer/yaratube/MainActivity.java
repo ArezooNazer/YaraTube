@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,24 +10,31 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
+import com.example.daryacomputer.yaratube.ui.login.ActivationLoginDialogFragment;
+import com.example.daryacomputer.yaratube.ui.login.LoginDialogFragment;
+import com.example.daryacomputer.yaratube.ui.login.MobileLoginDialogFragment;
 import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
 
+import static com.example.daryacomputer.yaratube.data.source.Constant.isLogin;
 import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment.PRODUCT_LIST_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.profile.ProfileFragment.PROFILE_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity implements TransferToFragment {
+
 
     FragmentManager fragmentManager = getSupportFragmentManager();
     ProfileFragment profileFragment = new ProfileFragment();
@@ -47,7 +55,10 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        goToProfileFragment();
+                        if (isLogin)
+                            goToProfileFragment();
+                        else
+                            goToLoginDialogFragment();
 
                 }
                 return false;
@@ -111,6 +122,32 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
     @Override
+    public void goToLoginDialogFragment() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+            LoginDialogFragment dialogFragment = new LoginDialogFragment();
+            dialogFragment.show(getSupportFragmentManager(), "dialog");
+        }
+    }
+
+    @Override
+    public void goToMobileLoginDialogFragment() {
+
+        MobileLoginDialogFragment mobileLoginDialogFragment = new MobileLoginDialogFragment();
+        mobileLoginDialogFragment.show(getSupportFragmentManager(),"dialog");
+
+    }
+
+    @Override
+    public void goToActivationLoginDialogFragment() {
+
+        ActivationLoginDialogFragment activationLoginDialogFragment = new ActivationLoginDialogFragment();
+        activationLoginDialogFragment.show(getSupportFragmentManager(),"dialog");
+    }
+
+    @Override
     public void onBackPressed() {
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -120,4 +157,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         }
 
     }
+
+
 }

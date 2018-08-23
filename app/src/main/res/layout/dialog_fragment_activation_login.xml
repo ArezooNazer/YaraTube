@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.ActivationLoginDialogFragment"
+    android:layoutDirection="rtl">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="21dp">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="32dp"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/iran_sans"
+            android:text="کد فعال سازی را وارد کنید"
+            android:textSize="20dp" />
+
+        <EditText
+            android:id="@+id/enterActivationCodeET"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/iran_sans"
+            android:hint="کد فعال سازی "
+            android:textSize="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="کد را دریافت نکردید؟"
+            android:textSize="12dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:layout_marginRight="21dp"
+            android:layout_marginTop="50dp">
+
+            <Button
+                android:id="@+id/saveBut"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:background="@drawable/round_border_fill"
+                android:fontFamily="@font/iran_sans"
+                android:text="ثبت "
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/cancelBut"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="2"
+                android:background="@drawable/round_border_transparent"
+                android:fontFamily="@font/iran_sans"
+                android:text="تصحیح شماره"
+                android:textColor="@color/colorPrimary" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
