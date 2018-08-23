@@ -61,6 +61,7 @@ public class MobileLoginDialogFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
                 transferToFragment.goToActivationLoginDialogFragment();
+                getDialog().dismiss();
             }
         });
 

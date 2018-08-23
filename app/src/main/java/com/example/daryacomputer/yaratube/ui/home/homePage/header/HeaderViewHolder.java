@@ -20,14 +20,12 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
         viewPager = itemView.findViewById(R.id.headerViewPager);
     }
 
-    public void onBind(FragmentManager fm, List<Product> headeritems ){
+    public void onBind(FragmentManager fm, List<Product> headeritems) {
 
-
-
-       HeaderViewPagerAdapter headerViewPagerAdapter = new HeaderViewPagerAdapter(fm);
-       headerViewPagerAdapter.updateData(headeritems);
-       viewPager.setAdapter(headerViewPagerAdapter);
-       viewPager.setRotationY(180);//swipe viewpager rtl
+        HeaderViewPagerAdapter headerViewPagerAdapter = new HeaderViewPagerAdapter(fm);
+        headerViewPagerAdapter.updateData(headeritems);
+        viewPager.setAdapter(headerViewPagerAdapter);
+        viewPager.setRotationY(180);//swipe viewpager rtl
 
 
     }

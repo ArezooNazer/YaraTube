@@ -21,17 +21,15 @@ public class HeaderViewPagerAdapter extends FragmentStatePagerAdapter implements
     }
 
     @Override
-    public int getCount() {
-        return (null != headerItemList ? headerItemList.size() : 0);
-    }
-
-
-    @Override
     public Fragment getItem(int i) {
-//        i = getCount() - i - 1; //load images last to first
+
         return HeaderItemFragment.newInstance( headerItemList.get(i));
     }
 
+    @Override
+    public int getCount() {
+        return (null != headerItemList ? headerItemList.size() : 0);
+    }
 
     @Override
     public void updateData(List<Product> data) {

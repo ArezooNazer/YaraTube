@@ -291,7 +291,7 @@ public class Product implements Parcelable{
     }
 
     public String getAvatarUrl(){
-        return BASE_URL + getAvatar().getHdpi();
+        return BASE_URL + getFeatureAvatar().getHdpi();
     }
 
     public void setAvatar(Avatar avatar) {

@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Product;
@@ -27,9 +26,15 @@ public class HeaderItemFragment extends Fragment {
     private Context context;
 
 
-    public HeaderItemFragment( ) {
+    public HeaderItemFragment() {
         // Required empty public constructor
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        goToProductDetailFragment = (TransferToFragment) context;
     }
 
     @Override
@@ -52,19 +57,14 @@ public class HeaderItemFragment extends Fragment {
         ImageView headerImageView;
         headerImageView = view.findViewById(R.id.headerImageItem);
 
-        String url =BASE_URL + headeritem.getFeatureAvatar().getHdpi();
+        String url = BASE_URL + headeritem.getFeatureAvatar().getHdpi();
         Glide.with(view.getContext()).load(url).into(headerImageView);
-
 
 
         headerImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (context instanceof MainActivity) {
-                    goToProductDetailFragment = (TransferToFragment) context;
-                } else {
-                    throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
-                }
+
                 goToProductDetailFragment.goToProductDetailFragment(headeritem);
             }
         });
@@ -74,7 +74,7 @@ public class HeaderItemFragment extends Fragment {
     public static HeaderItemFragment newInstance(Product headeritem) {
 
         Bundle args = new Bundle();
-        args.putParcelable("headeritem" ,Parcels.wrap( headeritem));
+        args.putParcelable("headeritem", Parcels.wrap(headeritem));
 
         HeaderItemFragment fragment = new HeaderItemFragment();
         fragment.setArguments(args);
