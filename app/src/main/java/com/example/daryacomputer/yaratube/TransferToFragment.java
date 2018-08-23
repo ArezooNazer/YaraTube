@@ -8,4 +8,5 @@ public interface TransferToFragment {
     void goToMainContainerFragment();
     void goToProductListFragment(Category category);
     void goToProductDetailFragment(Product product);
+    void goToProfileFragment();
 }

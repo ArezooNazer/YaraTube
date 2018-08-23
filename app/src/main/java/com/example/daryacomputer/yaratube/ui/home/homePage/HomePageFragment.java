@@ -16,14 +16,12 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
-import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
 
 
-public class HomePageFragment extends Fragment  implements HomeContract.View , ProductListContract.OnProductListItemListener{
+public class HomePageFragment extends Fragment implements HomeContract.View, ProductListContract.OnProductListItemListener {
 
     final static String PRODUCT = "product";
     private HomeContract.Presenter mPresenter;
@@ -61,7 +59,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View , P
 //        if (arg == null) return;
 //        setProduct((Product) arg.getParcelable(PRODUCT));
 
-        homeAdapter = new HomeAdapter(getContext(), getChildFragmentManager() , this);
+        homeAdapter = new HomeAdapter(getContext(), getChildFragmentManager(), this);
         mPresenter = new HomePresenter(this);
     }
 
@@ -93,7 +91,7 @@ public class HomePageFragment extends Fragment  implements HomeContract.View , P
 
     @Override
     public void ShowMassage(String massage) {
-        Toast.makeText(getContext(),massage,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), massage, Toast.LENGTH_LONG).show();
     }
 
     @Override

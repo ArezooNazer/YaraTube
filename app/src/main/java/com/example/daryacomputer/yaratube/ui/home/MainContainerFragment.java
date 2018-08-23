@@ -23,7 +23,8 @@ public class MainContainerFragment extends Fragment {
 
     private static final String TAG = MainContainerFragment.class.getName();
     private TransferToFragment transferToFragment;
-    HomePageFragment homePageFragment = new HomePageFragment();;
+    HomePageFragment homePageFragment = new HomePageFragment();
+
     CategoryFragment categoryFragment = new CategoryFragment();
 
     public MainContainerFragment() {
@@ -42,16 +43,16 @@ public class MainContainerFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
-//        Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
-//
-//        if (mToolbar != null) {
-//            ((AppCompatActivity)getActivity()).setSupportActionBar(mToolbar);
-//
-//            ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
-//            actionBar.setDisplayHomeAsUpEnabled(true);
-//            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-//            actionBar.setTitle("یارا تیوب");
-//        }
+        Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
+
+        if (mToolbar != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
+
+            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setTitle("یارا تیوب");
+        }
 
         goHomePageFragment();
         onBottomNavigationListener(homeView);
@@ -60,7 +61,7 @@ public class MainContainerFragment extends Fragment {
     }
 
 
-    public void onBottomNavigationListener(View view){
+    public void onBottomNavigationListener(View view) {
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.homeBottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -79,25 +80,25 @@ public class MainContainerFragment extends Fragment {
                                 goToCategoryFragment();
                                 return true;
                         }
-                        return true; }
+                        return true;
+                    }
                 });
     }
 
 
     public void goHomePageFragment() {
 
-        if ( homePageFragment.isVisible()) {
+        if (homePageFragment.isVisible()) {
 
             getChildFragmentManager().beginTransaction()
                     .show(homePageFragment).commit();
 
-        }else if (homePageFragment.isAdded() && homePageFragment.isHidden()){
+        } else if (homePageFragment.isAdded() && homePageFragment.isHidden()) {
 
             getChildFragmentManager().beginTransaction()
                     .hide(categoryFragment)
                     .show(homePageFragment).commit();
-        }
-        else{
+        } else {
 
             getChildFragmentManager().beginTransaction()
                     .add(R.id.homeContainer, homePageFragment).commit();
@@ -107,12 +108,12 @@ public class MainContainerFragment extends Fragment {
 
     public void goToCategoryFragment() {
 
-        if ( categoryFragment.isVisible() ){
+        if (categoryFragment.isVisible()) {
 
             getChildFragmentManager().beginTransaction()
                     .show(categoryFragment).commit();
 
-        }else if (categoryFragment.isAdded() && categoryFragment.isHidden()){
+        } else if (categoryFragment.isAdded() && categoryFragment.isHidden()) {
 
             getChildFragmentManager().beginTransaction()
                     .hide(homePageFragment)

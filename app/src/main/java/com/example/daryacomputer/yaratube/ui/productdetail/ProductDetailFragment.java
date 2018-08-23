@@ -29,7 +29,7 @@ import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetail
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailFragment extends Fragment implements ProductDetailCommentContract.View , ProductDetailContract.View{
+public class ProductDetailFragment extends Fragment implements ProductDetailCommentContract.View, ProductDetailContract.View {
 
     final public static String PRODUCT_DETAIL_FRAGMENT = ProductDetailFragment.class.getSimpleName();
     final public static String PRODUCT = "product";
@@ -38,7 +38,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
     private ProductDetailCommentAdapter productDetailCommentAdapter;
     private List<Comment> commentList = new ArrayList<>();
     private Product product;
-    ProgressBar progressBar ;
+    ProgressBar progressBar;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -53,8 +53,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         setProduct((Product) arg.getParcelable(PRODUCT));
 
         productDetailCommentAdapter = new ProductDetailCommentAdapter(commentList);
-        mPresenter = new ProductDetailCommentPresenter( this);
-        detailPresenter = new ProductDetailPresenter( this);
+        mPresenter = new ProductDetailCommentPresenter(this);
+        detailPresenter = new ProductDetailPresenter(this);
     }
 
     @Override
@@ -97,10 +97,10 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         String url = product.getAvatarUrl();
         Glide.with(view.getContext()).load(url).into(productDetailImageView);
 
-        if(product.getName() != null)
-          productDetailTitle.setText(product.getName());
+        if (product.getName() != null)
+            productDetailTitle.setText(product.getName());
         if (product.getShortDescription() != null)
-          productDetailDesc.setText(product.getDescription());
+            productDetailDesc.setText(product.getDescription());
 
 
         RecyclerView productDetailComment = view.findViewById(R.id.productDetailRvComment);
@@ -129,7 +129,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
     }
 
     public void ShowMassage(String message) {
-        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -145,6 +145,6 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
 
     @Override
     public void showProductDetail(Product product) {
-         this.product = product;
+        this.product = product;
     }
 }

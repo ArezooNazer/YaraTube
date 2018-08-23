@@ -23,7 +23,7 @@ import java.util.List;
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<Store> , ProductListContract.OnProductListItemListener{
 
     private List<Homeitem> homeItemList;
-    private List<Headeritem> headerItemList;
+    private List<Product> headerItemList;
     Context context;
     FragmentManager fm;
     ProductListContract.OnProductListItemListener onProductListItemListener;

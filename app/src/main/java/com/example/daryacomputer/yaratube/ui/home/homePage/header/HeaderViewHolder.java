@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.data.model.Headeritem;
+import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;
 
@@ -20,7 +20,9 @@ public class HeaderViewHolder extends RecyclerView.ViewHolder {
         viewPager = itemView.findViewById(R.id.headerViewPager);
     }
 
-    public void onBind(FragmentManager fm, List<Headeritem> headeritems ){
+    public void onBind(FragmentManager fm, List<Product> headeritems ){
+
+
 
        HeaderViewPagerAdapter headerViewPagerAdapter = new HeaderViewPagerAdapter(fm);
        headerViewPagerAdapter.updateData(headeritems);

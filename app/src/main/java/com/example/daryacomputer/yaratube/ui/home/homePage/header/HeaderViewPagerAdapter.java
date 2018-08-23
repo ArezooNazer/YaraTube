@@ -4,15 +4,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import com.example.daryacomputer.yaratube.data.model.Headeritem;
+import com.example.daryacomputer.yaratube.data.model.Producer;
+import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 import com.example.daryacomputer.yaratube.ui.home.homePage.header.HeaderItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HeaderViewPagerAdapter extends FragmentStatePagerAdapter implements UpdateListData<List<Headeritem>>{
+public class HeaderViewPagerAdapter extends FragmentStatePagerAdapter implements UpdateListData<List<Product>>{
 
-    private List<Headeritem> headerItemList = new ArrayList<>();
+    private List<Product> headerItemList = new ArrayList<>();
 
     public HeaderViewPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -32,7 +34,7 @@ public class HeaderViewPagerAdapter extends FragmentStatePagerAdapter implements
 
 
     @Override
-    public void updateData(List<Headeritem> data) {
+    public void updateData(List<Product> data) {
         headerItemList = data;
         notifyDataSetChanged();
     }

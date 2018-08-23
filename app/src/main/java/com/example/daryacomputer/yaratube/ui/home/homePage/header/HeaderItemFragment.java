@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.home.homePage.header;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,14 +9,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.bumptech.glide.Glide;
+import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.data.model.Headeritem;
+import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.data.model.Product;
+
 import org.parceler.Parcels;
+
+import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
 
 public class HeaderItemFragment extends Fragment {
 
-    private Headeritem headeritem;
+    private Product headeritem;
+    private TransferToFragment goToProductDetailFragment;
+    private Context context;
+
 
     public HeaderItemFragment( ) {
         // Required empty public constructor
@@ -42,12 +52,26 @@ public class HeaderItemFragment extends Fragment {
         ImageView headerImageView;
         headerImageView = view.findViewById(R.id.headerImageItem);
 
-        String url = headeritem.getAvatarUrl();
+        String url =BASE_URL + headeritem.getFeatureAvatar().getHdpi();
         Glide.with(view.getContext()).load(url).into(headerImageView);
+
+
+
+        headerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (context instanceof MainActivity) {
+                    goToProductDetailFragment = (TransferToFragment) context;
+                } else {
+                    throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
+                }
+                goToProductDetailFragment.goToProductDetailFragment(headeritem);
+            }
+        });
 
     }
 
-    public static HeaderItemFragment newInstance(Headeritem headeritem) {
+    public static HeaderItemFragment newInstance(Product headeritem) {
 
         Bundle args = new Bundle();
         args.putParcelable("headeritem" ,Parcels.wrap( headeritem));

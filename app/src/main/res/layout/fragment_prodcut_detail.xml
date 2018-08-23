@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical"
-    tools:context=".ui.productdetail.ProductDetailFragment">
-
+    android:background="@color/white">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -25,166 +21,181 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.001"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white"
+            android:fontFamily="@font/iran_sans"/>
     </android.support.design.widget.AppBarLayout>
 
-
-    <ProgressBar
-        android:id="@+id/detailProgressBar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:foregroundGravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <!--coordinate Layout can have only 1 child-->
     <android.support.v4.widget.NestedScrollView
-        android:id="@+id/productDetailNv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/productDetailCvVideo"
+            <ProgressBar
+                android:id="@+id/detailProgressBar"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:foregroundGravity="center" />
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="354dp"
-                android:layout_marginBottom="10dp"
-                android:elevation="5dp"
-                android:padding="0dp"
-                android:paddingBottom="10dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <android.support.constraint.ConstraintLayout
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/productDetailCvVideo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="354dp"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="5dp"
+                    android:padding="0dp"
+                    android:paddingBottom="10dp"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
-                        android:id="@+id/productDetailIv"
+                    <android.support.constraint.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="280dp"
-                        android:layout_marginBottom="17dp"
-                        android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/productDetailIv"
+                            android:layout_width="match_parent"
+                            android:layout_height="280dp"
+                            android:scaleType="centerCrop"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/productDetailTvTitle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:text="عنوان"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.1"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/productDetailIv"
+                            app:layout_constraintVertical_bias="0.443" />
+
+                        <ImageView
+                            android:id="@+id/productDetailIvIcon"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            android:foregroundGravity="left"
+                            android:src="@drawable/ic_play_circle_filled_black_24dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/productDetailTvTitle"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.9"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/productDetailTvTitle"
+                            app:layout_constraintVertical_bias="1.0" />
+
+
+
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/ProductDetailCvDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:elevation="5dp"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="24dp"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toTopOf="@+id/productDetailCvComment"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/productDetailCvVideo">
 
                     <TextView
-                        android:id="@+id/productDetailTvTitle"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:text="عنوان"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.885"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/productDetailIv"
-                        app:layout_constraintVertical_bias="1.0" />
+                        android:text="توضیحات" />
 
-                    <ImageView
-                        android:id="@+id/productDetailIvIcon"
-                        android:layout_width="26dp"
-                        android:layout_height="26dp"
-                        android:layout_gravity="left"
-                        app:layout_constraintBottom_toBottomOf="@+id/productDetailTvTitle"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.131"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/productDetailTvTitle" />
 
-                </android.support.constraint.ConstraintLayout>
-            </android.support.v7.widget.CardView>
+                    <TextView
+                        android:id="@+id/ProductDetailTvDesc"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="17dp"
+                        android:text="توضیحات یافت نشد." />
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/ProductDetailCvDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:elevation="5dp"
-                android:paddingBottom="12dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="24dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintBottom_toTopOf="@+id/productDetailCvComment"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/productDetailCvVideo">
+                </android.support.v7.widget.CardView>
 
-                <TextView
+                <android.support.v7.widget.CardView
+                    android:id="@+id/productDetailCvComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="توضیحات" />
+                    android:elevation="5dp"
+                    android:paddingBottom="12dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="24dp"
+                    app:cardCornerRadius="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/productDetailCvVideo">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:text="نظرات" />
+
+                        <Button
+                            android:id="@+id/sendCommentButton"
+                            android:layout_width="128dp"
+                            android:layout_height="48dp"
+                            android:layout_gravity="left"
+                            android:background="@color/colorPrimary"
+                            android:text="نظر دهید"
+                            android:textColor="@color/white" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/productDetailRvComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="17dp"
+                            android:nestedScrollingEnabled="false" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
 
 
-                <TextView
-                    android:id="@+id/ProductDetailTvDesc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp"
-                    android:text="توضیحات یافت نشد." />
+            </LinearLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/productDetailCvComment"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:elevation="5dp"
-                android:paddingBottom="12dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="24dp"
-                app:cardCornerRadius="5dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/productDetailCvVideo">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="نظرات" />
-
-                <Button
-                    android:id="@+id/sendCommentButton"
-                    android:layout_width="128dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="left"
-                    android:background="@color/colorPrimary"
-                    android:text="نظر دهید"
-                    android:textColor="@color/white" />
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/productDetailRvComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp" />
-
-            </android.support.v7.widget.CardView>
-
-        </android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>
+
 
 </android.support.design.widget.CoordinatorLayout>
