@@ -24,7 +24,7 @@
             android:textSize="20dp" />
 
         <EditText
-            android:id="@+id/enterActivationCodeET"
+            android:id="@+id/activationCodeET"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/iran_sans"
@@ -57,7 +57,7 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/cancelBut"
+                android:id="@+id/clearBut"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="5dp"

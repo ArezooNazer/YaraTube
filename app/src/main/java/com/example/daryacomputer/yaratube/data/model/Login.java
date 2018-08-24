@@ -2,7 +2,7 @@ package com.example.daryacomputer.yaratube.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
+//this model is response for sending mobile number
 public class Login {
 
     @SerializedName("message")

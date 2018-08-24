@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.DialogFragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,20 +72,20 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
             @Override
             public void onClick(View view) {
 
-                mPresenter.sendPhoneNumber(phoneNumberEditText.getText().toString().trim(),
-                        Device_id,
-                        Constant.DEVICE_MODEL,
-                        Constant.DEVICE_OS);
+               boolean isLegal = editTextVerification(phoneNumberEditText);
 
-                getDialog().dismiss();
-                transferToFragment.goToActivationLoginDialogFragment();
+               if(isLegal) {
+                   mPresenter.sendPhoneNumber(phoneNumberEditText.getText().toString().trim(),
+                           Device_id,
+                           Constant.DEVICE_MODEL,
+                           Constant.DEVICE_OS);
 
+                   getDialog().dismiss();
+                   transferToFragment.goToActivationLoginDialogFragment();
+               }
 
             }
         });
-
-
-
         return view;
     }
 
@@ -92,6 +93,23 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
     @Override
     public void showMassage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public boolean editTextVerification(EditText editText) {
+
+
+        if (TextUtils.isEmpty(editText.getText())) {
+            showMassage("لطفا شماره موبایل خود را وارد کنید");
+
+        } else if (!TextUtils.isDigitsOnly(editText.getText()) || editText.getText().length() != 11 ||
+                !editText.getText().toString().startsWith("09")) {
+
+            showMassage("شماره موبایل وارد شده معتبر نیست");
+        } else
+            return true;
+
+        return false;
     }
 
 
