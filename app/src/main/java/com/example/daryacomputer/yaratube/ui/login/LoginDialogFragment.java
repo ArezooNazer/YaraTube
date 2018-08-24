@@ -17,9 +17,8 @@ import com.example.daryacomputer.yaratube.TransferToFragment;
 
 public class LoginDialogFragment extends DialogFragment {
 
-    private Button button;
     private TransferToFragment transferToFragment;
-
+    private Button sendBut;
 
     @Override
     public void onAttach(Context context) {
@@ -38,7 +37,6 @@ public class LoginDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @Override
@@ -56,8 +54,8 @@ public class LoginDialogFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_fragment_login, container, false);
 
-        button = view.findViewById(R.id.loginViaPhoneNumber);
-        button.setOnClickListener(new View.OnClickListener() {
+        sendBut = view.findViewById(R.id.loginViaPhoneNumber);
+        sendBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -68,6 +66,5 @@ public class LoginDialogFragment extends DialogFragment {
 
         return view;
     }
-
 
 }

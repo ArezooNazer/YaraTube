@@ -2,13 +2,17 @@ package com.example.daryacomputer.yaratube.data.source;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Comment;
+import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -32,5 +36,13 @@ public interface ApiService {
     //productDetailPage comments
     @GET("/comment/{product_id}")
     Call<List<Comment>> getProductDetailCommentRequest(@Path("product_id") int productId);
+
+    //Send mobile number for login
+    @POST("/mobile_login_step1/16")
+    @FormUrlEncoded
+    Call<Login> sendPhoneNumberRequest(@Field("mobile") String mobileNum,
+                                       @Field("device_id") String deviceId,
+                                       @Field("device_model") String deviceModel,
+                                       @Field("device_os") String deviceOs);
 
 }
