@@ -102,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
+
         if (!profileFragment.isAdded()) {
 
             fragmentManager.beginTransaction()
@@ -113,6 +114,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                     .show(profileFragment);
 
         }
+
     }
 
     @Override
@@ -130,15 +132,15 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public void goToMobileLoginDialogFragment() {
 
         MobileLoginDialogFragment mobileLoginDialogFragment = new MobileLoginDialogFragment();
-        mobileLoginDialogFragment.show(getSupportFragmentManager(),"dialog");
+        mobileLoginDialogFragment.show(getSupportFragmentManager(), "dialog");
 
     }
 
     @Override
-    public void goToActivationLoginDialogFragment() {
+    public void goToActivationLoginDialogFragment(String mobileNumber, String deviceId) {
 
-        ActivationLoginDialogFragment activationLoginDialogFragment = new ActivationLoginDialogFragment();
-        activationLoginDialogFragment.show(getSupportFragmentManager(),"dialog");
+        ActivationLoginDialogFragment activationLoginDialogFragment = ActivationLoginDialogFragment.newInstance(mobileNumber, deviceId);
+        activationLoginDialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 
     @Override

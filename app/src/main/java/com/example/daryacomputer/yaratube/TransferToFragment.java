@@ -11,5 +11,5 @@ public interface TransferToFragment {
     void goToProfileFragment();
     void goToLoginDialogFragment();
     void goToMobileLoginDialogFragment();
-    void goToActivationLoginDialogFragment();
+    void goToActivationLoginDialogFragment(String mobileNumber, String deviceId);
 }

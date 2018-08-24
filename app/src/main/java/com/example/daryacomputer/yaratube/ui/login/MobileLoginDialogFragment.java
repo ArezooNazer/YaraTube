@@ -81,7 +81,7 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
                            Constant.DEVICE_OS);
 
                    getDialog().dismiss();
-                   transferToFragment.goToActivationLoginDialogFragment();
+                   transferToFragment.goToActivationLoginDialogFragment(phoneNumberEditText.getText().toString().trim(),Device_id);
                }
 
             }
