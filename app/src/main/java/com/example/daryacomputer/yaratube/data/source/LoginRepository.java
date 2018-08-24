@@ -2,10 +2,8 @@ package com.example.daryacomputer.yaratube.data.source;
 
 import android.util.Log;
 
-import com.example.daryacomputer.yaratube.AddToTable;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.model.Register;
-import com.example.daryacomputer.yaratube.ui.login.LoginPresenter;
 
 import retrofit2.Call;
 import retrofit2.Callback;

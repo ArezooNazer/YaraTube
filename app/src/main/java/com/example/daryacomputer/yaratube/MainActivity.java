@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube;
 
+import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,6 +13,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.daryacomputer.yaratube.data.YaraDatabase;
+import com.example.daryacomputer.yaratube.data.dao.SelectDao;
+import com.example.daryacomputer.yaratube.data.entity.Token;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
@@ -30,9 +34,12 @@ import static com.example.daryacomputer.yaratube.ui.profile.ProfileFragment.PROF
 public class MainActivity extends AppCompatActivity implements TransferToFragment {
 
 
+    private static final String DATABASE_NAME = "yara_db";
     FragmentManager fragmentManager = getSupportFragmentManager();
     ProfileFragment profileFragment = new ProfileFragment();
+    public static YaraDatabase yaraDatabase;
     DrawerLayout drawerLayout;
+    Token token = new Token();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
         drawerLayout = findViewById(R.id.homePage);
         NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
+        yaraDatabase = Room.databaseBuilder(getApplicationContext(), YaraDatabase.class, DATABASE_NAME)
+                .allowMainThreadQueries()
+                .build();
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -49,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        if (LoginRepository.isLogin)
+                        if ( yaraDatabase.selectDao().selectToken() != null)
                             goToProfileFragment();
                         else
                             goToLoginDialogFragment();
