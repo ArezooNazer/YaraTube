@@ -11,15 +11,13 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.source.Constant;
-
-import static android.view.View.GONE;
+import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 
 public class MobileLoginDialogFragment extends DialogFragment implements LoginContract.View {
 
@@ -73,27 +71,19 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
             @Override
             public void onClick(View view) {
 
-//                mPresenter.sendPhoneNumber(phoneNumberEditText.getText().toString(),
-//                                                              Device_id,
-//                                                              Constant.DEVICE_MODEL,
-//                                                              Constant.DEVICE_OS);
+                mPresenter.sendPhoneNumber(phoneNumberEditText.getText().toString().trim(),
+                        Device_id,
+                        Constant.DEVICE_MODEL,
+                        Constant.DEVICE_OS);
 
+                getDialog().dismiss();
+                transferToFragment.goToActivationLoginDialogFragment();
 
-                  mPresenter.sendPhoneNumber("09351075298",
-                        "6dde1c7f50762d7",
-                        "LT25i",
-                       "4.3");
-
-                if (LoginPresenter.sendIsSuccessful) {
-                    getDialog().dismiss();
-                    transferToFragment.goToActivationLoginDialogFragment();
-
-                }else {
-                    showMassage("دوباره تلاش کنید، ارسال با موفقیت انجام نشد");
-                }
 
             }
         });
+
+
 
         return view;
     }
@@ -103,7 +93,6 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
     public void showMassage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
-
 
 
 }

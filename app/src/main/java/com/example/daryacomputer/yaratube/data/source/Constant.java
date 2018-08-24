@@ -7,8 +7,8 @@ public class Constant {
 
     public static boolean isLogin = false;
 
-    public static String DEVICE_MODEL = Build.MODEL.toString();
+    public static String DEVICE_MODEL = Build.MODEL;
 
-    public static String DEVICE_OS = Build.VERSION.RELEASE.toString();
+    public static String DEVICE_OS = Build.VERSION.RELEASE;
 
 }

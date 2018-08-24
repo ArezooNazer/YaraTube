@@ -3,6 +3,7 @@ package com.example.daryacomputer.yaratube.data.source;
 import android.util.Log;
 
 import com.example.daryacomputer.yaratube.data.model.Login;
+import com.example.daryacomputer.yaratube.ui.login.LoginPresenter;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,6 +12,7 @@ import retrofit2.Response;
 public class LoginRepository {
 
     public static String TAG = LoginRepository.class.getName();
+    public static boolean sendIsSuccessful = false;
 
     public void sendPhoneNumberRepository(String mobileNum,
                                           String deviceId,
@@ -25,6 +27,7 @@ public class LoginRepository {
                     public void onResponse(Call<Login> call, Response<Login> response) {
 
                         if (response.isSuccessful()) {
+                            sendIsSuccessful = true;
                             Login result = response.body();
                             callback.onSuccess(result);
                             Log.d("TAG", "sms sent" + result.toString());

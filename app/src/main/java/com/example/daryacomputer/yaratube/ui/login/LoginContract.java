@@ -13,7 +13,7 @@ public interface LoginContract {
 
     interface Presenter{
 
-        boolean sendPhoneNumber(String mobileNum,
+      void sendPhoneNumber(String mobileNum,
                              String deviceId,
                              String deviceModel,
                              String deviceOs);
