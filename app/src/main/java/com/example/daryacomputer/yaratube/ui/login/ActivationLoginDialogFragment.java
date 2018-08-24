@@ -1,6 +1,7 @@
 package com.example.daryacomputer.yaratube.ui.login;
 
 import android.app.Dialog;
+import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -15,15 +16,18 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 
 public class ActivationLoginDialogFragment extends DialogFragment implements LoginContract.View {
 
+    private static final String DATABASE_NAME = "yara_db";
     private TransferToFragment transferToFragment;
     private LoginContract.Presenter mPresenter;
     private EditText activationEditText;
     private Button sendBut, clearEditTextBut;
     private String mobileNumber, deviceId;
+    public static YaraDatabase yaraDatabase;
 
     @Override
     public void onAttach(Context context) {
@@ -47,6 +51,9 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
         if (bundle == null) return;
         mobileNumber =  bundle.getString("mobileNumber");
         deviceId = bundle.getString("deviceId");
+
+        yaraDatabase = Room.databaseBuilder(getContext(), YaraDatabase.class, DATABASE_NAME)
+                .build();
 
 
     }

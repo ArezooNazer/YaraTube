@@ -1,9 +1,13 @@
 package com.example.daryacomputer.yaratube.ui.login;
 
+import com.example.daryacomputer.yaratube.AddToTable;
+import com.example.daryacomputer.yaratube.data.entity.Token;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.model.Register;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
+
+import static com.example.daryacomputer.yaratube.ui.login.ActivationLoginDialogFragment.yaraDatabase;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
@@ -40,6 +44,9 @@ public class LoginPresenter implements LoginContract.Presenter {
             @Override
             public void onSuccess(Register result) {
 
+                Token token = new Token();
+                token.setToken( result.getToken());
+                AddToTable.addToken(yaraDatabase ,token);
             }
 
             @Override

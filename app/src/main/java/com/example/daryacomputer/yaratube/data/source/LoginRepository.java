@@ -2,6 +2,7 @@ package com.example.daryacomputer.yaratube.data.source;
 
 import android.util.Log;
 
+import com.example.daryacomputer.yaratube.AddToTable;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.model.Register;
 import com.example.daryacomputer.yaratube.ui.login.LoginPresenter;
@@ -64,6 +65,7 @@ public class LoginRepository {
 
                             isLogin = true;
                             Register result = response.body();
+                            Log.d("TAG",  result.getToken());
                             callback.onSuccess(result);
                         } else
                             callback.onError("دوباره تلاش کنید");
