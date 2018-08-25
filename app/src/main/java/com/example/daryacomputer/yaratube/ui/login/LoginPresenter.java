@@ -1,6 +1,5 @@
 package com.example.daryacomputer.yaratube.ui.login;
 
-import com.example.daryacomputer.yaratube.DatabaseUtil;
 import com.example.daryacomputer.yaratube.data.entity.Token;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.model.Register;
@@ -46,7 +45,8 @@ public class LoginPresenter implements LoginContract.Presenter {
 
                 Token token = new Token();
                 token.setToken(result.getToken());
-                DatabaseUtil.addToken(yaraDatabase ,token);
+//                DatabaseUtil.addToken(yaraDatabase ,token);
+                yaraDatabase.insertDao().saveToken(token);
             }
 
             @Override

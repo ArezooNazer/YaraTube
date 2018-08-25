@@ -88,7 +88,8 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
         clearEditTextBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                activationEditText.getText().clear();
+                getDialog().dismiss();
+                transferToFragment.goToMobileLoginDialogFragment();
             }
         });
 
