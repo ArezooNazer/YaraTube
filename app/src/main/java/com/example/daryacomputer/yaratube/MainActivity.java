@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,6 +18,7 @@ import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.entity.Token;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
+import com.example.daryacomputer.yaratube.data.source.CheckLogin;
 import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
 import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     DrawerLayout drawerLayout;
     Token token = new Token();
 
+    private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        if (yaraDatabase.selectDao().selectToken() != null)
+                        if (CheckLogin.isLogin())
                             goToProfileFragment();
                         else
                             goToMainLoginDialogFragment();
@@ -129,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
             drawerLayout.closeDrawer(GravityCompat.START);
 
             MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
-            mainLoginDialogFragment.show(getSupportFragmentManager(),"dialog");
+            mainLoginDialogFragment.show(getSupportFragmentManager(), "LoginDialog");
 
         }
     }
@@ -139,9 +143,20 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+
+//        for (Fragment frag : fragmentManager.getFragments()) {
+//            if (frag.isVisible()) {
+//                FragmentManager childFm = frag.getChildFragmentManager();
+//                if (childFm.getBackStackEntryCount() > 0) {
+//                    childFm.popBackStack();
+//                    return;
+//                }
+//            }
+//        }
+
+        super.onBackPressed();
+
 
     }
 

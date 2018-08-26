@@ -1,7 +1,9 @@
-package com.example.daryacomputer.yaratube.ui.login;
+package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,16 +15,21 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginPresenter;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
 
-public class ActivationLoginFragment extends Fragment implements LoginContract.View {
+public class ActivationLoginFragment extends Fragment implements ActivationLoginContract.View {
 
     public static String ACTIVATION_LOGIN_DIALOG = ActivationLoginFragment.class.getName();
-    private LoginContract.onChildButtonClickListener mListener;
+    private MainLoginContract.onChildButtonClickListener mListener;
     private TransferToFragment transferToFragment;
-    private LoginContract.Presenter mPresenter;
+    private ActivationLoginContract.Presenter mPresenter;
     private EditText activationEditText;
     private Button sendBut, clearEditTextBut;
     private String mobileNumber, deviceId;
+
+    private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
 
     @Override
     public void onAttach(Context context) {
@@ -40,13 +47,16 @@ public class ActivationLoginFragment extends Fragment implements LoginContract.V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new LoginPresenter(this);
+        mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
+        mPresenter = new ActivationLoginPresenter(this);
 
 
         Bundle bundle = getArguments();
         if (bundle == null) return;
         mobileNumber = bundle.getString("mobileNumber");
         deviceId = bundle.getString("deviceId");
+
+
 
     }
 
@@ -55,7 +65,7 @@ public class ActivationLoginFragment extends Fragment implements LoginContract.V
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.dialog_fragment_activation_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_activation_login, container, false);
 
         activationEditText = view.findViewById(R.id.activationCodeET);
         sendBut = view.findViewById(R.id.saveBut);
@@ -68,8 +78,6 @@ public class ActivationLoginFragment extends Fragment implements LoginContract.V
                 mPresenter.sendActivationCode(mobileNumber, deviceId,
                         activationEditText.getText().toString().trim(),
                         "Arezoo");
-
-                transferToFragment.goToProfileFragment();
 
             }
         });
@@ -90,10 +98,6 @@ public class ActivationLoginFragment extends Fragment implements LoginContract.V
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public boolean editTextVerification(EditText editText) {
-        return false;
-    }
 
     public static ActivationLoginFragment newInstance(String mobileNumber, String deviceId) {
 
@@ -105,5 +109,11 @@ public class ActivationLoginFragment extends Fragment implements LoginContract.V
         activationLoginDialogFragment.setArguments(arg);
         return activationLoginDialogFragment;
 
+    }
+
+    @Override
+    public void activationCodIsValid() {
+        ((DialogFragment) getParentFragment()).dismiss();
+        transferToFragment.goToProfileFragment();
     }
 }

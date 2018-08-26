@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.ui.login;
+package com.example.daryacomputer.yaratube.ui.login.phonenumberlogin;
 
 import android.os.Bundle;
 import android.provider.Settings;
@@ -13,16 +13,18 @@ import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.source.Constant;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginPresenter;
 
-public class MobileLoginFragment extends Fragment implements LoginContract.View {
+public class PhoneNumberLoginFragment extends Fragment implements PhoneNumberLoginContract.View {
 
-    public static String MOBILE_LOGIN_DIALOG = MobileLoginFragment.class.getName();
-    private LoginContract.onChildButtonClickListener mListener;
-    private LoginContract.Presenter mPresenter;
+    public static String MOBILE_LOGIN_DIALOG = PhoneNumberLoginFragment.class.getName();
+    private MainLoginContract.onChildButtonClickListener mListener;
+    private PhoneNumberLoginContract.Presenter mPresenter;
     private EditText phoneNumberEditText;
 
 
-    public MobileLoginFragment() {
+    public PhoneNumberLoginFragment() {
         // Required empty public constructor
     }
 
@@ -30,8 +32,8 @@ public class MobileLoginFragment extends Fragment implements LoginContract.View 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mListener = (LoginContract.onChildButtonClickListener) getParentFragment();
-        mPresenter = new LoginPresenter(this);
+        mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
+        mPresenter = new PhoneNumberLoginPresenter(this);
     }
 
 
@@ -39,7 +41,7 @@ public class MobileLoginFragment extends Fragment implements LoginContract.View 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.dialog_fragment_mobile_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_mobile_login, container, false);
 
         phoneNumberEditText = view.findViewById(R.id.mobileNumberET);
 
@@ -58,8 +60,6 @@ public class MobileLoginFragment extends Fragment implements LoginContract.View 
                            Device_id,
                            Constant.DEVICE_MODEL,
                            Constant.DEVICE_OS);
-
-                  mListener.goToActivationLoginFragment(phoneNumberEditText.getText().toString().trim(),Device_id);
                }
 
             }
@@ -90,5 +90,10 @@ public class MobileLoginFragment extends Fragment implements LoginContract.View 
         return false;
     }
 
+    @Override
+    public void smsRequestReceived(String mobileNum, String deviceId) {
+        mListener.goToActivationLoginFragment(mobileNum,deviceId);
+
+    }
 
 }

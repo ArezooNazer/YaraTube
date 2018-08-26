@@ -11,7 +11,7 @@ import com.example.daryacomputer.yaratube.R;
 
 
 public class LoginOptionFragment extends Fragment {
-    private LoginContract.onChildButtonClickListener mListener;
+    private MainLoginContract.onChildButtonClickListener mListener;
     private Button sendBut;
 
 
@@ -23,14 +23,14 @@ public class LoginOptionFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        mListener = (LoginContract.onChildButtonClickListener) getParentFragment();
+        mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login_option, container, false);
 
         sendBut = view.findViewById(R.id.loginViaPhoneNumber);
         sendBut.setOnClickListener(new View.OnClickListener() {
@@ -38,8 +38,6 @@ public class LoginOptionFragment extends Fragment {
             public void onClick(View view) {
 
                 mListener.goToMobileLoginFragment();
-
-//                mListener.goToActivationLoginFragment("09351075298","6dde1c7f50762d7");
 
             }
         });

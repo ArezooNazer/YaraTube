@@ -1,7 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.login;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -10,31 +9,27 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationLoginFragment;
+import com.example.daryacomputer.yaratube.ui.login.phonenumberlogin.PhoneNumberLoginFragment;
 
-import static com.example.daryacomputer.yaratube.ui.login.ActivationLoginFragment.ACTIVATION_LOGIN_DIALOG;
-import static com.example.daryacomputer.yaratube.ui.login.MobileLoginFragment.MOBILE_LOGIN_DIALOG;
+import static com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationLoginFragment.ACTIVATION_LOGIN_DIALOG;
+import static com.example.daryacomputer.yaratube.ui.login.phonenumberlogin.PhoneNumberLoginFragment.MOBILE_LOGIN_DIALOG;
 
-public class MainLoginDialogFragment extends DialogFragment implements LoginContract.onChildButtonClickListener {
+public class MainLoginDialogFragment extends DialogFragment implements MainLoginContract.onChildButtonClickListener {
 
     private LoginOptionFragment loginOptionFragment;
-    private MobileLoginFragment mobileLoginDialogFragment;
+    private PhoneNumberLoginFragment mobileLoginDialogFragment;
+    private ActivationLoginFragment activationLoginDialogFragment;
 
     public MainLoginDialogFragment() {
         // Required empty public constructor
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-    }
-
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loginOptionFragment = new LoginOptionFragment();
-        mobileLoginDialogFragment = new MobileLoginFragment();
+        mobileLoginDialogFragment = new PhoneNumberLoginFragment();
         goToLoginOptionFragment();
 
     }
@@ -72,6 +67,11 @@ public class MainLoginDialogFragment extends DialogFragment implements LoginCont
                     .addToBackStack(MOBILE_LOGIN_DIALOG)
                     .add(R.id.loginDialogContainer, mobileLoginDialogFragment).commit();
 
+        } else if (activationLoginDialogFragment.isVisible()) {
+            getChildFragmentManager().beginTransaction()
+                    .hide(activationLoginDialogFragment)
+                    .show(mobileLoginDialogFragment).commit();
+
         } else {
             getChildFragmentManager().beginTransaction()
                     .addToBackStack(MOBILE_LOGIN_DIALOG)
@@ -84,7 +84,7 @@ public class MainLoginDialogFragment extends DialogFragment implements LoginCont
     @Override
     public void goToActivationLoginFragment(String mobileNumber, String deviceId) {
 
-        ActivationLoginFragment activationLoginDialogFragment = ActivationLoginFragment.newInstance(mobileNumber, deviceId);
+        activationLoginDialogFragment = ActivationLoginFragment.newInstance(mobileNumber, deviceId);
 
         if (mobileLoginDialogFragment.isVisible()) {
             getChildFragmentManager().beginTransaction()
