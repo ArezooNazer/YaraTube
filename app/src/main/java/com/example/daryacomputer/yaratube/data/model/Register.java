@@ -26,6 +26,9 @@ public class Register {
     @Expose
     private List<Object> filesAdded = null;
 
+    public Register() {
+    }
+
     public String getFinoToken() {
         return finoToken;
     }

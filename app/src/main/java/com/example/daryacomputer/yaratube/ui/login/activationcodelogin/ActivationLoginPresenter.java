@@ -1,14 +1,13 @@
 package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
-import com.example.daryacomputer.yaratube.data.entity.Token;
+import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.data.model.Register;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
-import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
-public class ActivationLoginPresenter implements ActivationLoginContract.Presenter{
+public class ActivationLoginPresenter implements ActivationLoginContract.Presenter {
 
     private LoginRepository loginRepository;
     private ActivationLoginContract.View mView;
@@ -19,13 +18,13 @@ public class ActivationLoginPresenter implements ActivationLoginContract.Present
     }
 
     @Override
-    public void sendActivationCode(String mobileNum, String deviceId, String verificationCode, String nickName) {
+    public void sendActivationCode(final String mobileNum, String deviceId, String verificationCode, String nickName) {
 
         loginRepository.sendActivationCodeRepository(mobileNum, deviceId, verificationCode, nickName, new ApiResult<Register>() {
             @Override
             public void onSuccess(Register result) {
 
-                Token token = new Token();
+                User token = new User();
                 token.setToken(result.getToken());
                 yaraDatabase.insertDao().saveToken(token);
 
@@ -35,7 +34,8 @@ public class ActivationLoginPresenter implements ActivationLoginContract.Present
 
             @Override
             public void onError(String massage) {
-                mView.showMassage("on Error");
+
+                mView.showMassage("ارسال با موفقیت انجام نشد، ارتباط با اینترنت بر قرار نیست.");
             }
         });
 

@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,7 +14,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
-import com.example.daryacomputer.yaratube.data.entity.Token;
+import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.CheckLogin;
@@ -37,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     ProfileFragment profileFragment = new ProfileFragment();
     public static YaraDatabase yaraDatabase;
     DrawerLayout drawerLayout;
-    Token token = new Token();
+
 
     private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
 
@@ -49,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         drawerLayout = findViewById(R.id.homePage);
         NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
         yaraDatabase = Room.databaseBuilder(getApplicationContext(), YaraDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        if (CheckLogin.isLogin())
+                        if (false)
                             goToProfileFragment();
                         else
                             goToMainLoginDialogFragment();

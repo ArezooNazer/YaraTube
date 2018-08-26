@@ -5,11 +5,12 @@ import android.arch.persistence.room.RoomDatabase;
 
 import com.example.daryacomputer.yaratube.data.dao.InsertDao;
 import com.example.daryacomputer.yaratube.data.dao.SelectDao;
-import com.example.daryacomputer.yaratube.data.entity.Token;
+import com.example.daryacomputer.yaratube.data.entity.User;
 
-@Database(entities = {Token.class} , version = 1)
+@Database(entities = {User.class} , version = 2)
 public abstract class YaraDatabase extends RoomDatabase{
 
     public abstract InsertDao insertDao();
     public abstract SelectDao selectDao();
+
 }
