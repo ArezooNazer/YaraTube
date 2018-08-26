@@ -24,7 +24,6 @@ public class MainContainerFragment extends Fragment {
     private static final String TAG = MainContainerFragment.class.getName();
     private TransferToFragment transferToFragment;
     HomePageFragment homePageFragment = new HomePageFragment();
-
     CategoryFragment categoryFragment = new CategoryFragment();
 
     public MainContainerFragment() {
@@ -104,7 +103,6 @@ public class MainContainerFragment extends Fragment {
                     .add(R.id.homeContainer, homePageFragment).commit();
         }
     }
-
 
     public void goToCategoryFragment() {
 

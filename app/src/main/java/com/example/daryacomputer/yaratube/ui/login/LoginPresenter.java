@@ -12,6 +12,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginRepository loginRepository;
     private LoginContract.View mView;
+    private LoginContract.onChildButtonClickListener mListener;
 
 
     public LoginPresenter(LoginContract.View mView) {

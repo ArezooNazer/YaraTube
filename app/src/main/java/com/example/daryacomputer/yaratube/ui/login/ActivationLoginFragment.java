@@ -1,14 +1,11 @@
 package com.example.daryacomputer.yaratube.ui.login;
 
-import android.app.Dialog;
-import android.arch.persistence.room.Room;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,11 +13,11 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
-import com.example.daryacomputer.yaratube.data.YaraDatabase;
-import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 
-public class ActivationLoginDialogFragment extends DialogFragment implements LoginContract.View {
+public class ActivationLoginFragment extends Fragment implements LoginContract.View {
 
+    public static String ACTIVATION_LOGIN_DIALOG = ActivationLoginFragment.class.getName();
+    private LoginContract.onChildButtonClickListener mListener;
     private TransferToFragment transferToFragment;
     private LoginContract.Presenter mPresenter;
     private EditText activationEditText;
@@ -36,7 +33,7 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
         }
     }
 
-    public ActivationLoginDialogFragment() {
+    public ActivationLoginFragment() {
         // Required empty public constructor
     }
 
@@ -45,21 +42,14 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
         super.onCreate(savedInstanceState);
         mPresenter = new LoginPresenter(this);
 
+
         Bundle bundle = getArguments();
         if (bundle == null) return;
-        mobileNumber =  bundle.getString("mobileNumber");
+        mobileNumber = bundle.getString("mobileNumber");
         deviceId = bundle.getString("deviceId");
 
     }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -79,7 +69,6 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
                         activationEditText.getText().toString().trim(),
                         "Arezoo");
 
-                getDialog().dismiss();
                 transferToFragment.goToProfileFragment();
 
             }
@@ -88,8 +77,8 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
         clearEditTextBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getDialog().dismiss();
-                transferToFragment.goToMobileLoginDialogFragment();
+
+               mListener.goToMobileLoginFragment();
             }
         });
 
@@ -106,13 +95,13 @@ public class ActivationLoginDialogFragment extends DialogFragment implements Log
         return false;
     }
 
-    public static ActivationLoginDialogFragment newInstance(String mobileNumber , String deviceId){
+    public static ActivationLoginFragment newInstance(String mobileNumber, String deviceId) {
 
-        Bundle arg= new Bundle();
-        arg.putString("mobileNumber" , mobileNumber );
-        arg.putString("deviceId" , deviceId);
+        Bundle arg = new Bundle();
+        arg.putString("mobileNumber", mobileNumber);
+        arg.putString("deviceId", deviceId);
 
-        ActivationLoginDialogFragment activationLoginDialogFragment = new ActivationLoginDialogFragment();
+        ActivationLoginFragment activationLoginDialogFragment = new ActivationLoginFragment();
         activationLoginDialogFragment.setArguments(arg);
         return activationLoginDialogFragment;
 

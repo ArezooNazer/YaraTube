@@ -26,4 +26,11 @@ public interface LoginContract {
                               String verificationCode,
                               String nickName);
     }
+
+    interface onChildButtonClickListener {
+
+        void goToLoginOptionFragment();
+        void goToMobileLoginFragment();
+        void goToActivationLoginFragment(String mobileNumber, String deviceId);
+    }
 }

@@ -14,15 +14,11 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
-import com.example.daryacomputer.yaratube.data.dao.SelectDao;
 import com.example.daryacomputer.yaratube.data.entity.Token;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
-import com.example.daryacomputer.yaratube.ui.login.ActivationLoginDialogFragment;
-import com.example.daryacomputer.yaratube.ui.login.LoginDialogFragment;
-import com.example.daryacomputer.yaratube.ui.login.MobileLoginDialogFragment;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
 import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
@@ -59,10 +55,10 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        if ( yaraDatabase.selectDao().selectToken() != null)
+                        if (yaraDatabase.selectDao().selectToken() != null)
                             goToProfileFragment();
                         else
-                            goToLoginDialogFragment();
+                            goToMainLoginDialogFragment();
 
                 }
                 return false;
@@ -128,29 +124,14 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
     @Override
-    public void goToLoginDialogFragment() {
-
+    public void goToMainLoginDialogFragment() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
 
-            LoginDialogFragment dialogFragment = new LoginDialogFragment();
-            dialogFragment.show(getSupportFragmentManager(), "dialog");
+            MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
+            mainLoginDialogFragment.show(getSupportFragmentManager(),"dialog");
+
         }
-    }
-
-    @Override
-    public void goToMobileLoginDialogFragment() {
-
-        MobileLoginDialogFragment mobileLoginDialogFragment = new MobileLoginDialogFragment();
-        mobileLoginDialogFragment.show(getSupportFragmentManager(), "dialog");
-
-    }
-
-    @Override
-    public void goToActivationLoginDialogFragment(String mobileNumber, String deviceId) {
-
-        ActivationLoginDialogFragment activationLoginDialogFragment = ActivationLoginDialogFragment.newInstance(mobileNumber, deviceId);
-        activationLoginDialogFragment.show(getSupportFragmentManager(), "dialog");
     }
 
     @Override

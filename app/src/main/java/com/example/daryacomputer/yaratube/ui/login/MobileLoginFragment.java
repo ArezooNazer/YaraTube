@@ -1,42 +1,28 @@
 package com.example.daryacomputer.yaratube.ui.login;
 
-import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.source.Constant;
-import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 
-public class MobileLoginDialogFragment extends DialogFragment implements LoginContract.View {
+public class MobileLoginFragment extends Fragment implements LoginContract.View {
 
-
-    private TransferToFragment transferToFragment;
+    public static String MOBILE_LOGIN_DIALOG = MobileLoginFragment.class.getName();
+    private LoginContract.onChildButtonClickListener mListener;
     private LoginContract.Presenter mPresenter;
     private EditText phoneNumberEditText;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
 
-        if (context instanceof MainActivity) {
-            transferToFragment = (TransferToFragment) context;
-        }
-    }
-
-    public MobileLoginDialogFragment() {
+    public MobileLoginFragment() {
         // Required empty public constructor
     }
 
@@ -44,17 +30,10 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        mListener = (LoginContract.onChildButtonClickListener) getParentFragment();
         mPresenter = new LoginPresenter(this);
     }
 
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        return dialog;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,8 +59,7 @@ public class MobileLoginDialogFragment extends DialogFragment implements LoginCo
                            Constant.DEVICE_MODEL,
                            Constant.DEVICE_OS);
 
-                   getDialog().dismiss();
-                   transferToFragment.goToActivationLoginDialogFragment(phoneNumberEditText.getText().toString().trim(),Device_id);
+                  mListener.goToActivationLoginFragment(phoneNumberEditText.getText().toString().trim(),Device_id);
                }
 
             }

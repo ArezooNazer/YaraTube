@@ -9,7 +9,5 @@ public interface TransferToFragment {
     void goToProductListFragment(Category category);
     void goToProductDetailFragment(Product product);
     void goToProfileFragment();
-    void goToLoginDialogFragment();
-    void goToMobileLoginDialogFragment();
-    void goToActivationLoginDialogFragment(String mobileNumber, String deviceId);
+    void goToMainLoginDialogFragment();
 }
