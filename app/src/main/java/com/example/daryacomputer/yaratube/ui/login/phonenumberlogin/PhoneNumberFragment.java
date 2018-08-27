@@ -14,17 +14,16 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.source.Constant;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
-import com.example.daryacomputer.yaratube.ui.login.MainLoginPresenter;
 
-public class PhoneNumberLoginFragment extends Fragment implements PhoneNumberLoginContract.View {
+public class PhoneNumberFragment extends Fragment implements PhoneNumberContract.View {
 
-    public static String MOBILE_LOGIN_DIALOG = PhoneNumberLoginFragment.class.getName();
+    public static String MOBILE_LOGIN_DIALOG = PhoneNumberFragment.class.getName();
     private MainLoginContract.onChildButtonClickListener mListener;
-    private PhoneNumberLoginContract.Presenter mPresenter;
+    private PhoneNumberContract.Presenter mPresenter;
     private EditText phoneNumberEditText;
 
 
-    public PhoneNumberLoginFragment() {
+    public PhoneNumberFragment() {
         // Required empty public constructor
     }
 
@@ -33,7 +32,7 @@ public class PhoneNumberLoginFragment extends Fragment implements PhoneNumberLog
         super.onCreate(savedInstanceState);
 
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
-        mPresenter = new PhoneNumberLoginPresenter(this);
+        mPresenter = new PhoneNumberPresenter(this);
     }
 
 
@@ -91,8 +90,8 @@ public class PhoneNumberLoginFragment extends Fragment implements PhoneNumberLog
     }
 
     @Override
-    public void smsRequestReceived(String mobileNum, String deviceId) {
-        mListener.goToActivationLoginFragment(mobileNum,deviceId);
+    public void smsRequestReceived() {
+        mListener.goToActivationLoginFragment();
 
     }
 

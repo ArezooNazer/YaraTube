@@ -7,12 +7,12 @@ import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
-public class ActivationLoginPresenter implements ActivationLoginContract.Presenter {
+public class ActivationPresenter implements ActivationContract.Presenter {
 
     private LoginRepository loginRepository;
-    private ActivationLoginContract.View mView;
+    private ActivationContract.View mView;
 
-    public ActivationLoginPresenter(ActivationLoginContract.View mView) {
+    public ActivationPresenter(ActivationContract.View mView) {
         loginRepository = new LoginRepository();
         this.mView = mView;
     }
@@ -39,7 +39,7 @@ public class ActivationLoginPresenter implements ActivationLoginContract.Present
             @Override
             public void onError(String massage) {
 
-                mView.showMassage("ارسال با موفقیت انجام نشد، ارتباط با اینترنت بر قرار نیست.");
+                mView.showMassage("ارسال با موفقیت انجام نشد، دوباره تلاش کنید");
             }
         });
 

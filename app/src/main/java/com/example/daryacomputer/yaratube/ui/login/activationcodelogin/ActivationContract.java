@@ -2,7 +2,7 @@ package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 
-public interface ActivationLoginContract {
+public interface ActivationContract {
 
     interface View extends MainLoginContract.View{
         void activationCodIsValid();

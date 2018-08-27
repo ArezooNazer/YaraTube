@@ -15,4 +15,8 @@ public interface SelectDao {
 
     @Query("SELECT token FROM User")
     String selectToken();
+
+    @Query("SELECT phoneNumber FROM User")
+    String selectPhoneNumber();
+
 }

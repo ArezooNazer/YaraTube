@@ -9,17 +9,19 @@ import android.view.ViewGroup;
 import android.view.Window;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationLoginFragment;
-import com.example.daryacomputer.yaratube.ui.login.phonenumberlogin.PhoneNumberLoginFragment;
+import com.example.daryacomputer.yaratube.data.YaraDatabase;
+import com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationFragment;
+import com.example.daryacomputer.yaratube.ui.login.phonenumberlogin.PhoneNumberFragment;
 
-import static com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationLoginFragment.ACTIVATION_LOGIN_DIALOG;
-import static com.example.daryacomputer.yaratube.ui.login.phonenumberlogin.PhoneNumberLoginFragment.MOBILE_LOGIN_DIALOG;
+import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
+import static com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationFragment.ACTIVATION_LOGIN_DIALOG;
+import static com.example.daryacomputer.yaratube.ui.login.phonenumberlogin.PhoneNumberFragment.MOBILE_LOGIN_DIALOG;
 
 public class MainLoginDialogFragment extends DialogFragment implements MainLoginContract.onChildButtonClickListener {
 
     private LoginOptionFragment loginOptionFragment;
-    private PhoneNumberLoginFragment mobileLoginDialogFragment;
-    private ActivationLoginFragment activationLoginDialogFragment;
+    private PhoneNumberFragment mobileLoginDialogFragment;
+    private ActivationFragment activationLoginDialogFragment;
 
     public MainLoginDialogFragment() {
         // Required empty public constructor
@@ -29,9 +31,14 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         loginOptionFragment = new LoginOptionFragment();
-        mobileLoginDialogFragment = new PhoneNumberLoginFragment();
-        activationLoginDialogFragment = new ActivationLoginFragment();
-        goToLoginOptionFragment();
+        mobileLoginDialogFragment = new PhoneNumberFragment();
+        activationLoginDialogFragment = new ActivationFragment();
+
+
+        if (yaraDatabase.selectDao().selectPhoneNumber() != null)
+            goToActivationLoginFragment();
+        else
+            goToLoginOptionFragment();
 
     }
 
@@ -62,43 +69,18 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     @Override
     public void goToMobileLoginFragment() {
 
-        if (loginOptionFragment.isVisible()) {
-            getChildFragmentManager().beginTransaction()
-                    .hide(loginOptionFragment)
-                    .addToBackStack(MOBILE_LOGIN_DIALOG)
-                    .add(R.id.loginDialogContainer, mobileLoginDialogFragment).commit();
-
-        } else if (activationLoginDialogFragment.isVisible()) {
-            getChildFragmentManager().beginTransaction()
-                    .hide(activationLoginDialogFragment)
-                    .show(mobileLoginDialogFragment).commit();
-
-        } else {
-            getChildFragmentManager().beginTransaction()
-                    .addToBackStack(MOBILE_LOGIN_DIALOG)
-                    .add(R.id.loginDialogContainer, mobileLoginDialogFragment).commit();
-        }
-
+        getChildFragmentManager().beginTransaction()
+                .addToBackStack(MOBILE_LOGIN_DIALOG)
+                .replace(R.id.loginDialogContainer, mobileLoginDialogFragment).commit();
 
     }
 
     @Override
-    public void goToActivationLoginFragment(String mobileNumber, String deviceId) {
+    public void goToActivationLoginFragment() {
 
-//        activationLoginDialogFragment = ActivationLoginFragment.newInstance(mobileNumber, deviceId);
-
-
-        if (mobileLoginDialogFragment.isVisible()) {
-            getChildFragmentManager().beginTransaction()
-                    .hide(mobileLoginDialogFragment)
-                    .addToBackStack(ACTIVATION_LOGIN_DIALOG)
-                    .add(R.id.loginDialogContainer, activationLoginDialogFragment).commit();
-
-        } else {
-            getChildFragmentManager().beginTransaction()
-                    .addToBackStack(ACTIVATION_LOGIN_DIALOG)
-                    .add(R.id.loginDialogContainer, activationLoginDialogFragment).commit();
-        }
+        getChildFragmentManager().beginTransaction()
+                .addToBackStack(ACTIVATION_LOGIN_DIALOG)
+                .replace(R.id.loginDialogContainer, activationLoginDialogFragment).commit();
 
     }
 

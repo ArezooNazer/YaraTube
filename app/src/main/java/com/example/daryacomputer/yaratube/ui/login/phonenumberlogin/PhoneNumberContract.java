@@ -4,11 +4,11 @@ import android.widget.EditText;
 
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 
-public interface PhoneNumberLoginContract  {
+public interface PhoneNumberContract {
 
     interface View extends MainLoginContract.View{
         boolean editTextVerification(EditText editText);
-        void smsRequestReceived(String mobileNum, String deviceId);
+        void smsRequestReceived();
     }
 
     interface Presenter {

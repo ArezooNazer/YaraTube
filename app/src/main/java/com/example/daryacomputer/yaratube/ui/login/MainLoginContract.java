@@ -21,6 +21,6 @@ public interface MainLoginContract {
 
         void goToLoginOptionFragment();
         void goToMobileLoginFragment();
-        void goToActivationLoginFragment(String mobileNumber, String deviceId);
+        void goToActivationLoginFragment();
     }
 }

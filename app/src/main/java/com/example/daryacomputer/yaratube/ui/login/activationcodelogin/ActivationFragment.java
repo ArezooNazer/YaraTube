@@ -1,6 +1,5 @@
 package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
@@ -15,25 +14,21 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
-import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
-import com.example.daryacomputer.yaratube.ui.login.MainLoginPresenter;
-import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
-public class ActivationLoginFragment extends Fragment implements ActivationLoginContract.View {
+public class ActivationFragment extends Fragment implements ActivationContract.View {
 
-    public static String ACTIVATION_LOGIN_DIALOG = ActivationLoginFragment.class.getName();
+    public static String ACTIVATION_LOGIN_DIALOG = ActivationFragment.class.getName();
     private MainLoginContract.onChildButtonClickListener mListener;
     private TransferToFragment transferToFragment;
-    private ActivationLoginContract.Presenter mPresenter;
+    private ActivationContract.Presenter mPresenter;
     private EditText activationEditText;
     private Button sendBut, clearEditTextBut;
     private String mobileNumber, deviceId;
 
-    private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
 
     @Override
     public void onAttach(Context context) {
@@ -44,7 +39,7 @@ public class ActivationLoginFragment extends Fragment implements ActivationLogin
         }
     }
 
-    public ActivationLoginFragment() {
+    public ActivationFragment() {
         // Required empty public constructor
     }
 
@@ -52,7 +47,7 @@ public class ActivationLoginFragment extends Fragment implements ActivationLogin
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
-        mPresenter = new ActivationLoginPresenter(this);
+        mPresenter = new ActivationPresenter(this);
 
 
 //        Bundle bundle = getArguments();
@@ -106,18 +101,6 @@ public class ActivationLoginFragment extends Fragment implements ActivationLogin
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
-
-//    public static ActivationLoginFragment newInstance(String mobileNumber, String deviceId) {
-//
-//        Bundle arg = new Bundle();
-//        arg.putString("mobileNumber", mobileNumber);
-//        arg.putString("deviceId", deviceId);
-//
-//        ActivationLoginFragment activationLoginDialogFragment = new ActivationLoginFragment();
-//        activationLoginDialogFragment.setArguments(arg);
-//        return activationLoginDialogFragment;
-//
-//    }
 
     @Override
     public void activationCodIsValid() {

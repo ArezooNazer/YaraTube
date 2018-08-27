@@ -1,5 +1,7 @@
 package com.example.daryacomputer.yaratube.ui.login.phonenumberlogin;
 
+import android.util.Log;
+
 import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
@@ -7,14 +9,14 @@ import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
-public class PhoneNumberLoginPresenter implements PhoneNumberLoginContract.Presenter {
+public class PhoneNumberPresenter implements PhoneNumberContract.Presenter {
 
     private LoginRepository loginRepository;
-    private PhoneNumberLoginContract.View mView;
+    private PhoneNumberContract.View mView;
 
 
 
-    public PhoneNumberLoginPresenter(PhoneNumberLoginContract.View mView) {
+    public PhoneNumberPresenter(PhoneNumberContract.View mView) {
 
         loginRepository = new LoginRepository();
         this.mView = mView;
@@ -35,13 +37,15 @@ public class PhoneNumberLoginPresenter implements PhoneNumberLoginContract.Prese
                     user.setDeviceOs(deviceOs);
                     yaraDatabase.insertDao().saveUserInfo(user);
 
-                    mView.smsRequestReceived(mobileNum,deviceId);
+                    Log.d("id", String.valueOf(yaraDatabase.selectDao().getUserRecord().getId()));
+
+                    mView.smsRequestReceived();
             }
 
             @Override
             public void onError(String massage) {
 
-                mView.showMassage("ارسال با موفقیت انجام نشد، ارتباط با اینترنت بر قرار نیست.");
+                mView.showMassage("ارسال با موفقیت انجام نشد، دوباره تلاش کنید");
             }
         });
     }
