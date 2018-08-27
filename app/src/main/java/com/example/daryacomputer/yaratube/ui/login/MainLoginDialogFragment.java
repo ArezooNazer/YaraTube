@@ -30,6 +30,7 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
         super.onCreate(savedInstanceState);
         loginOptionFragment = new LoginOptionFragment();
         mobileLoginDialogFragment = new PhoneNumberLoginFragment();
+        activationLoginDialogFragment = new ActivationLoginFragment();
         goToLoginOptionFragment();
 
     }
@@ -84,7 +85,8 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     @Override
     public void goToActivationLoginFragment(String mobileNumber, String deviceId) {
 
-        activationLoginDialogFragment = ActivationLoginFragment.newInstance(mobileNumber, deviceId);
+//        activationLoginDialogFragment = ActivationLoginFragment.newInstance(mobileNumber, deviceId);
+
 
         if (mobileLoginDialogFragment.isVisible()) {
             getChildFragmentManager().beginTransaction()

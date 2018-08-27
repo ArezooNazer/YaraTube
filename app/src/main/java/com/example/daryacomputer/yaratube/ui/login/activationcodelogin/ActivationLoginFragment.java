@@ -15,9 +15,13 @@ import android.widget.Toast;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.data.YaraDatabase;
+import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginPresenter;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
+
+import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
 public class ActivationLoginFragment extends Fragment implements ActivationLoginContract.View {
 
@@ -51,10 +55,10 @@ public class ActivationLoginFragment extends Fragment implements ActivationLogin
         mPresenter = new ActivationLoginPresenter(this);
 
 
-        Bundle bundle = getArguments();
-        if (bundle == null) return;
-        mobileNumber = bundle.getString("mobileNumber");
-        deviceId = bundle.getString("deviceId");
+//        Bundle bundle = getArguments();
+//        if (bundle == null) return;
+//        mobileNumber = bundle.getString("mobileNumber");
+//        deviceId = bundle.getString("deviceId");
 
 
 
@@ -66,6 +70,10 @@ public class ActivationLoginFragment extends Fragment implements ActivationLogin
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_activation_login, container, false);
+
+        User user = yaraDatabase.selectDao().getUserRecord();
+        mobileNumber = user.getPhoneNumber();
+        deviceId = user.getDeviceId();
 
         activationEditText = view.findViewById(R.id.activationCodeET);
         sendBut = view.findViewById(R.id.saveBut);
@@ -99,17 +107,17 @@ public class ActivationLoginFragment extends Fragment implements ActivationLogin
     }
 
 
-    public static ActivationLoginFragment newInstance(String mobileNumber, String deviceId) {
-
-        Bundle arg = new Bundle();
-        arg.putString("mobileNumber", mobileNumber);
-        arg.putString("deviceId", deviceId);
-
-        ActivationLoginFragment activationLoginDialogFragment = new ActivationLoginFragment();
-        activationLoginDialogFragment.setArguments(arg);
-        return activationLoginDialogFragment;
-
-    }
+//    public static ActivationLoginFragment newInstance(String mobileNumber, String deviceId) {
+//
+//        Bundle arg = new Bundle();
+//        arg.putString("mobileNumber", mobileNumber);
+//        arg.putString("deviceId", deviceId);
+//
+//        ActivationLoginFragment activationLoginDialogFragment = new ActivationLoginFragment();
+//        activationLoginDialogFragment.setArguments(arg);
+//        return activationLoginDialogFragment;
+//
+//    }
 
     @Override
     public void activationCodIsValid() {
