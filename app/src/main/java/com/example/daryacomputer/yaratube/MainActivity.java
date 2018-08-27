@@ -14,7 +14,6 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
-import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.CheckLogin;
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        if (false)
+                        if (CheckLogin.isLogin())
                             goToProfileFragment();
                         else
                             goToMainLoginDialogFragment();

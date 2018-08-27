@@ -24,9 +24,9 @@ public class ActivationLoginPresenter implements ActivationLoginContract.Present
             @Override
             public void onSuccess(Register result) {
 
-                User token = new User();
-                token.setToken(result.getToken());
-                yaraDatabase.insertDao().saveToken(token);
+                User user = new User(result.getFinoToken(), result.getNickname(),result.getToken(),result.getMessage(),result.getError());
+                user.setToken(result.getToken());
+                yaraDatabase.insertDao().saveToken(user);
 
                 mView.activationCodIsValid();
 
