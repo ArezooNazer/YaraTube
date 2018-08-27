@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
@@ -34,7 +35,6 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
         mobileLoginDialogFragment = new PhoneNumberFragment();
         activationLoginDialogFragment = new ActivationFragment();
 
-
         if (yaraDatabase.selectDao().selectPhoneNumber() != null)
             goToActivationLoginFragment();
         else
@@ -54,8 +54,16 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_login_dialog, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_main_login_dialog, container, false);
+        Button button = view.findViewById(R.id.dialogDismissBut);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDialog().dismiss();
+            }
+        });
+        return view;
     }
 
     @Override

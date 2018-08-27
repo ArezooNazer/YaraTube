@@ -23,4 +23,6 @@ public interface MainLoginContract {
         void goToMobileLoginFragment();
         void goToActivationLoginFragment();
     }
+
+
 }

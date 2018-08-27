@@ -4,6 +4,7 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,10 +19,13 @@ import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.CheckLogin;
 import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
+import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
 import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
+
+import java.util.List;
 
 import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment.PRODUCT_LIST_FRAGMENT;
@@ -31,10 +35,11 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
 
     private static final String DATABASE_NAME = "yara_db";
-    FragmentManager fragmentManager = getSupportFragmentManager();
-    ProfileFragment profileFragment = new ProfileFragment();
-    public static YaraDatabase yaraDatabase;
-    DrawerLayout drawerLayout;
+    private MainLoginContract.onChildButtonClickListener mListener;
+    private FragmentManager fragmentManager = getSupportFragmentManager();
+    private ProfileFragment profileFragment = new ProfileFragment();
+    public  static YaraDatabase yaraDatabase;
+    private DrawerLayout drawerLayout;
 
 
     private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
         drawerLayout = findViewById(R.id.homePage);
         NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
+
         yaraDatabase = Room.databaseBuilder(getApplicationContext(), YaraDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
@@ -132,6 +138,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
             drawerLayout.closeDrawer(GravityCompat.START);
 
             MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
+            mainLoginDialogFragment.setCancelable(false);
             mainLoginDialogFragment.show(getSupportFragmentManager(), "LoginDialog");
 
         }
@@ -144,20 +151,11 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
             drawerLayout.closeDrawer(GravityCompat.START);
         }
 
-//        for (Fragment frag : fragmentManager.getFragments()) {
-//            if (frag.isVisible()) {
-//                FragmentManager childFm = frag.getChildFragmentManager();
-//                if (childFm.getBackStackEntryCount() > 0) {
-//                    childFm.popBackStack();
-//                    return;
-//                }
-//            }
-//        }
-
         super.onBackPressed();
 
 
     }
+
 
 
 }
