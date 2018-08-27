@@ -7,7 +7,7 @@ import com.example.daryacomputer.yaratube.data.dao.InsertDao;
 import com.example.daryacomputer.yaratube.data.dao.SelectDao;
 import com.example.daryacomputer.yaratube.data.entity.User;
 
-@Database(entities = {User.class} , version = 3)
+@Database(entities = {User.class} , version = 4)
 public abstract class YaraDatabase extends RoomDatabase{
 
     public abstract InsertDao insertDao();

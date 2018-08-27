@@ -1,13 +1,9 @@
 package com.example.daryacomputer.yaratube.ui.login.phonenumberlogin;
 
-import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
@@ -32,7 +28,14 @@ public class PhoneNumberLoginPresenter implements PhoneNumberLoginContract.Prese
             @Override
             public void onSuccess(Login result) {
 
-                   mView.smsRequestReceived(mobileNum,deviceId);
+                    User user = new User();
+                    user.setPhoneNumber(mobileNum);
+                    user.setDeviceId(deviceId);
+                    user.setDeviceModel(deviceModel);
+                    user.setDeviceOs(deviceOs);
+                    yaraDatabase.insertDao().saveUserInfo(user);
+
+                    mView.smsRequestReceived(mobileNum,deviceId);
             }
 
             @Override

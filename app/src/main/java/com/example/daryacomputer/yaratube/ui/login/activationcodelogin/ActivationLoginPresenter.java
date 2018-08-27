@@ -18,17 +18,21 @@ public class ActivationLoginPresenter implements ActivationLoginContract.Present
     }
 
     @Override
-    public void sendActivationCode(final String mobileNum, String deviceId, String verificationCode, String nickName) {
+    public void sendActivationCode(final String mobileNum, final String deviceId, String verificationCode, String nickName) {
 
         loginRepository.sendActivationCodeRepository(mobileNum, deviceId, verificationCode, nickName, new ApiResult<Register>() {
             @Override
             public void onSuccess(Register result) {
 
-                User user = new User(result.getFinoToken(), result.getNickname(),result.getToken(),result.getMessage(),result.getError());
-                user.setToken(result.getToken());
-                yaraDatabase.insertDao().saveToken(user);
+               User user = yaraDatabase.selectDao().getUserRecord();
+               user.setFinoToken(result.getFinoToken());
+               user.setNickname(result.getNickname());
+               user.setToken(result.getToken());
+               user.setMessage(result.getMessage());
+               user.setError(result.getError());
+               yaraDatabase.insertDao().updateUserInfo(user);
 
-                mView.activationCodIsValid();
+               mView.activationCodIsValid();
 
             }
 
