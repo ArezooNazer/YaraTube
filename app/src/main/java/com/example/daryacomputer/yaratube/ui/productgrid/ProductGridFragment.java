@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.ui.productlist;
+package com.example.daryacomputer.yaratube.ui.productgrid;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,18 +26,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProductListFragment extends Fragment implements ProductListContract.View, ProductListContract.OnProductListItemListener {
+public class ProductGridFragment extends Fragment implements ProductGridContract.View, ProductGridContract.OnProductListItemListener {
 
-    public final static String PRODUCT_LIST_FRAGMENT = ProductListFragment.class.getSimpleName();
+    public final static String PRODUCT_LIST_FRAGMENT = ProductGridFragment.class.getSimpleName();
     final static String CATEGORY = "categoryId";
     private List<Product> productList = new ArrayList<>();
-    private ProductListContract.Presenter mPresenter;
-    private ProductListAdapter productListAdapter;
+    private ProductGridContract.Presenter mPresenter;
+    private ProductGridAdapter productListAdapter;
     private ProgressBar progressBar;
     private Category category;
     private TransferToFragment goToProductDetailFragment;
 
-    public ProductListFragment() {
+    public ProductGridFragment() {
         // Required empty public constructor
     }
 
@@ -62,8 +62,8 @@ public class ProductListFragment extends Fragment implements ProductListContract
         if (bundle == null) return;
         setCategory((Category) bundle.getParcelable(CATEGORY));
 
-        productListAdapter = new ProductListAdapter(productList, getContext(), this);
-        mPresenter = new ProductListPresenter(this);
+        productListAdapter = new ProductGridAdapter(productList, getContext(), this);
+        mPresenter = new ProductGridPresenter(this);
 
     }
 
@@ -72,7 +72,7 @@ public class ProductListFragment extends Fragment implements ProductListContract
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_product_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
 
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
@@ -125,10 +125,10 @@ public class ProductListFragment extends Fragment implements ProductListContract
 
     }
 
-    public static ProductListFragment newInstance(Category category) {
+    public static ProductGridFragment newInstance(Category category) {
         Bundle arg = new Bundle();
         arg.putParcelable(CATEGORY, category);
-        ProductListFragment productListFragment = new ProductListFragment();
+        ProductGridFragment productListFragment = new ProductGridFragment();
         productListFragment.setArguments(arg);
         return productListFragment;
     }

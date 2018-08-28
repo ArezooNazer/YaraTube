@@ -4,7 +4,6 @@ import android.arch.persistence.room.Room;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,18 +16,17 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.data.source.CheckLogin;
+import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
 import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment;
+import com.example.daryacomputer.yaratube.ui.productdetail.comment.CommentDialogFragment;
+import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
 
-import java.util.List;
-
 import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
-import static com.example.daryacomputer.yaratube.ui.productlist.ProductListFragment.PRODUCT_LIST_FRAGMENT;
+import static com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment.PRODUCT_LIST_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.profile.ProfileFragment.PROFILE_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity implements TransferToFragment {
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
-                        if (CheckLogin.isLogin())
+                        if (LoginRepository.isLogin())
                             goToProfileFragment();
                         else
                             goToMainLoginDialogFragment();
@@ -93,9 +91,9 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
     @Override
-    public void goToProductListFragment(Category category) {
+    public void goToProductGridFragment(Category category) {
 
-        ProductListFragment productListFragment = ProductListFragment.newInstance(category);
+        ProductGridFragment productListFragment = ProductGridFragment.newInstance(category);
         fragmentManager.beginTransaction()
                 .addToBackStack(PRODUCT_LIST_FRAGMENT)
                 .add(R.id.mainContainer, productListFragment).commit();
@@ -136,12 +134,19 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public void goToMainLoginDialogFragment() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-
-            MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
-            mainLoginDialogFragment.setCancelable(false);
-            mainLoginDialogFragment.show(getSupportFragmentManager(), "LoginDialog");
-
         }
+
+        MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
+        mainLoginDialogFragment.setCancelable(false);
+        mainLoginDialogFragment.show(getSupportFragmentManager(), "LoginDialog");
+    }
+
+    @Override
+    public void goToCommentDialogFragment() {
+
+        CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
+        commentDialogFragment.setCancelable(false);
+        commentDialogFragment.show(getSupportFragmentManager(),"commentDialog");
     }
 
     @Override

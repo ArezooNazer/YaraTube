@@ -1,5 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.productdetail;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -13,35 +14,51 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetailCommentAdapter;
-import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetailCommentContract;
-import com.example.daryacomputer.yaratube.ui.productdetail.comment.ProductDetailCommentPresenter;
+import com.example.daryacomputer.yaratube.data.source.LoginRepository;
+import com.example.daryacomputer.yaratube.ui.productdetail.comment.CommentAdapter;
+import com.example.daryacomputer.yaratube.ui.productdetail.comment.CommentContract;
+import com.example.daryacomputer.yaratube.ui.productdetail.comment.CommentPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDetailFragment extends Fragment implements ProductDetailCommentContract.View, ProductDetailContract.View {
+public class ProductDetailFragment extends Fragment implements CommentContract.View, ProductDetailContract.View {
 
     final public static String PRODUCT_DETAIL_FRAGMENT = ProductDetailFragment.class.getSimpleName();
+    public static boolean LOGIN_FROM_COMMENT = false;
     final public static String PRODUCT = "product";
     private ProductDetailContract.Presenter detailPresenter;
-    private ProductDetailCommentContract.Presenter mPresenter;
-    private ProductDetailCommentAdapter productDetailCommentAdapter;
+    private CommentContract.Presenter mPresenter;
+    private CommentAdapter productDetailCommentAdapter;
     private List<Comment> commentList = new ArrayList<>();
     private Product product;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
+    private TransferToFragment transferToFragment;
 
     public ProductDetailFragment() {
         // Required empty public constructor
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof MainActivity)
+            transferToFragment = (TransferToFragment) context;
+        else
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
     }
 
     @Override
@@ -52,8 +69,8 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         if (arg == null) return;
         setProduct((Product) arg.getParcelable(PRODUCT));
 
-        productDetailCommentAdapter = new ProductDetailCommentAdapter(commentList);
-        mPresenter = new ProductDetailCommentPresenter(this);
+        productDetailCommentAdapter = new CommentAdapter(commentList);
+        mPresenter = new CommentPresenter(this);
         detailPresenter = new ProductDetailPresenter(this);
     }
 
@@ -75,6 +92,7 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setTitle("جزییات محصول");
         }
+
         return view;
 
     }
@@ -86,6 +104,21 @@ public class ProductDetailFragment extends Fragment implements ProductDetailComm
         mPresenter.getCommentList(product);
         detailPresenter.getProductDetail(product);
         setProductDetailData(view);
+
+        Button sendCommentButton = view.findViewById(R.id.sendCommentButton);
+        sendCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (LoginRepository.isLogin()) {
+                    transferToFragment.goToCommentDialogFragment();
+                }
+                else
+                    LOGIN_FROM_COMMENT = true;
+                    transferToFragment.goToMainLoginDialogFragment();
+            }
+        });
+
     }
 
     public void setProductDetailData(View view) {

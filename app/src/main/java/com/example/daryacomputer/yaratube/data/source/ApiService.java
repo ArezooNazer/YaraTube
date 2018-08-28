@@ -5,6 +5,7 @@ import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Login;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Register;
+import com.example.daryacomputer.yaratube.data.model.SendComment;
 import com.example.daryacomputer.yaratube.data.model.Store;
 
 import java.util.List;
@@ -53,6 +54,11 @@ public interface ApiService {
                                              @Field("device_id") String deviceId,
                                              @Field("verification_code") String verificationCode,
                                              @Field("nickname") String nickname);
+
+    @POST("/comment/")
+    Call<SendComment> sendCommentRequest(@Field("title") String title,
+                                         @Field("score") int score,
+                                         @Field("comment_text") String commentText);
 
 
 }

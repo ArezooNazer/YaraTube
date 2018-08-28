@@ -9,11 +9,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
+
 public class LoginRepository {
 
     public static String TAG = LoginRepository.class.getName();
     public static boolean isLogin = false;
-    public static boolean sendIsSuccessful = false;
 
     public void sendPhoneNumberRepository(String mobileNum,
                                           String deviceId,
@@ -29,7 +30,6 @@ public class LoginRepository {
 
                         if (response.isSuccessful()) {
 
-                            sendIsSuccessful = true;
                             Login result = response.body();
                             callback.onSuccess(result);
 
@@ -77,5 +77,13 @@ public class LoginRepository {
                 });
 
 
+    }
+
+    public static boolean isLogin() {
+
+        if (yaraDatabase.selectDao().selectToken() != null)
+            return true;
+        else
+            return false;
     }
 }

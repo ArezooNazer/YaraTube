@@ -17,7 +17,6 @@ import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +97,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void onCategoryItemClick(Category category) {
 
-        goToProductListFragment.goToProductListFragment(category);
+        goToProductListFragment.goToProductGridFragment(category);
     }
 }

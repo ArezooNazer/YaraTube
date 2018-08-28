@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
 
 import java.util.List;
 

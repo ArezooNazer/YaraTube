@@ -18,10 +18,10 @@ import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridContract;
 
 
-public class HomePageFragment extends Fragment implements HomeContract.View, ProductListContract.OnProductListItemListener {
+public class HomePageFragment extends Fragment implements HomeContract.View, ProductGridContract.OnProductListItemListener {
 
     final static String PRODUCT = "product";
     private HomeContract.Presenter mPresenter;
@@ -30,7 +30,7 @@ public class HomePageFragment extends Fragment implements HomeContract.View, Pro
     ProgressBar progressBar;
     TransferToFragment goToDetailFragment;
     private Product product;
-    ProductListContract.OnProductListItemListener onProductListItemListener;
+    ProductGridContract.OnProductListItemListener onProductListItemListener;
 
     public void setProduct(Product product) {
         this.product = product;

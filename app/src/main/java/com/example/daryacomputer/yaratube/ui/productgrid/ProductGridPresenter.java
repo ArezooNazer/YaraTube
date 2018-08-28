@@ -1,24 +1,24 @@
-package com.example.daryacomputer.yaratube.ui.productlist;
+package com.example.daryacomputer.yaratube.ui.productgrid;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.ApiResult;
-import com.example.daryacomputer.yaratube.data.source.ProductListRepository;
+import com.example.daryacomputer.yaratube.data.source.ProductGridRepository;
 
 import java.util.List;
 
-public class ProductListPresenter implements ProductListContract.Presenter{
+public class ProductGridPresenter implements ProductGridContract.Presenter{
 
-    private ProductListRepository productListRepository;
-    private ProductListContract.View mView;
+    private ProductGridRepository productListRepository;
+    private ProductGridContract.View mView;
 
-    public ProductListPresenter(ProductListContract.View mView) {
+    public ProductGridPresenter(ProductGridContract.View mView) {
         this.mView = mView;
     }
 
     @Override
     public void getProductList(Category category) {
-        productListRepository = new ProductListRepository();
+        productListRepository = new ProductGridRepository();
 
         mView.showProgressBar();
         productListRepository.getProductList(category, new ApiResult<List<Product>>() {

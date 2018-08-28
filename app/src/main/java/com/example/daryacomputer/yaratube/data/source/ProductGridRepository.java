@@ -8,7 +8,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class ProductListRepository {
+public class ProductGridRepository {
 
     public void getProductList(Category category , final ApiResult<List<Product>> callback){
 

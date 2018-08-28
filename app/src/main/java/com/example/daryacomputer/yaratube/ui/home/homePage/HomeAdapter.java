@@ -10,23 +10,22 @@ import android.view.ViewGroup;
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
-import com.example.daryacomputer.yaratube.data.model.Headeritem;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.model.Store;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 import com.example.daryacomputer.yaratube.ui.home.homePage.header.HeaderViewHolder;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridContract;
 
 import java.util.List;
 
-public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<Store> , ProductListContract.OnProductListItemListener{
+public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements UpdateListData<Store> , ProductGridContract.OnProductListItemListener{
 
     private List<Homeitem> homeItemList;
     private List<Product> headerItemList;
     Context context;
     FragmentManager fm;
-    ProductListContract.OnProductListItemListener onProductListItemListener;
+    ProductGridContract.OnProductListItemListener onProductListItemListener;
 
     private TransferToFragment goToProductDetailFragment;
 
@@ -34,7 +33,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
     final static int Home_ITEM_VIEW_HOLDER =2;
 
 
-    public HomeAdapter(Context context ,FragmentManager fm , ProductListContract.OnProductListItemListener onProductListItemListener) {
+    public HomeAdapter(Context context ,FragmentManager fm , ProductGridContract.OnProductListItemListener onProductListItemListener) {
 
         this.onProductListItemListener = onProductListItemListener;
         this.context = context;

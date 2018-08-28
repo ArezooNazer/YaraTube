@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.ui.productlist;
+package com.example.daryacomputer.yaratube.ui.productgrid;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
-public class ProductListViewHolder extends RecyclerView.ViewHolder{
+public class ProductGridViewHolder extends RecyclerView.ViewHolder{
 
     private ImageView productAvatar;
     private TextView productTitle;
     private TextView productDesc;
 
-    public ProductListViewHolder(View itemView) {
+    public ProductGridViewHolder(View itemView) {
         super(itemView);
 
         productAvatar = itemView.findViewById(R.id.productListAvatar);
@@ -23,7 +23,7 @@ public class ProductListViewHolder extends RecyclerView.ViewHolder{
         productDesc = itemView.findViewById(R.id.productListDescription);
     }
 
-    public void onBind(final Product product , final ProductListContract.OnProductListItemListener onProductListItemListener){
+    public void onBind(final Product product , final ProductGridContract.OnProductListItemListener onProductListItemListener){
         productTitle.setText(product.getName());
         productDesc.setText(product.getShortDescription());
 

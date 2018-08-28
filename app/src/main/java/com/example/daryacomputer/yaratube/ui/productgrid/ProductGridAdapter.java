@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube.ui.productlist;
+package com.example.daryacomputer.yaratube.ui.productgrid;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,13 +11,13 @@ import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHolder> {
+public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridViewHolder> {
 
     private List<Product> productList;
     private Context context;
-    private ProductListContract.OnProductListItemListener onProductListItemListener;
+    private ProductGridContract.OnProductListItemListener onProductListItemListener;
 
-    public ProductListAdapter(List<Product> productList, Context context , ProductListContract.OnProductListItemListener onProductListItemListener ) {
+    public ProductGridAdapter(List<Product> productList, Context context , ProductGridContract.OnProductListItemListener onProductListItemListener ) {
         this.productList = productList;
         this.context = context;
         this.onProductListItemListener = onProductListItemListener;
@@ -25,12 +25,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListViewHold
 
     @NonNull
     @Override
-    public ProductListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ProductListViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_grid,parent,false));
+    public ProductGridViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        return new ProductGridViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.product_item_grid,parent,false));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProductGridViewHolder holder, int position) {
 
         holder.onBind(getItem(position),onProductListItemListener );
     }

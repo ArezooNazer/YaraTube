@@ -11,14 +11,14 @@ import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Homeitem;
 import com.example.daryacomputer.yaratube.data.model.Product;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridContract;
 
-public class HomeViewHolder extends RecyclerView.ViewHolder implements ProductListContract.OnProductListItemListener{
+public class HomeViewHolder extends RecyclerView.ViewHolder implements ProductGridContract.OnProductListItemListener{
 
     private TextView eachProductListTitle;
     private RecyclerView eachProductListRecyclerView;
     private TransferToFragment goToProductDetailFragment;
-    private ProductListContract.OnProductListItemListener onProductListItemListener;
+    private ProductGridContract.OnProductListItemListener onProductListItemListener;
 
     public HomeViewHolder(View itemView) {
         super(itemView);
@@ -26,7 +26,7 @@ public class HomeViewHolder extends RecyclerView.ViewHolder implements ProductLi
         eachProductListRecyclerView = itemView.findViewById(R.id.homeListRecyclerView);
     }
 
-    public void onBind(Homeitem homeItem , Context context , ProductListContract.OnProductListItemListener onProductListItemListener) {
+    public void onBind(Homeitem homeItem , Context context , ProductGridContract.OnProductListItemListener onProductListItemListener) {
 
         if (context instanceof MainActivity) {
             goToProductDetailFragment = (TransferToFragment) context;

@@ -6,8 +6,9 @@ import com.example.daryacomputer.yaratube.data.model.Product;
 public interface TransferToFragment {
 
     void goToMainContainerFragment();
-    void goToProductListFragment(Category category);
+    void goToProductGridFragment(Category category);
     void goToProductDetailFragment(Product product);
     void goToProfileFragment();
     void goToMainLoginDialogFragment();
+    void goToCommentDialogFragment();
 }

@@ -55,6 +55,7 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
         View view = inflater.inflate(R.layout.fragment_main_login_dialog, container, false);
         Button button = view.findViewById(R.id.dialogDismissBut);
         button.setOnClickListener(new View.OnClickListener() {

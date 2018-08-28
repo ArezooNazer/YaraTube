@@ -13,18 +13,17 @@ import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.UpdateListData;
-import com.example.daryacomputer.yaratube.ui.productlist.ProductListContract;
+import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridContract;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.ProductViewHolder> implements UpdateListData<List<Product>>{
 
-    private ProductListContract.OnProductListItemListener onProductListItemListener;
+    private ProductGridContract.OnProductListItemListener onProductListItemListener;
     private List<Product> productList ;
     private Context context;
 
-    public HomeProductAdapter(Context context , ProductListContract.OnProductListItemListener onProductListItemListener) {
+    public HomeProductAdapter(Context context , ProductGridContract.OnProductListItemListener onProductListItemListener) {
         this.context = context;
         this.onProductListItemListener = onProductListItemListener;
     }
@@ -72,7 +71,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<HomeProductAdapter.
             productDescription = itemView.findViewById(R.id.productDescription);
         }
 
-        public void onBind(final Product product ,final ProductListContract.OnProductListItemListener onProductListItemListener){
+        public void onBind(final Product product ,final ProductGridContract.OnProductListItemListener onProductListItemListener){
 
             String url = product.getAvatarUrl();
             Glide.with(itemView.getContext()).load(url).into(productImage);

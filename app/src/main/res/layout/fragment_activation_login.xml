@@ -51,7 +51,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_border_fill"
+                android:background="@drawable/round_border_blue"
                 android:fontFamily="@font/iran_sans"
                 android:text="ثبت "
                 android:textColor="@color/white" />

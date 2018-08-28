@@ -13,12 +13,12 @@ import com.example.daryacomputer.yaratube.data.source.UpdateListData;
 
 import java.util.List;
 
-public class ProductDetailCommentAdapter extends RecyclerView.Adapter<ProductDetailCommentAdapter.ProductDetailCommentViewHolder> implements UpdateListData<List<Comment>> {
+public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ProductDetailCommentViewHolder> implements UpdateListData<List<Comment>> {
 
     private List<Comment> commentList;
 
 
-    public ProductDetailCommentAdapter(List<Comment> commentList) {
+    public CommentAdapter(List<Comment> commentList) {
         this.commentList = commentList;
     }
 

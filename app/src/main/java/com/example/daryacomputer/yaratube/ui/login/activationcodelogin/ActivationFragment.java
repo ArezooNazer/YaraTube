@@ -18,6 +18,7 @@ import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
+import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.LOGIN_FROM_COMMENT;
 
 public class ActivationFragment extends Fragment implements ActivationContract.View {
 
@@ -56,7 +57,6 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
 //        deviceId = bundle.getString("deviceId");
 
 
-
     }
 
 
@@ -89,7 +89,7 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
             @Override
             public void onClick(View view) {
 
-               mListener.goToMobileLoginFragment();
+                mListener.goToMobileLoginFragment();
             }
         });
 
@@ -105,6 +105,9 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     @Override
     public void activationCodIsValid() {
         ((DialogFragment) getParentFragment()).dismiss();
-        transferToFragment.goToProfileFragment();
+        if (LOGIN_FROM_COMMENT)
+            transferToFragment.goToCommentDialogFragment();
+        else
+            transferToFragment.goToProfileFragment();
     }
 }

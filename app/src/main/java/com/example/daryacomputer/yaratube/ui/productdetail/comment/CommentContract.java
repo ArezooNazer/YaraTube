@@ -1,21 +1,19 @@
 package com.example.daryacomputer.yaratube.ui.productdetail.comment;
 
+import com.example.daryacomputer.yaratube.BaseView;
 import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;
 
-public interface ProductDetailCommentContract {
+public interface CommentContract {
 
-    interface View{
+    interface View extends BaseView {
         void showProductDetailCommentList(List<Comment> commentList);
-        void ShowMassage(String message);
-
-        void showProgressBar();
-        void hideProgressBar();
     }
 
-    interface Presenter{
+    interface Presenter {
         void getCommentList(Product product);
+        void sendComment(String title, int score, String commentText);
     }
 }

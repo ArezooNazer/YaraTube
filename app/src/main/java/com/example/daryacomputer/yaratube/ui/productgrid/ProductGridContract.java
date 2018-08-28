@@ -1,27 +1,22 @@
-package com.example.daryacomputer.yaratube.ui.productlist;
+package com.example.daryacomputer.yaratube.ui.productgrid;
 
+import com.example.daryacomputer.yaratube.BaseView;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;
 
-public interface ProductListContract {
+public interface ProductGridContract {
 
-    interface View{
+    interface View extends BaseView {
         void showProductList(List<Product> productList);
-
-        void ShowMassage(String message);
-
-        void showProgressBar();
-        void hideProgressBar();
     }
 
-    interface Presenter{
+    interface Presenter {
         void getProductList(Category category);
     }
 
-
-    interface  OnProductListItemListener{
+    interface OnProductListItemListener {
 
         void onProductListItemClick(Product product);
     }
