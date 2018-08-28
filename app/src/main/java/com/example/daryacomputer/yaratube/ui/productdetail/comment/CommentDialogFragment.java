@@ -11,9 +11,14 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.data.model.Comment;
 
+import java.util.List;
+
+//TODO implements CommentContract.View
 
 public class CommentDialogFragment extends DialogFragment {
 
@@ -27,9 +32,7 @@ public class CommentDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        mPresenter = new CommentPresenter((CommentContract.View) this);
-
+        mPresenter = new CommentPresenter(this);
     }
 
     @Override
@@ -48,6 +51,7 @@ public class CommentDialogFragment extends DialogFragment {
 
         getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
         View view = inflater.inflate(R.layout.fragment_comment_dialog, container, false);
+
         Button button = view.findViewById(R.id.dialogDismissBut);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,4 +77,5 @@ public class CommentDialogFragment extends DialogFragment {
         });
 
     }
+
 }

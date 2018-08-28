@@ -12,7 +12,6 @@ public interface PhoneNumberContract {
     }
 
     interface Presenter {
-
         void sendPhoneNumber(String mobileNum,
                              String deviceId,
                              String deviceModel,

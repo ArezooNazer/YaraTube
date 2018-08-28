@@ -9,7 +9,7 @@ import java.util.List;
 public interface CommentContract {
 
     interface View extends BaseView {
-        void showProductDetailCommentList(List<Comment> commentList);
+        void showCommentList(List<Comment> commentList);
     }
 
     interface Presenter {

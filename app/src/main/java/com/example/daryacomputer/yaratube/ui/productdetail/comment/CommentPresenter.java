@@ -27,7 +27,7 @@ public class CommentPresenter implements CommentContract.Presenter {
             public void onSuccess(List<Comment> result) {
 
                 mView.hideProgressBar();
-                mView.showProductDetailCommentList(result);
+                mView.showCommentList(result);
             }
 
             @Override

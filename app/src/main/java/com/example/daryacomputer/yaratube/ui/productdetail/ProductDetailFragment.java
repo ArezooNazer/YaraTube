@@ -41,7 +41,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     final public static String PRODUCT = "product";
     private ProductDetailContract.Presenter detailPresenter;
     private CommentContract.Presenter mPresenter;
-    private CommentAdapter productDetailCommentAdapter;
+    private CommentAdapter commentAdapter;
     private List<Comment> commentList = new ArrayList<>();
     private Product product;
     private ProgressBar progressBar;
@@ -69,7 +69,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
         if (arg == null) return;
         setProduct((Product) arg.getParcelable(PRODUCT));
 
-        productDetailCommentAdapter = new CommentAdapter(commentList);
+        commentAdapter = new CommentAdapter(commentList);
         mPresenter = new CommentPresenter(this);
         detailPresenter = new ProductDetailPresenter(this);
     }
@@ -138,7 +138,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
         RecyclerView productDetailComment = view.findViewById(R.id.productDetailRvComment);
         productDetailComment.setLayoutManager(new LinearLayoutManager(getContext()));
-        productDetailComment.setAdapter(productDetailCommentAdapter);
+        productDetailComment.setAdapter(commentAdapter);
     }
 
 
@@ -157,8 +157,8 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     }
 
     @Override
-    public void showProductDetailCommentList(List<Comment> commentList) {
-        productDetailCommentAdapter.updateData(commentList);
+    public void showCommentList(List<Comment> commentList) {
+        commentAdapter.updateData(commentList);
     }
 
     public void ShowMassage(String message) {
