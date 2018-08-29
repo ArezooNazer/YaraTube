@@ -5,24 +5,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.model.Comment;
+import com.example.daryacomputer.yaratube.data.model.Product;
 
 import java.util.List;
 
-//TODO implements CommentContract.View
+import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
-public class CommentDialogFragment extends DialogFragment {
+
+public class CommentDialogFragment extends DialogFragment implements CommentContract.View{
 
     private CommentContract.Presenter mPresenter;
+    private int productId;
 
     public CommentDialogFragment() {
         // Required empty public constructor
@@ -33,6 +39,8 @@ public class CommentDialogFragment extends DialogFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new CommentPresenter(this);
+
+        productId = getArguments().getInt("productId");
     }
 
     @Override
@@ -49,7 +57,7 @@ public class CommentDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
+//        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
         View view = inflater.inflate(R.layout.fragment_comment_dialog, container, false);
 
         Button button = view.findViewById(R.id.dialogDismissBut);
@@ -68,14 +76,52 @@ public class CommentDialogFragment extends DialogFragment {
 
         final EditText commentET = view.findViewById(R.id.commentET);
         Button sendCommentBut = view.findViewById(R.id.sendCommentButton);
+        RatingBar ratingBar = view.findViewById(R.id.ratingBar);
+        final String token = yaraDatabase.selectDao().selectToken();
+        final int score = (int) ratingBar.getRating();
 
         sendCommentBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.sendComment("s" , 3, commentET.getText().toString());
+                mPresenter.sendComment("" , score, commentET.getText().toString(), productId,"Token " + token);
+                Log.d("TAG" ,String.valueOf(productId) );
+
             }
         });
 
     }
 
+    @Override
+    public void showCommentList(List<Comment> commentList) {
+
+    }
+
+    @Override
+    public void commentIsSuccessfullySent() {
+        getDialog().dismiss();
+    }
+
+    public void ShowMassage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showProgressBar(){
+    }
+
+
+    @Override
+    public void hideProgressBar() {
+
+    }
+
+    public static CommentDialogFragment newInstance(int productId){
+
+        Bundle arg = new Bundle();
+        arg.putInt("productId" , productId);
+
+        CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
+        commentDialogFragment.setArguments(arg);
+        return commentDialogFragment;
+    }
 }

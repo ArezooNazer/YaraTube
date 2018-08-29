@@ -7,7 +7,7 @@
     android:background="@drawable/round_border_white">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="21dp">
@@ -20,48 +20,15 @@
             android:background="@color/white"
             android:drawableLeft="@drawable/ic_close_black_24dp" />
 
-        <LinearLayout
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <ImageView
-                android:id="@+id/star1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-               android:layout_weight="1"
-                android:src="@drawable/ic_star_black_24dp" />
-
-            <ImageView
-                android:id="@+id/star2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_star_black_24dp" />
-
-            <ImageView
-                android:id="@+id/star3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_star_black_24dp" />
-
-            <ImageView
-                android:id="@+id/star4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_star_black_24dp" />
-
-            <ImageView
-                android:id="@+id/star5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/ic_star_black_24dp" />
-
-        </LinearLayout>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:theme="@style/Base.Theme.AppCompat.Light.DarkActionBar"
+            android:layout_gravity="center"
+            android:rating="0"
+            android:stepSize="0.5"
+            android:numStars="5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/commentET"

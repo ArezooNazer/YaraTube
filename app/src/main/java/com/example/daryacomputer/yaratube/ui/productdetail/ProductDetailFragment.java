@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,15 +38,16 @@ import java.util.List;
 public class ProductDetailFragment extends Fragment implements CommentContract.View, ProductDetailContract.View {
 
     final public static String PRODUCT_DETAIL_FRAGMENT = ProductDetailFragment.class.getSimpleName();
+    private ProductDetailContract.Presenter detailPresenter;
+    private List<Comment> commentList = new ArrayList<>();
     public static boolean LOGIN_FROM_COMMENT = false;
     final public static String PRODUCT = "product";
-    private ProductDetailContract.Presenter detailPresenter;
+    private TransferToFragment transferToFragment;
     private CommentContract.Presenter mPresenter;
     private CommentAdapter commentAdapter;
-    private List<Comment> commentList = new ArrayList<>();
-    private Product product;
     private ProgressBar progressBar;
-    private TransferToFragment transferToFragment;
+    private Product product;
+
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -111,11 +113,13 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
             public void onClick(View view) {
 
                 if (LoginRepository.isLogin()) {
-                    transferToFragment.goToCommentDialogFragment();
+                    transferToFragment.goToCommentDialogFragment(product.getId());
+                    Log.d("TAG" ,product.getId().toString() );
                 }
-                else
+                else {
                     LOGIN_FROM_COMMENT = true;
                     transferToFragment.goToMainLoginDialogFragment();
+                }
             }
         });
 
@@ -159,6 +163,11 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     @Override
     public void showCommentList(List<Comment> commentList) {
         commentAdapter.updateData(commentList);
+    }
+
+    @Override
+    public void commentIsSuccessfullySent() {
+
     }
 
     public void ShowMassage(String message) {

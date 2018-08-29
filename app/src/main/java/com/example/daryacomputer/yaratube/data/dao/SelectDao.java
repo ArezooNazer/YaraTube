@@ -12,7 +12,6 @@ public interface SelectDao {
     @Query("SELECT * FROM USER")
     User getUserRecord();
 
-
     @Query("SELECT token FROM User")
     String selectToken();
 

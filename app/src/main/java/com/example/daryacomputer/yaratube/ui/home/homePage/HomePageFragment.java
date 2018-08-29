@@ -55,10 +55,6 @@ public class HomePageFragment extends Fragment implements HomeContract.View, Pro
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        Bundle arg = getArguments();
-//        if (arg == null) return;
-//        setProduct((Product) arg.getParcelable(PRODUCT));
-
         homeAdapter = new HomeAdapter(getContext(), getChildFragmentManager(), this);
         mPresenter = new HomePresenter(this);
     }
@@ -109,13 +105,5 @@ public class HomePageFragment extends Fragment implements HomeContract.View, Pro
     public void onProductListItemClick(Product product) {
         goToDetailFragment.goToProductDetailFragment(product);
     }
-
-//    public static HomePageFragment newInstance(Product product) {
-//        Bundle arg = new Bundle();
-//        arg.putParcelable(PRODUCT , product);
-//        HomePageFragment homePageFragment = new HomePageFragment();
-//        homePageFragment.setArguments(arg);
-//        return homePageFragment;
-//    }
 
 }

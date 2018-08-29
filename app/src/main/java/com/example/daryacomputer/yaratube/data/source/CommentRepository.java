@@ -38,13 +38,15 @@ public class CommentRepository {
     }
 
 
-    public void sendComment(String title,
-                            int score,
-                            String commentText,
-                            final ApiResult<SendComment> callback) {
+    public void sendCommentRepo(String title,
+                                int score,
+                                String commentText,
+                                int productId,
+                                String token,
+                                final ApiResult<SendComment> callback) {
 
         ServiceGenerator.getInstance().create(ApiService.class)
-                .sendCommentRequest(title, score, commentText)
+                .sendCommentRequest(title, score, commentText, productId, token)
                 .enqueue(new Callback<SendComment>() {
                     @Override
                     public void onResponse(Call<SendComment> call, Response<SendComment> response) {

@@ -49,14 +49,6 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
         super.onCreate(savedInstanceState);
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
         mPresenter = new ActivationPresenter(this);
-
-
-//        Bundle bundle = getArguments();
-//        if (bundle == null) return;
-//        mobileNumber = bundle.getString("mobileNumber");
-//        deviceId = bundle.getString("deviceId");
-
-
     }
 
 
@@ -105,9 +97,9 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     @Override
     public void activationCodIsValid() {
         ((DialogFragment) getParentFragment()).dismiss();
-        if (LOGIN_FROM_COMMENT)
-            transferToFragment.goToCommentDialogFragment();
-        else
+//        if (LOGIN_FROM_COMMENT)
+//            transferToFragment.goToCommentDialogFragment();
+//        else
             transferToFragment.goToProfileFragment();
     }
 }

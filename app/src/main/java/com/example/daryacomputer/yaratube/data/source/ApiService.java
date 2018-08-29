@@ -14,6 +14,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -55,10 +56,13 @@ public interface ApiService {
                                              @Field("verification_code") String verificationCode,
                                              @Field("nickname") String nickname);
 
-    @POST("/comment/")
+    @POST("/comment/{product_id}")
+    @FormUrlEncoded
     Call<SendComment> sendCommentRequest(@Field("title") String title,
                                          @Field("score") int score,
-                                         @Field("comment_text") String commentText);
+                                         @Field("comment_text") String commentText,
+                                         @Path("product_id") int productId,
+                                         @Header("Authorization") String token);
 
 
 }

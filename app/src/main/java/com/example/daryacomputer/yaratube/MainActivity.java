@@ -142,9 +142,9 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
     @Override
-    public void goToCommentDialogFragment() {
+    public void goToCommentDialogFragment(int productId) {
 
-        CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
+        CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(productId);
         commentDialogFragment.setCancelable(false);
         commentDialogFragment.show(getSupportFragmentManager(),"commentDialog");
     }
@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         }
 
         super.onBackPressed();
-
 
     }
 

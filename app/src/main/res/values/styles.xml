@@ -14,4 +14,9 @@
 
     </style>
 
+    <style name="RatingBar" parent="Animation.AppCompat.Dialog">
+        <item name="colorControlNormal">#aaa</item>
+        <item name="colorControlActivated">#FFDF00</item>
+    </style>
+
 </resources>

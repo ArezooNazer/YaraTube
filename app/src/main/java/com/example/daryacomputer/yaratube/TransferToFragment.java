@@ -10,5 +10,5 @@ public interface TransferToFragment {
     void goToProductDetailFragment(Product product);
     void goToProfileFragment();
     void goToMainLoginDialogFragment();
-    void goToCommentDialogFragment();
+    void goToCommentDialogFragment(int productId);
 }

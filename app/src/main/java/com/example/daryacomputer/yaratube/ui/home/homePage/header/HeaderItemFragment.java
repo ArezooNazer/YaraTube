@@ -23,8 +23,6 @@ public class HeaderItemFragment extends Fragment {
 
     private Product headeritem;
     private TransferToFragment goToProductDetailFragment;
-    private Context context;
-
 
     public HeaderItemFragment() {
         // Required empty public constructor

@@ -22,9 +22,8 @@ import com.example.daryacomputer.yaratube.ui.home.homePage.HomePageFragment;
 public class MainContainerFragment extends Fragment {
 
     private static final String TAG = MainContainerFragment.class.getName();
-    private TransferToFragment transferToFragment;
-    HomePageFragment homePageFragment = new HomePageFragment();
-    CategoryFragment categoryFragment = new CategoryFragment();
+    private HomePageFragment homePageFragment;
+    private CategoryFragment categoryFragment;
 
     public MainContainerFragment() {
         // Required empty public constructor
@@ -33,6 +32,9 @@ public class MainContainerFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        homePageFragment = new HomePageFragment();
+        categoryFragment = new CategoryFragment();
 
     }
 
