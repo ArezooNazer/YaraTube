@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube;
+package com.example.daryacomputer.yaratube.util;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;

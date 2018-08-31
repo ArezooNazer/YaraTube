@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment
 import com.example.daryacomputer.yaratube.ui.productdetail.comment.CommentDialogFragment;
 import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
+import com.example.daryacomputer.yaratube.util.TransferToFragment;
 
 import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment.PRODUCT_LIST_FRAGMENT;
@@ -59,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+                item.setChecked(true);
+                drawerLayout.closeDrawers();
+
                 switch (item.getItemId()) {
 
                     case R.id.drawerProfile:
@@ -80,6 +85,16 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
         goToMainContainerFragment();
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(Gravity.RIGHT);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -111,10 +126,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
     @Override
     public void goToProfileFragment() {
-
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
 
         if (!profileFragment.isAdded()) {
 

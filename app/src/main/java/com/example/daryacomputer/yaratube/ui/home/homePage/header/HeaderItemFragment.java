@@ -12,12 +12,10 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.util.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 import org.parceler.Parcels;
-
-import static com.example.daryacomputer.yaratube.data.source.Constant.BASE_URL;
 
 public class HeaderItemFragment extends Fragment {
 

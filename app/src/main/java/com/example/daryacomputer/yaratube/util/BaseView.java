@@ -1,4 +1,4 @@
-package com.example.daryacomputer.yaratube;
+package com.example.daryacomputer.yaratube.util;
 
 public interface BaseView {
 

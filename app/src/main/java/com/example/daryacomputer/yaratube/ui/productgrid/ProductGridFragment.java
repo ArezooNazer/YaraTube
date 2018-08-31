@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.util.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
 

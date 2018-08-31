@@ -1,6 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.productdetail.comment;
 
-import com.example.daryacomputer.yaratube.BaseView;
+import com.example.daryacomputer.yaratube.util.BaseView;
 import com.example.daryacomputer.yaratube.data.model.Comment;
 import com.example.daryacomputer.yaratube.data.model.Product;
 

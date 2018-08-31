@@ -1,6 +1,6 @@
 package com.example.daryacomputer.yaratube.ui.home.categoryPage;
 
-import com.example.daryacomputer.yaratube.BaseView;
+import com.example.daryacomputer.yaratube.util.BaseView;
 import com.example.daryacomputer.yaratube.data.model.Category;
 
 import java.util.List;

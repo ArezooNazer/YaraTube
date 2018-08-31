@@ -14,7 +14,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.TransferToFragment;
 import com.example.daryacomputer.yaratube.ui.home.categoryPage.CategoryFragment;
 import com.example.daryacomputer.yaratube.ui.home.homePage.HomePageFragment;
 
@@ -46,6 +45,7 @@ public class MainContainerFragment extends Fragment {
 
         Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
 
+
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
@@ -53,6 +53,7 @@ public class MainContainerFragment extends Fragment {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
             actionBar.setTitle("یارا تیوب");
+
         }
 
         goHomePageFragment();

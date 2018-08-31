@@ -13,12 +13,11 @@ import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.TransferToFragment;
+import com.example.daryacomputer.yaratube.util.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
-import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.LOGIN_FROM_COMMENT;
 
 public class ActivationFragment extends Fragment implements ActivationContract.View {
 

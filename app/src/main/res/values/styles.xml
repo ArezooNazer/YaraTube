@@ -6,17 +6,24 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/iran_sans</item>
     </style>
 
     <style name="BottomNavigation">
         <item name="itemIconTint">@color/colorPrimary</item>
         <item name="itemTextColor">@color/colorPrimary</item>
-
+        <item name="android:fontFamily">@font/iran_sans</item>
     </style>
 
     <style name="RatingBar" parent="Animation.AppCompat.Dialog">
         <item name="colorControlNormal">#aaa</item>
         <item name="colorControlActivated">#FFDF00</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="android:fontFamily">@font/iran_sans</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="titleTextColor">@color/white</item>
     </style>
 
 </resources>
