@@ -143,9 +143,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
     @Override
     public void goToMainLoginDialogFragment() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
 
         MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
         mainLoginDialogFragment.setCancelable(false);
