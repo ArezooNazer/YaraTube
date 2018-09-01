@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
+import com.example.daryacomputer.yaratube.data.source.PaginationScrollListener;
 import com.example.daryacomputer.yaratube.util.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.model.Category;
 import com.example.daryacomputer.yaratube.data.model.Product;
@@ -30,9 +31,17 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     public final static String PRODUCT_LIST_FRAGMENT = ProductGridFragment.class.getSimpleName();
     final static String CATEGORY = "categoryId";
+    private static final int PAGE_START = 0;
+    private boolean isLoading = false;
+    private boolean isLastPage = false;
+    private int TOTAL_PAGES = 3;
+    private int currentPage = PAGE_START;
+    int i = 9;
+
     private List<Product> productList = new ArrayList<>();
     private ProductGridContract.Presenter mPresenter;
-    private ProductGridAdapter productListAdapter;
+    private ProductGridAdapter productGridAdapter;
+    private GridLayoutManager gridLayoutManager;
     private ProgressBar progressBar;
     private Category category;
     private TransferToFragment goToProductDetailFragment;
@@ -62,10 +71,12 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
         if (bundle == null) return;
         setCategory((Category) bundle.getParcelable(CATEGORY));
 
-        productListAdapter = new ProductGridAdapter(productList, getContext(), this);
+        productGridAdapter = new ProductGridAdapter(productList, getContext(), this);
+        gridLayoutManager = new GridLayoutManager(getContext(), 2);
         mPresenter = new ProductGridPresenter(this);
 
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -73,6 +84,8 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
+
+        progressBar = view.findViewById(R.id.ProductListProgressBar);
 
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
 
@@ -94,18 +107,42 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
         super.onViewCreated(view, savedInstanceState);
 
         RecyclerView recyclerView = view.findViewById(R.id.ProductListRecyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        recyclerView.setAdapter(productListAdapter);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(productGridAdapter);
 
-        progressBar = view.findViewById(R.id.ProductListProgressBar);
+        recyclerView.addOnScrollListener(new PaginationScrollListener(gridLayoutManager) {
+            @Override
+            protected void loadMoreItems() {
 
-        mPresenter.getProductList(category);
+                isLoading = true;
+                currentPage += 1; //Increment page index to load the next one
+                mPresenter.getProductList(category, productGridAdapter.getItemCount());
+
+            }
+
+            @Override
+            public int getTotalPageCount() {
+                return TOTAL_PAGES;
+            }
+
+            @Override
+            public boolean isLastPage() {
+                return isLastPage;
+            }
+
+            @Override
+            public boolean isLoading() {
+                return isLoading;
+            }
+
+        });
+        mPresenter.getProductList(category, 0);
 
     }
 
     @Override
     public void showProductList(List<Product> productList) {
-        productListAdapter.updateData(productList);
+        productGridAdapter.updateData(productList);
     }
 
     @Override
@@ -125,6 +162,14 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     }
 
+    @Override
+    public void onProductListItemClick(Product product) {
+
+        goToProductDetailFragment.goToProductDetailFragment(product);
+    }
+
+    //local methods
+
     public static ProductGridFragment newInstance(Category category) {
         Bundle arg = new Bundle();
         arg.putParcelable(CATEGORY, category);
@@ -142,9 +187,4 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
     }
 
 
-    @Override
-    public void onProductListItemClick(Product product) {
-
-        goToProductDetailFragment.goToProductDetailFragment(product);
-    }
 }

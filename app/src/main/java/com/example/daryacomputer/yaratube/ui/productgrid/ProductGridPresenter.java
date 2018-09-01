@@ -17,11 +17,11 @@ public class ProductGridPresenter implements ProductGridContract.Presenter{
     }
 
     @Override
-    public void getProductList(Category category) {
+    public void getProductList(Category category , int offset) {
         productListRepository = new ProductGridRepository();
 
         mView.showProgressBar();
-        productListRepository.getProductList(category, new ApiResult<List<Product>>() {
+        productListRepository.getProductList(category,offset, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> result) {
 
@@ -37,4 +37,6 @@ public class ProductGridPresenter implements ProductGridContract.Presenter{
         });
 
     }
+
+
 }

@@ -10,10 +10,10 @@ import retrofit2.Response;
 
 public class ProductGridRepository {
 
-    public void getProductList(Category category , final ApiResult<List<Product>> callback){
+    public void getProductList(Category category , int offset , final ApiResult<List<Product>> callback){
 
         ServiceGenerator.getInstance().create(ApiService.class)
-                .getProductListRequest(category.getId()).enqueue(new retrofit2.Callback<List<Product>>() {
+                .getProductListRequest(category.getId(),10,offset).enqueue(new retrofit2.Callback<List<Product>>() {
             @Override
             public void onResponse(Call<List<Product>> call, Response<List<Product>> response) {
 

@@ -44,8 +44,10 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridViewHold
         return (null != productList? productList.size():0);
     }
 
-    public void updateData(List<Product> productList){
-        this.productList = productList;
-        notifyDataSetChanged();
+    public void updateData(List<Product> products){
+
+            productList.addAll(products);
+            notifyDataSetChanged();
+
     }
 }

@@ -13,7 +13,7 @@ public interface ProductGridContract {
     }
 
     interface Presenter {
-        void getProductList(Category category);
+        void getProductList(Category category, int offset);
     }
 
     interface OnProductListItemListener {

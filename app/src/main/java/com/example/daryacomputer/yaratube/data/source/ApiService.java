@@ -17,6 +17,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiService {
 
@@ -29,8 +30,11 @@ public interface ApiService {
     Call<List<Category>> getCategoryListRequest();
 
     // category grid (all the products of a category item)
+    // @GET("/listproducts/{category_id}?limit=10&offset=offset")
     @GET("/listproducts/{category_id}")
-    Call<List<Product>> getProductListRequest(@Path("category_id") int categoryId);
+    Call<List<Product>> getProductListRequest(@Path("category_id") int categoryId,
+                                              @Query("limit") int limit,
+                                              @Query("offset") int offset);
 
     //productDetailPage
     @GET("/product/{product_id}")
