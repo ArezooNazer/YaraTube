@@ -121,10 +121,10 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
             }
 
-            @Override
-            public int getTotalPageCount() {
-                return TOTAL_PAGES;
-            }
+//            @Override
+//            public int getTotalPageCount() {
+//                return TOTAL_PAGES;
+//            }
 
             @Override
             public boolean isLastPage() {

@@ -9,4 +9,6 @@ public class Constant {
 
     public static String DEVICE_OS = Build.VERSION.RELEASE;
 
+    public static int LIMIT = 10;
+
 }
