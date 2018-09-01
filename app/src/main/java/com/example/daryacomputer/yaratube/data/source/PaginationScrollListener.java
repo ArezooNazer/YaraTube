@@ -2,9 +2,11 @@ package com.example.daryacomputer.yaratube.data.source;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 public abstract class PaginationScrollListener extends RecyclerView.OnScrollListener {
 
+    static String TAG = PaginationScrollListener.class.getName();
     GridLayoutManager GridLayoutManager;
 
     public PaginationScrollListener(GridLayoutManager layoutManager) {
@@ -19,9 +21,10 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
         int totalItemCount = GridLayoutManager.getItemCount();
         int firstVisibleItemPosition = GridLayoutManager.findFirstVisibleItemPosition();
 
+        Log.d("TAG", "visibleItemCount= " + visibleItemCount + " totalItemCount= " + totalItemCount + " firstVisibleItemPosition= " + firstVisibleItemPosition);
+
         if (!isLoading() && !isLastPage()) {
-            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
-                    && firstVisibleItemPosition >= 0) {
+            if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount && firstVisibleItemPosition >= 0) {
                 loadMoreItems();
             }
         }

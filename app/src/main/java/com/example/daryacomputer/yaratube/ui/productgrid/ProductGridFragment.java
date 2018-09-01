@@ -31,18 +31,19 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     public final static String PRODUCT_LIST_FRAGMENT = ProductGridFragment.class.getSimpleName();
     final static String CATEGORY = "categoryId";
+
     private static final int PAGE_START = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
-    private int TOTAL_PAGES = 3;
+    private int TOTAL_PAGES =3;
     private int currentPage = PAGE_START;
-    int i = 9;
 
     private List<Product> productList = new ArrayList<>();
     private ProductGridContract.Presenter mPresenter;
     private ProductGridAdapter productGridAdapter;
     private GridLayoutManager gridLayoutManager;
     private ProgressBar progressBar;
+    private RecyclerView recyclerView;
     private Category category;
     private TransferToFragment goToProductDetailFragment;
 
@@ -106,7 +107,7 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        RecyclerView recyclerView = view.findViewById(R.id.ProductListRecyclerView);
+        recyclerView = view.findViewById(R.id.ProductListRecyclerView);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(productGridAdapter);
 
@@ -142,7 +143,12 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     @Override
     public void showProductList(List<Product> productList) {
-        productGridAdapter.updateData(productList);
+        if(recyclerView == null){
+            productGridAdapter.firstDataLoad(productList);
+        }else {
+            isLoading = false;
+            productGridAdapter.updateData(productList);
+        }
     }
 
     @Override
