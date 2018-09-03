@@ -121,11 +121,6 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
             }
 
-//            @Override
-//            public int getTotalPageCount() {
-//                return TOTAL_PAGES;
-//            }
-
             @Override
             public boolean isLastPage() {
                 return isLastPage;
@@ -143,10 +138,11 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     @Override
     public void showProductList(List<Product> productList) {
-        if(recyclerView == null){
+        if(productGridAdapter.getItemCount()== 0){
             productGridAdapter.firstDataLoad(productList);
         }else {
             isLoading = false;
+//            productGridAdapter.updateItems(productList);
             productGridAdapter.updateData(productList);
         }
     }
@@ -158,7 +154,6 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     @Override
     public void showProgressBar() {
-
         progressBar.setVisibility(View.VISIBLE);
     }
 

@@ -32,8 +32,6 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
 
     protected abstract void loadMoreItems();
 
-//    public abstract int getTotalPageCount();
-
     public abstract boolean isLastPage();
 
     public abstract boolean isLoading();
