@@ -1,6 +1,7 @@
 package com.example.daryacomputer.yaratube.util;
 
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.File;
 import com.example.daryacomputer.yaratube.data.model.Product;
 
 public interface TransferToFragment {
@@ -11,4 +12,5 @@ public interface TransferToFragment {
     void goToProfileFragment();
     void goToMainLoginDialogFragment();
     void goToCommentDialogFragment(int productId);
+    void goToVideoPlayerActivity(String file);
 }

@@ -47,6 +47,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     private CommentAdapter commentAdapter;
     private ProgressBar progressBar;
     private Product product;
+    private ImageView playBut,  productDetailImage;
 
 
     public ProductDetailFragment() {
@@ -123,6 +124,11 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
             }
         });
 
+        playBut = view.findViewById(R.id.productDetailIvIcon);
+        productDetailImage = view.findViewById(R.id.productDetailIv);
+        videoPlayerListener();
+
+
     }
 
     public void setProductDetailData(View view) {
@@ -188,5 +194,39 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     @Override
     public void showProductDetail(Product product) {
         this.product = product;
+    }
+
+
+    public void videoPlayerListener(){
+
+        playBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (LoginRepository.isLogin()) {
+                    transferToFragment.goToCommentDialogFragment(product.getId());
+                    Log.d("TAG" ,product.getId().toString() );
+                }
+                else {
+                    LOGIN_FROM_COMMENT = true;
+                    transferToFragment.goToVideoPlayerActivity(product.getFiles().get(0).getFile());
+                }
+            }
+        });
+
+        productDetailImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (LoginRepository.isLogin()) {
+                    transferToFragment.goToCommentDialogFragment(product.getId());
+                    Log.d("TAG" ,product.getId().toString() );
+                }
+                else {
+                    LOGIN_FROM_COMMENT = true;
+                    transferToFragment.goToVideoPlayerActivity(product.getFiles().get(0).getFile());
+                }
+            }
+        });
     }
 }

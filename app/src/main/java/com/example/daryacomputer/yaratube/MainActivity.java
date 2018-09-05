@@ -1,6 +1,8 @@
 package com.example.daryacomputer.yaratube;
 
+import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,8 +18,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.model.Category;
+import com.example.daryacomputer.yaratube.data.model.File;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
+import com.example.daryacomputer.yaratube.ui.exoplayer.VideoPlayerActivity;
 import com.example.daryacomputer.yaratube.ui.home.MainContainerFragment;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginDialogFragment;
@@ -155,6 +159,15 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(productId);
         commentDialogFragment.setCancelable(false);
         commentDialogFragment.show(getSupportFragmentManager(),"commentDialog");
+    }
+
+    @Override
+    public void goToVideoPlayerActivity(String file) {
+
+        Intent videoPlayerActivity = new Intent(getApplicationContext(), VideoPlayerActivity.class);
+        videoPlayerActivity.putExtra( "file",file);
+        startActivity(videoPlayerActivity);
+
     }
 
     @Override

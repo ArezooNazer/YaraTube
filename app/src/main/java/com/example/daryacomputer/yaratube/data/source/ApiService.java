@@ -37,7 +37,7 @@ public interface ApiService {
                                               @Query("offset") int offset);
 
     //productDetailPage
-    @GET("/product/{product_id}")
+    @GET("/product/{product_id}?device_os=ios")
     Call<Product> getProductDetailRequest(@Path("product_id") int productId);
 
     //productDetailPage comments

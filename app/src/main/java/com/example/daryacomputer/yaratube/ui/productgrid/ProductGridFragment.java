@@ -142,8 +142,8 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
             productGridAdapter.firstDataLoad(productList);
         }else {
             isLoading = false;
-//            productGridAdapter.updateItems(productList);
-            productGridAdapter.updateData(productList);
+//            productGridAdapter.updateItems(productList);//using diffUtil
+            productGridAdapter.updateData(productList);//using notify
         }
     }
 
