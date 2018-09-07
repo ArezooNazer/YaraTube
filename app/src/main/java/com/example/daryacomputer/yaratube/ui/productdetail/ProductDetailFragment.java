@@ -203,8 +203,8 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
             @Override
             public void onClick(View view) {
 
-                if (LoginRepository.isLogin()) {
-                    transferToFragment.goToCommentDialogFragment(product.getId());
+                if (!LoginRepository.isLogin()) {
+                    transferToFragment.goToMainLoginDialogFragment();
                     Log.d("TAG" ,product.getId().toString() );
                 }
                 else {
@@ -218,8 +218,8 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
             @Override
             public void onClick(View view) {
 
-                if (LoginRepository.isLogin()) {
-                    transferToFragment.goToCommentDialogFragment(product.getId());
+                if (!LoginRepository.isLogin()) {
+                    transferToFragment.goToMainLoginDialogFragment();
                     Log.d("TAG" ,product.getId().toString() );
                 }
                 else {

@@ -15,4 +15,9 @@ public interface ActivationContract {
                                 String verificationCode,
                                 String nickName);
     }
+
+    //A bridge between the broadcast receiver and the bound views
+    interface OTPListener {
+        void onOTPReceived(String otp);
+    }
 }

@@ -46,7 +46,7 @@
             android:layout_marginTop="50dp">
 
             <Button
-                android:id="@+id/saveBut"
+                android:id="@+id/sendActivationCodeBut"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginLeft="5dp"
@@ -57,7 +57,7 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/clearBut"
+                android:id="@+id/editPhoneNumberBut"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="5dp"

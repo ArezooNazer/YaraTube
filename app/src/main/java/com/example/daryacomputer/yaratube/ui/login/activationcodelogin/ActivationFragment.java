@@ -13,9 +13,9 @@ import android.widget.Toast;
 
 import com.example.daryacomputer.yaratube.MainActivity;
 import com.example.daryacomputer.yaratube.R;
-import com.example.daryacomputer.yaratube.util.TransferToFragment;
 import com.example.daryacomputer.yaratube.data.entity.User;
 import com.example.daryacomputer.yaratube.ui.login.MainLoginContract;
+import com.example.daryacomputer.yaratube.util.TransferToFragment;
 
 import static com.example.daryacomputer.yaratube.MainActivity.yaraDatabase;
 
@@ -26,7 +26,7 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     private TransferToFragment transferToFragment;
     private ActivationContract.Presenter mPresenter;
     private EditText activationEditText;
-    private Button sendBut, clearEditTextBut;
+    private Button sendActivationCodeBut, editPhoneNumberBut;
     private String mobileNumber, deviceId;
 
 
@@ -62,10 +62,19 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
         deviceId = user.getDeviceId();
 
         activationEditText = view.findViewById(R.id.activationCodeET);
-        sendBut = view.findViewById(R.id.saveBut);
-        clearEditTextBut = view.findViewById(R.id.clearBut);
+        sendActivationCodeBut = view.findViewById(R.id.sendActivationCodeBut);
+        editPhoneNumberBut = view.findViewById(R.id.editPhoneNumberBut);
 
-        sendBut.setOnClickListener(new View.OnClickListener() {
+
+        SMSListener.bindListener(new ActivationContract.OTPListener() {
+            @Override
+            public void onOTPReceived(String extractedOTP) {
+                activationEditText.setText(extractedOTP);
+            }
+        });
+
+
+        sendActivationCodeBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -73,10 +82,12 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
                         activationEditText.getText().toString().trim(),
                         "Arezoo");
 
+                SMSListener.unbindListener();
+
             }
         });
 
-        clearEditTextBut.setOnClickListener(new View.OnClickListener() {
+        editPhoneNumberBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -99,6 +110,6 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
 //        if (LOGIN_FROM_COMMENT)
 //            transferToFragment.goToCommentDialogFragment();
 //        else
-            transferToFragment.goToProfileFragment();
+        transferToFragment.goToProfileFragment();
     }
 }

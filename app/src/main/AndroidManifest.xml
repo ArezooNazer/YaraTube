@@ -3,6 +3,12 @@
     package="com.example.daryacomputer.yaratube">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <!--Automatically-read-OTP from SMS:these are non-runtime permissions (run-time permission in mainActivity for android 6 or more)
+    READ SMS allows the app to read all SMSes that exist on device and also the incoming ones. RECEIVE SMS only allows reading the incoming ones.-->
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+
+
 
     <application
         android:allowBackup="true"
@@ -21,6 +27,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.exoplayer.VideoPlayerActivity"></activity>
+
+        <receiver
+            android:name=".ui.login.activationcodelogin.SMSListener">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
     </application>
+
+
 
 </manifest>

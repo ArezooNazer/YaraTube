@@ -60,7 +60,6 @@ public class VideoPlayerActivity extends AppCompatActivity {
         player.setPlayWhenReady(true);
         playerView.setPlayer(player);
 
-
     }
 
     @Override

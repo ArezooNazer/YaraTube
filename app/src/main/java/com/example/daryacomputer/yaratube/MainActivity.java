@@ -3,9 +3,11 @@ package com.example.daryacomputer.yaratube;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,6 +16,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
@@ -44,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     private ProfileFragment profileFragment = new ProfileFragment();
     public  static YaraDatabase yaraDatabase;
     private DrawerLayout drawerLayout;
+    //define a value to handle the permission callback, in onRequestPermissionsResult():
+    private final int REQUEST_CODE_READ_SMS = 1;
 
 
     private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
@@ -52,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
+
 
         drawerLayout = findViewById(R.id.homePage);
         NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
@@ -181,6 +190,17 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-
+            switch (requestCode) {
+                case REQUEST_CODE_READ_SMS:
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        Toast.makeText(MainActivity.this, "Permission Granted!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                    }
+            }
+    }
 }
