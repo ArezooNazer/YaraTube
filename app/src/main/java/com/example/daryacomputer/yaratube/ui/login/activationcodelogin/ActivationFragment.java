@@ -1,7 +1,9 @@
 package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -116,5 +118,19 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
 //            transferToFragment.goToCommentDialogFragment();
 //        else
         transferToFragment.goToProfileFragment();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_CODE_READ_SMS:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(getContext(), "Permission Granted!", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getContext(), "Permission Denied!", Toast.LENGTH_SHORT).show();
+                }
+        }
     }
 }
