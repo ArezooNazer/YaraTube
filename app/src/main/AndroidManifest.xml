@@ -26,7 +26,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.exoplayer.VideoPlayerActivity"></activity>
+        <activity android:name=".ui.exoplayer.VideoPlayerActivity"
+            android:screenOrientation="landscape"></activity>
 
         <receiver
             android:name=".ui.login.activationcodelogin.SMSListener">

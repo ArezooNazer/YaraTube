@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.VideoView;
 
@@ -28,6 +29,7 @@ import com.google.android.exoplayer2.util.Util;
 
 public class VideoPlayerActivity extends AppCompatActivity {
 
+    private static String TAG = VideoPlayerActivity.class.getName();
     private static String APP_NAME = "ExoPlayer";
     private PlayerView playerView;
     private SimpleExoPlayer player;
@@ -58,13 +60,33 @@ public class VideoPlayerActivity extends AppCompatActivity {
 
         player.prepare(mediaSource);
         player.setPlayWhenReady(true);
+        playerView.setKeepScreenOn(true);
         playerView.setPlayer(player);
 
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onStart() {
+        Log.d(TAG, "onStart() called");
+        super.onStart();
+        player.setPlayWhenReady(true);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        player.setPlayWhenReady(true);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        player.setPlayWhenReady(false); //to pause a video because now our video player is not in focus
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         playerView.setPlayer(null);
         player.release();
     }

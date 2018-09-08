@@ -2,6 +2,7 @@ package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -34,7 +35,6 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     //define a value to handle the permission callback, in onRequestPermissionsResult():
     public final static int REQUEST_CODE_READ_SMS = 1;
 
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -51,7 +51,7 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
+
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
         mPresenter = new ActivationPresenter(this);
 
@@ -72,6 +72,8 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
         sendActivationCodeBut = view.findViewById(R.id.sendActivationCodeBut);
         editPhoneNumberBut = view.findViewById(R.id.editPhoneNumberBut);
 
+        if(Build.VERSION.SDK_INT >=6)
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
 
         SMSListener.bindListener(new ActivationContract.OTPListener() {
             @Override

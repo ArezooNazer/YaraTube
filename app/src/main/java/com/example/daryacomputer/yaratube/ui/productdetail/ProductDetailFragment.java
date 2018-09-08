@@ -199,34 +199,24 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
     public void videoPlayerListener(){
 
-        playBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+//        ctrl+shift+a : anonymous -> create inner class
+        playBut.setOnClickListener(new MyOnClickListener());
+        productDetailImage.setOnClickListener(new MyOnClickListener());
 
-                if (!LoginRepository.isLogin()) {
-                    transferToFragment.goToMainLoginDialogFragment();
-                    Log.d("TAG" ,product.getId().toString() );
-                }
-                else {
-                    LOGIN_FROM_COMMENT = true;
-                    transferToFragment.goToVideoPlayerActivity(product.getFiles().get(0).getFile());
-                }
+    }
+
+    private class MyOnClickListener implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            if (!LoginRepository.isLogin()) {
+                transferToFragment.goToMainLoginDialogFragment();
+                Log.d("TAG" ,product.getId().toString() );
             }
-        });
-
-        productDetailImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!LoginRepository.isLogin()) {
-                    transferToFragment.goToMainLoginDialogFragment();
-                    Log.d("TAG" ,product.getId().toString() );
-                }
-                else {
-                    LOGIN_FROM_COMMENT = true;
-                    transferToFragment.goToVideoPlayerActivity(product.getFiles().get(0).getFile());
-                }
+            else {
+                LOGIN_FROM_COMMENT = true;
+                transferToFragment.goToVideoPlayerActivity(product.getFiles().get(0).getFile());
             }
-        });
+        }
     }
 }

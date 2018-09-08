@@ -1,13 +1,10 @@
 package com.example.daryacomputer.yaratube;
 
-import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,12 +13,10 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.daryacomputer.yaratube.data.YaraDatabase;
 import com.example.daryacomputer.yaratube.data.model.Category;
-import com.example.daryacomputer.yaratube.data.model.File;
 import com.example.daryacomputer.yaratube.data.model.Product;
 import com.example.daryacomputer.yaratube.data.source.LoginRepository;
 import com.example.daryacomputer.yaratube.ui.exoplayer.VideoPlayerActivity;
@@ -34,7 +29,6 @@ import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
 import com.example.daryacomputer.yaratube.util.TransferToFragment;
 
-import static com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationFragment.REQUEST_CODE_READ_SMS;
 import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment.PRODUCT_LIST_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.profile.ProfileFragment.PROFILE_FRAGMENT;
@@ -46,16 +40,14 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     private MainLoginContract.onChildButtonClickListener mListener;
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private ProfileFragment profileFragment = new ProfileFragment();
-    public  static YaraDatabase yaraDatabase;
+    public static YaraDatabase yaraDatabase;
     private DrawerLayout drawerLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-//        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
 
 
         drawerLayout = findViewById(R.id.homePage);
@@ -75,11 +67,11 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
                 switch (item.getItemId()) {
 
-                    case R.id.drawerProfile:
-                        if (LoginRepository.isLogin())
-                            goToProfileFragment();
-                        else
-                            goToMainLoginDialogFragment();
+                        case R.id.drawerProfile:
+                            if (LoginRepository.isLogin())
+                                goToProfileFragment();
+                            else
+                                goToMainLoginDialogFragment();
 
                 }
                 return false;
@@ -163,14 +155,14 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
         CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(productId);
         commentDialogFragment.setCancelable(false);
-        commentDialogFragment.show(getSupportFragmentManager(),"commentDialog");
+        commentDialogFragment.show(getSupportFragmentManager(), "commentDialog");
     }
 
     @Override
     public void goToVideoPlayerActivity(String file) {
 
         Intent videoPlayerActivity = new Intent(getApplicationContext(), VideoPlayerActivity.class);
-        videoPlayerActivity.putExtra( "file",file);
+        videoPlayerActivity.putExtra("file", file);
         startActivity(videoPlayerActivity);
 
     }
