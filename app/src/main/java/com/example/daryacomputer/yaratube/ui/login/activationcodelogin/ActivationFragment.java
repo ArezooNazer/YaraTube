@@ -2,6 +2,7 @@ package com.example.daryacomputer.yaratube.ui.login.activationcodelogin;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,6 +29,8 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     private EditText activationEditText;
     private Button sendActivationCodeBut, editPhoneNumberBut;
     private String mobileNumber, deviceId;
+    //define a value to handle the permission callback, in onRequestPermissionsResult():
+    public final static int REQUEST_CODE_READ_SMS = 1;
 
 
     @Override
@@ -46,8 +49,10 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
         mPresenter = new ActivationPresenter(this);
+
     }
 
 

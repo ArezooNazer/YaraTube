@@ -34,6 +34,7 @@ import com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment;
 import com.example.daryacomputer.yaratube.ui.profile.ProfileFragment;
 import com.example.daryacomputer.yaratube.util.TransferToFragment;
 
+import static com.example.daryacomputer.yaratube.ui.login.activationcodelogin.ActivationFragment.REQUEST_CODE_READ_SMS;
 import static com.example.daryacomputer.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.productgrid.ProductGridFragment.PRODUCT_LIST_FRAGMENT;
 import static com.example.daryacomputer.yaratube.ui.profile.ProfileFragment.PROFILE_FRAGMENT;
@@ -47,11 +48,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     private ProfileFragment profileFragment = new ProfileFragment();
     public  static YaraDatabase yaraDatabase;
     private DrawerLayout drawerLayout;
-    //define a value to handle the permission callback, in onRequestPermissionsResult():
-    private final int REQUEST_CODE_READ_SMS = 1;
-
-
-    private MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         setContentView(R.layout.activity_main);
 
 
-        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
+//        ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
 
 
         drawerLayout = findViewById(R.id.homePage);

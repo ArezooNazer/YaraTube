@@ -14,6 +14,7 @@ public class SMSListener extends BroadcastReceiver {
 
     String TAG = SMSListener.class.getName();
     private static ActivationContract.OTPListener otpListener;
+    private final String SMS_SENDER_NUMBER = "+98200049103";
 
 
     @Override
@@ -33,24 +34,29 @@ public class SMSListener extends BroadcastReceiver {
 
                 SmsMessage smsMessage = SmsMessage.createFromPdu((byte[]) pdu);
                 String message = smsMessage.getDisplayMessageBody();
+                String smsSenderNumber = smsMessage.getDisplayOriginatingAddress();
 
-                //find numerical code from sms body using regex(regular expression)
-                Pattern p = Pattern.compile("\\d+");
-                Matcher m = p.matcher(message);
-                int sms;
+                Log.d("TAG",smsSenderNumber + " ," +  message);
 
-                if (m.find()) {
-                    do {
-                        sms = Integer.parseInt(m.group());
-                        Log.d("TAG", String.valueOf(sms));
-                    } while (m.find());
-                } else
-                    sms = 0;
+                if (smsSenderNumber.equals(SMS_SENDER_NUMBER)) {
 
+                    //find numerical code from sms body using regex(regular expression)
+                    Pattern p = Pattern.compile("\\d+");
+                    Matcher m = p.matcher(message);
+                    int sms;
 
-                if (otpListener != null)
-                    otpListener.onOTPReceived(String.valueOf(sms));
-                break;
+                    if (m.find()) {
+                        do {
+                            sms = Integer.parseInt(m.group());
+                            Log.d("TAG", String.valueOf(sms));
+                        } while (m.find());
+                    } else
+                        sms = 0;
+
+                    if (otpListener != null)
+                        otpListener.onOTPReceived(String.valueOf(sms));
+
+                }
             }
         }
 
