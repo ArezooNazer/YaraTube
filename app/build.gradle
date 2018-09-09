@@ -1,9 +1,18 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'yaratech '
+            keyPassword '&p2=Z9XZRGt3f<qU  '
+            storeFile file('D:/YaraIntranship/yaratech/yaratech_sign.jks')
+            storePassword '&p2=Z9XZRGt3f<qU  '
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.example.daryacomputer.yaratube"
+//        applicationId "com.example.daryacomputer.yaratube"
+        applicationId "com.yaratech.yaratube"
         minSdkVersion 17
         targetSdkVersion 28
         versionCode 1
@@ -15,11 +24,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        release {
+            signingConfig signingConfigs.config
+        }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$rootProject.ext.version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
@@ -47,5 +59,7 @@ dependencies {
     annotationProcessor 'android.arch.persistence.room:compiler:1.0.0'
     //ExoPlayer
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
-
+    //google sign
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
 }
+apply plugin: 'com.google.gms.google-services'

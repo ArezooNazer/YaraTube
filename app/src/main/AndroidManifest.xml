@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.daryacomputer.yaratube">
+    package="com.example.yaratech.yaratube">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <!--Automatically-read-OTP from SMS:these are non-runtime permissions (run-time permission in mainActivity for android 6 or more)
