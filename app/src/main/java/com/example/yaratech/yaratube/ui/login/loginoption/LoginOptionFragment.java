@@ -1,8 +1,9 @@
-package com.example.yaratech.yaratube.ui.login;
+package com.example.yaratech.yaratube.ui.login.loginoption;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,9 @@ import android.widget.Toast;
 
 import com.example.yaratech.yaratube.MainActivity;
 import com.example.yaratech.yaratube.R;
+import com.example.yaratech.yaratube.data.entity.User;
+import com.example.yaratech.yaratube.data.source.Constant;
+import com.example.yaratech.yaratube.ui.login.MainLoginContract;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -23,11 +27,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
 
-public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
+
+public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener, LoginOptionContract.View {
     String TAG = LoginOptionFragment.class.getName();
     private MainLoginContract.onChildButtonClickListener mListener;
     private TransferToFragment transferToFragment;
+    private LoginOptionContract.Presenter mPresenter;
     private Button loginViaPhoneNumBut, loginViaGoogleBut;
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
@@ -50,9 +57,11 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
+        mPresenter = new LoginOptionPresenter(this);
 
         //return user basic info like userId, user photo + user email
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
@@ -81,7 +90,7 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(getContext(),"لطفا چند لحظه صبر کنید...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "لطفا چند لحظه صبر کنید...", Toast.LENGTH_LONG).show();
                 loginViaGoogle();
             }
 
@@ -90,8 +99,15 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
         return view;
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        googleApiClient.stopAutoManage(getActivity());
+        googleApiClient.disconnect();
+    }
 
-    private void loginViaGoogle(){
+
+    private void loginViaGoogle() {
 
         Log.d(TAG, "loginViaGoogle() called");
 
@@ -99,29 +115,29 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
         startActivityForResult(intent, REQ_CODE);
     }
 
-    private void handleResult(GoogleSignInResult result){
+    private void handleResult(GoogleSignInResult result) {
 
-
-
-        if (result.isSuccess()){
-
+        if (result.isSuccess()) {
 
             GoogleSignInAccount account = result.getSignInAccount();
-//            String name = account.getDisplayName();
-//            String email= account.getEmail();
-//            String image = account.getPhotoUrl().toString();
-//            String token = account.getIdToken();
+            String googleToken = account.getIdToken();
 
-//            User user = yaraDatabase.selectDao().getUserRecord();
-//            user.setNickname(account.getDisplayName());
-//            user.setToken(account.getIdToken());
-//            yaraDatabase.insertDao().updateUserInfo(user);
+            User user = new User();
+            user.setName(account.getDisplayName());
+            user.setEmail(account.getEmail());
+            user.setImage(account.getPhotoUrl().toString());
+            yaraDatabase.insertDao().saveUserInfo(user);
 
-            Log.d("TAG", "handleResult() called with: result = [" + result + " , " + account + "]");
+            final String Device_id = Settings.Secure.getString(getContext().getContentResolver(),
+                    Settings.Secure.ANDROID_ID);
+
+            mPresenter.sendGoogleToken(googleToken, Device_id, Constant.DEVICE_OS, Constant.DEVICE_MODEL);
+
+            Log.d("TAG", "handleResult() called with: result = [" + account.getDisplayName()  + " , " + account.getEmail() + ", "+ account.getPhotoUrl().toString()+ "]");
             ((DialogFragment) getParentFragment()).dismiss();
             transferToFragment.goToProfileFragment();
 
-        }else {
+        } else {
             Log.d("TAG", "result is not successful");
         }
     }
@@ -129,7 +145,7 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed() called with: connectionResult = [" + connectionResult + "]");
+        Toast.makeText(getContext(), "ارتباط ناموفق، دوباره تلاش کنید.", Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -137,10 +153,18 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
         Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == REQ_CODE){
+        if (requestCode == REQ_CODE) {
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleResult(result);
         }
+    }
+
+
+
+    @Override
+    public void showMessage(String message) {
+//        Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "showMessage() called with: message = [" + message + "," + this.getContext() + "]");
     }
 }

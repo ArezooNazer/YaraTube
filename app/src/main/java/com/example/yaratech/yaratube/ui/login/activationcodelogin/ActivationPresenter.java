@@ -28,8 +28,6 @@ public class ActivationPresenter implements ActivationContract.Presenter {
                user.setFinoToken(result.getFinoToken());
                user.setNickname(result.getNickname());
                user.setToken(result.getToken());
-               user.setMessage(result.getMessage());
-               user.setError(result.getError());
                yaraDatabase.insertDao().updateUserInfo(user);
 
                mView.activationCodIsValid();

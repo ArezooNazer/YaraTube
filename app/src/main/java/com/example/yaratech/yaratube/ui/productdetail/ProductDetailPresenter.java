@@ -31,7 +31,7 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
             public void onError(String massage) {
 
 //                mView.hideProgressBar();
-//                mView.ShowMassage(massage);
+//                mView.showMassage(massage);
             }
         });
     }

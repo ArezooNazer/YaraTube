@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +22,7 @@ public class PhoneNumberFragment extends Fragment implements PhoneNumberContract
     private MainLoginContract.onChildButtonClickListener mListener;
     private PhoneNumberContract.Presenter mPresenter;
     private EditText phoneNumberEditText;
-
+    String TAG = PhoneNumberFragment.class.getName();
 
     public PhoneNumberFragment() {
         // Required empty public constructor
@@ -55,6 +56,7 @@ public class PhoneNumberFragment extends Fragment implements PhoneNumberContract
                boolean isLegal = editTextVerification(phoneNumberEditText);
 
                if(isLegal) {
+
                    mPresenter.sendPhoneNumber(phoneNumberEditText.getText().toString().trim(),
                            Device_id,
                            Constant.DEVICE_MODEL,

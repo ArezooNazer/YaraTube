@@ -2,6 +2,7 @@ package com.example.yaratech.yaratube.data.source;
 
 import com.example.yaratech.yaratube.data.model.Category;
 import com.example.yaratech.yaratube.data.model.Comment;
+import com.example.yaratech.yaratube.data.model.GoogleLogin;
 import com.example.yaratech.yaratube.data.model.Login;
 import com.example.yaratech.yaratube.data.model.Product;
 import com.example.yaratech.yaratube.data.model.Register;
@@ -59,6 +60,15 @@ public interface ApiService {
                                              @Field("device_id") String deviceId,
                                              @Field("verification_code") String verificationCode,
                                              @Field("nickname") String nickname);
+
+
+    //google login
+    @POST("/login_google/16")
+    @FormUrlEncoded
+    Call<GoogleLogin> sendGoogleTokenRequest(@Field("token_id") String googleToken,
+                                             @Field("device_id") String deviceId,
+                                             @Field("device_os") String deviceOs,
+                                             @Field("device_model") String deviceModel);
 
     @POST("/comment/{product_id}")
     @FormUrlEncoded

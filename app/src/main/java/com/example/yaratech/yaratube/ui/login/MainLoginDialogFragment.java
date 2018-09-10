@@ -10,8 +10,8 @@ import android.view.Window;
 import android.widget.Button;
 
 import com.example.yaratech.yaratube.R;
-import com.example.yaratech.yaratube.data.YaraDatabase;
 import com.example.yaratech.yaratube.ui.login.activationcodelogin.ActivationFragment;
+import com.example.yaratech.yaratube.ui.login.loginoption.LoginOptionFragment;
 import com.example.yaratech.yaratube.ui.login.phonenumberlogin.PhoneNumberFragment;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;

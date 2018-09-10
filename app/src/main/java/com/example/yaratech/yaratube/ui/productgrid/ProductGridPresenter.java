@@ -32,7 +32,7 @@ public class ProductGridPresenter implements ProductGridContract.Presenter{
             @Override
             public void onError(String massage) {
                 mView.hideProgressBar();
-                mView.ShowMassage(massage);
+                mView.showMassage(massage);
             }
         });
 

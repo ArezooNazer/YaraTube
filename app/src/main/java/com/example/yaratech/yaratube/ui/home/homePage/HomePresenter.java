@@ -29,7 +29,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.ShowMassage(massage);
+                mView.showMassage(massage);
             }
 
         });

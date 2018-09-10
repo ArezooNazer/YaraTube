@@ -19,8 +19,11 @@ public class User {
     private String finoToken;
     private String nickname;
     private String token;
-    private String message;
-    private Integer error;
+
+    /* response of google login*/
+    private String name;
+    private String email;
+    private String image;
 
 
     public int getId() {
@@ -87,19 +90,27 @@ public class User {
         this.token = token;
     }
 
-    public String getMessage() {
-        return message;
+    public String getName() {
+        return name;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getError() {
-        return error;
+    public String getEmail() {
+        return email;
     }
 
-    public void setError(Integer error) {
-        this.error = error;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -79,7 +79,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     }
 
     @Override
-    public void ShowMassage(String message) {
+    public void showMassage(String message) {
         Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
     }
 

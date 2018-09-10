@@ -86,7 +86,7 @@ public class HomePageFragment extends Fragment implements HomeContract.View, Pro
     }
 
     @Override
-    public void ShowMassage(String massage) {
+    public void showMassage(String massage) {
         Toast.makeText(getContext(), massage, Toast.LENGTH_LONG).show();
     }
 

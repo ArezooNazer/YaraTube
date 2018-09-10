@@ -63,7 +63,7 @@ public class LoginRepository {
 
                             isLogin = true;
                             Register result = response.body();
-                            Log.d("TAG",  result.getToken());
+                            Log.d("TAG", result.getToken());
                             callback.onSuccess(result);
                         } else
                             callback.onError("دوباره تلاش کنید");
@@ -80,6 +80,7 @@ public class LoginRepository {
     }
 
     public static boolean isLogin() {
+        Log.d(TAG, "isLogin() called : " + yaraDatabase.selectDao().selectToken());
 
         if (yaraDatabase.selectDao().selectToken() != null)
             return true;

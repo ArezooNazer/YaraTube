@@ -1,7 +1,5 @@
 package com.example.yaratech.yaratube.ui.productdetail.comment;
 
-import android.support.v4.app.DialogFragment;
-
 import com.example.yaratech.yaratube.data.model.Comment;
 import com.example.yaratech.yaratube.data.model.Product;
 import com.example.yaratech.yaratube.data.model.SendComment;
@@ -34,7 +32,7 @@ public class CommentPresenter implements CommentContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.ShowMassage("error!");
+                mView.showMassage("error!");
             }
         });
 
@@ -46,13 +44,13 @@ public class CommentPresenter implements CommentContract.Presenter {
         commentRepository.sendCommentRepo(title, score, commentText,productId, token, new ApiResult<SendComment>() {
             @Override
             public void onSuccess(SendComment result) {
-                mView.ShowMassage("نظر شما بعد از بررسی ثبت خواهد شد");
+                mView.showMassage("نظر شما بعد از بررسی ثبت خواهد شد");
                 mView.commentIsSuccessfullySent();
                 }
 
             @Override
             public void onError(String massage) {
-                mView.ShowMassage("دوباره تلاش کنید");
+                mView.showMassage("دوباره تلاش کنید");
             }
         });
 

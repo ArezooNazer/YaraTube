@@ -37,7 +37,7 @@ public class PhoneNumberPresenter implements PhoneNumberContract.Presenter {
                     user.setDeviceOs(deviceOs);
                     yaraDatabase.insertDao().saveUserInfo(user);
 
-                    Log.d("id", String.valueOf(yaraDatabase.selectDao().getUserRecord().getId()));
+                    Log.d("TAG", deviceId + ", " + deviceModel + ", " + deviceOs);
 
                     mView.smsRequestReceived();
             }
