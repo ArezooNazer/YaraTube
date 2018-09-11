@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private ProfileFragment profileFragment = new ProfileFragment();
     public static YaraDatabase yaraDatabase;
-    private DrawerLayout drawerLayout;
+//    private DrawerLayout drawerLayout;
 
 
     @Override
@@ -50,53 +50,54 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         setContentView(R.layout.activity_main);
 
 
-        drawerLayout = findViewById(R.id.homePage);
-        NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
+//        drawerLayout = findViewById(R.id.homePage);
+//        NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
 
         yaraDatabase = Room.databaseBuilder(getApplicationContext(), YaraDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
 
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//
+//                item.setChecked(true);
+//                drawerLayout.closeDrawers();
+//
+//                switch (item.getItemId()) {
+//
+//                        case R.id.drawerProfile:
+//                            if (LoginRepository.isLogin())
+//                                goToProfileFragment();
+//                            else
+//                                goToMainLoginDialogFragment();
+//
+//                }
+//                return false;
+//            }
+//        });
 
-                item.setChecked(true);
-                drawerLayout.closeDrawers();
 
-                switch (item.getItemId()) {
-
-                        case R.id.drawerProfile:
-                            if (LoginRepository.isLogin())
-                                goToProfileFragment();
-                            else
-                                goToMainLoginDialogFragment();
-
-                }
-                return false;
-            }
-        });
-
-
-        //set a user profile photo on drawer header
-        View header = navigationView.getHeaderView(0);
-        ImageView imageView = header.findViewById(R.id.drawerUserPhoto);
-        Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTWkfQwNEw7GXCwMekUtAZIkIl3qowafpYe2Icr-e9wF46V0O5").into(imageView);
+//        //set a user profile photo on drawer header
+//        View header = navigationView.getHeaderView(0);
+//        ImageView imageView = header.findViewById(R.id.drawerUserPhoto);
+//        Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTWkfQwNEw7GXCwMekUtAZIkIl3qowafpYe2Icr-e9wF46V0O5").into(imageView);
 
         goToMainContainerFragment();
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(Gravity.RIGHT);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    //hamburger menu
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                drawerLayout.openDrawer(Gravity.RIGHT);
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     @Override
@@ -170,9 +171,9 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     @Override
     public void onBackPressed() {
 
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        }
+//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+//            drawerLayout.closeDrawer(GravityCompat.START);
+//        }
 
         super.onBackPressed();
 
