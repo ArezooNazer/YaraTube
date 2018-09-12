@@ -11,6 +11,10 @@
             android:id="@+id/categoryBottomItem"
             android:icon="@drawable/ic_menu_black_24dp"
             android:title="@string/category" />
+        <item
+            android:id="@+id/moreBottomItem"
+            android:icon="@drawable/ic_more_vert_black_24dp"
+            android:title="@string/more" />
 
     </group>
 

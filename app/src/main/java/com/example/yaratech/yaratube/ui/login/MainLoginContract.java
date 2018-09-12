@@ -3,7 +3,7 @@ package com.example.yaratech.yaratube.ui.login;
 public interface MainLoginContract {
 
     interface View {
-        void showMassage(String message);
+        void showMessage(String message);
     }
 
     interface Presenter{

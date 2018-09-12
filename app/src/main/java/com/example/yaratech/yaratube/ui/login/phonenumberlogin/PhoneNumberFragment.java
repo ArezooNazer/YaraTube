@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +69,7 @@ public class PhoneNumberFragment extends Fragment implements PhoneNumberContract
 
 
     @Override
-    public void showMassage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 
@@ -79,12 +78,12 @@ public class PhoneNumberFragment extends Fragment implements PhoneNumberContract
 
 
         if (TextUtils.isEmpty(editText.getText())) {
-            showMassage("لطفا شماره موبایل خود را وارد کنید");
+            showMessage("لطفا شماره موبایل خود را وارد کنید");
 
         } else if (!TextUtils.isDigitsOnly(editText.getText()) || editText.getText().length() != 11 ||
                 !editText.getText().toString().startsWith("09")) {
 
-            showMassage("شماره موبایل وارد شده معتبر نیست");
+            showMessage("شماره موبایل وارد شده معتبر نیست");
         } else
             return true;
 

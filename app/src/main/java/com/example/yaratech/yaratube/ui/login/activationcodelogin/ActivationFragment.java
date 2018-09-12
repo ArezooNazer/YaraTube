@@ -35,6 +35,11 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     //define a value to handle the permission callback, in onRequestPermissionsResult():
     public final static int REQUEST_CODE_READ_SMS = 1;
 
+    public ActivationFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -42,10 +47,6 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
         if (context instanceof MainActivity) {
             transferToFragment = (TransferToFragment) context;
         }
-    }
-
-    public ActivationFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -108,7 +109,7 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     }
 
     @Override
-    public void showMassage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 

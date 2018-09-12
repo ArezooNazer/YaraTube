@@ -45,7 +45,7 @@ public class PhoneNumberPresenter implements PhoneNumberContract.Presenter {
             @Override
             public void onError(String massage) {
 
-                mView.showMassage("ارسال با موفقیت انجام نشد، دوباره تلاش کنید");
+                mView.showMessage("ارسال با موفقیت انجام نشد، دوباره تلاش کنید");
             }
         });
     }

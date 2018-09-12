@@ -23,6 +23,8 @@ public class MainContainerFragment extends Fragment {
     private static final String TAG = MainContainerFragment.class.getName();
     private HomePageFragment homePageFragment;
     private CategoryFragment categoryFragment;
+    private MoreItemFragment moreItemFragment;
+    private Fragment activeFragment;
 
     public MainContainerFragment() {
         // Required empty public constructor
@@ -34,6 +36,7 @@ public class MainContainerFragment extends Fragment {
 
         homePageFragment = new HomePageFragment();
         categoryFragment = new CategoryFragment();
+        moreItemFragment = new MoreItemFragment();
 
     }
 
@@ -56,7 +59,17 @@ public class MainContainerFragment extends Fragment {
 
         }
 
-        goHomePageFragment();
+        getChildFragmentManager().beginTransaction()
+                .add(R.id.homeContainer, homePageFragment)
+                .add(R.id.homeContainer, categoryFragment)
+                .add(R.id.homeContainer, moreItemFragment)
+                .hide(categoryFragment)
+                .hide(moreItemFragment)
+                .show(homePageFragment)
+                .commit();
+
+        activeFragment = homePageFragment;
+
         onBottomNavigationListener(homeView);
 
         return homeView;
@@ -67,66 +80,61 @@ public class MainContainerFragment extends Fragment {
 
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.homeBottomNavigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                new MyOnNavigationItemSelectedListener());
+    }
 
-                        switch (item.getItemId()) {
-                            case R.id.homeBottomItem:
 
-                                goHomePageFragment();
-                                return true;
+    private class MyOnNavigationItemSelectedListener implements BottomNavigationView.OnNavigationItemSelectedListener {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                            case R.id.categoryBottomItem:
+            switch (item.getItemId()) {
+                case R.id.homeBottomItem:
 
-                                goToCategoryFragment();
-                                return true;
-                        }
-                        return true;
-                    }
-                });
+                    goHomePageFragment();
+                    return true;
+
+                case R.id.categoryBottomItem:
+
+                    goToCategoryFragment();
+                    return true;
+
+                case R.id.moreBottomItem:
+                    goToMoreItemFragment();
+                    return true;
+            }
+            return true;
+        }
     }
 
 
     public void goHomePageFragment() {
 
-        if (homePageFragment.isVisible()) {
+        getChildFragmentManager().beginTransaction()
+                .hide(activeFragment)
+                .show(homePageFragment).commit();
 
-            getChildFragmentManager().beginTransaction()
-                    .show(homePageFragment).commit();
-
-        } else if (homePageFragment.isAdded() && homePageFragment.isHidden()) {
-
-            getChildFragmentManager().beginTransaction()
-                    .hide(categoryFragment)
-                    .show(homePageFragment).commit();
-        } else {
-
-            getChildFragmentManager().beginTransaction()
-                    .add(R.id.homeContainer, homePageFragment).commit();
-        }
+        activeFragment = homePageFragment;
     }
 
     public void goToCategoryFragment() {
 
-        if (categoryFragment.isVisible()) {
+        getChildFragmentManager().beginTransaction()
+                .hide(activeFragment)
+                .show(categoryFragment).commit();
 
-            getChildFragmentManager().beginTransaction()
-                    .show(categoryFragment).commit();
-
-        } else if (categoryFragment.isAdded() && categoryFragment.isHidden()) {
-
-            getChildFragmentManager().beginTransaction()
-                    .hide(homePageFragment)
-                    .show(categoryFragment).commit();
-        } else {
-
-            getChildFragmentManager().beginTransaction()
-                    .hide(homePageFragment)
-                    .add(R.id.homeContainer, categoryFragment).commit();
-        }
-
+        activeFragment = categoryFragment;
     }
+
+    public void goToMoreItemFragment(){
+
+        getChildFragmentManager().beginTransaction()
+                .hide(activeFragment)
+                .show(moreItemFragment).commit();
+
+        activeFragment = moreItemFragment;
+    }
+
 
 }
 

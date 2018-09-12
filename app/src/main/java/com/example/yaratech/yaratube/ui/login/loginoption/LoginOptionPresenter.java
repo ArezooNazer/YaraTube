@@ -6,6 +6,7 @@ import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.GoogleLogin;
 import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.GoogleLoginRepository;
+import com.example.yaratech.yaratube.ui.login.MainLoginContract;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
 
@@ -36,7 +37,7 @@ String TOKEN = LoginOptionPresenter.class.getName();
                 Log.d("TOKEN", "onSuccess() called with: result = [" + result.getToken() + "]");
                 yaraDatabase.insertDao().updateUserInfo(user);
 
-                 mView.showMessage("خوش آمدید");
+                mView.showMessage("خوش آمدید");
             }
 
             @Override

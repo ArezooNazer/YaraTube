@@ -19,6 +19,7 @@ import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.source.Constant;
 import com.example.yaratech.yaratube.ui.login.MainLoginContract;
+import com.example.yaratech.yaratube.ui.login.MainLoginDialogFragment;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -39,13 +40,14 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
 
-
     public LoginOptionFragment() {
         // Required empty public constructor
+        Log.d(TAG, "LoginOptionFragment() called");
     }
 
     @Override
     public void onAttach(Context context) {
+        Log.d(TAG, "onAttach() called with: context = [" + context + "]");
         super.onAttach(context);
 
         if (context instanceof MainActivity) {
@@ -53,8 +55,10 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
         }
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate() called with: savedInstanceState = [" + savedInstanceState + "]");
         super.onCreate(savedInstanceState);
         mListener = (MainLoginContract.onChildButtonClickListener) getParentFragment();
         mPresenter = new LoginOptionPresenter(this);
@@ -75,6 +79,7 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d(TAG, "onCreateView() called with: inflater ");
         View view = inflater.inflate(R.layout.fragment_login_option, container, false);
 
         loginViaPhoneNumBut = view.findViewById(R.id.loginViaPhoneNumber);
@@ -107,12 +112,29 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     }
 
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(getContext(), "ارتباط ناموفق، دوباره تلاش کنید.", Toast.LENGTH_LONG).show();
+    }
+
     private void loginViaGoogle() {
 
         Log.d(TAG, "loginViaGoogle() called");
 
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(intent, REQ_CODE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQ_CODE) {
+
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleResult(result);
+        }
     }
 
     private void handleResult(GoogleSignInResult result) {
@@ -132,39 +154,20 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
                     Settings.Secure.ANDROID_ID);
 
             mPresenter.sendGoogleToken(googleToken, Device_id, Constant.DEVICE_OS, Constant.DEVICE_MODEL);
-
-            Log.d("TAG", "handleResult() called with: result = [" + account.getDisplayName()  + " , " + account.getEmail() + ", "+ account.getPhotoUrl().toString()+ "]");
+           
             ((DialogFragment) getParentFragment()).dismiss();
             transferToFragment.goToProfileFragment();
+            Log.d("TAG", "handleResult() called with: result = [" + account.getDisplayName()  + " , " + account.getEmail() + ", "+ account.getPhotoUrl().toString()+ "]");
 
         } else {
             Log.d("TAG", "result is not successful");
         }
     }
 
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getContext(), "ارتباط ناموفق، دوباره تلاش کنید.", Toast.LENGTH_LONG).show();
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQ_CODE) {
-
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleResult(result);
-        }
-    }
-
-
-
     @Override
     public void showMessage(String message) {
-//        Toast.makeText(this.getContext(), message, Toast.LENGTH_LONG).show();
         Log.d(TAG, "showMessage() called with: message = [" + message + "," + this.getContext() + "]");
+//        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+
     }
 }
