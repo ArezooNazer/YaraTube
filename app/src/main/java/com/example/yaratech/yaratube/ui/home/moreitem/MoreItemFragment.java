@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home;
+package com.example.yaratech.yaratube.ui.home.moreitem;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import com.example.yaratech.yaratube.util.TransferToFragment;
 
 public class MoreItemFragment extends Fragment {
 
-    private TextView profile, aboutUs, contactUs;
+    private TextView profile, aboutUs, contactUs, logOut;
     private TransferToFragment transferToFragment;
 
     public MoreItemFragment() {
@@ -49,6 +49,8 @@ public class MoreItemFragment extends Fragment {
        profile = view.findViewById(R.id.profile);
        aboutUs = view.findViewById(R.id.aboutUs);
        contactUs = view.findViewById(R.id.contactUs);
+       logOut = view.findViewById(R.id.logOut);
+
        return view;
     }
 

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.yaratech.yaratube.MainActivity;
@@ -39,6 +40,7 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     private Button loginViaPhoneNumBut, loginViaGoogleBut;
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
+    private ProgressBar progressBar;
 
     public LoginOptionFragment() {
         // Required empty public constructor
@@ -82,10 +84,15 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
         Log.d(TAG, "onCreateView() called with: inflater ");
         View view = inflater.inflate(R.layout.fragment_login_option, container, false);
 
+        progressBar = view.findViewById(R.id.loginProgressbar);
+
         loginViaPhoneNumBut = view.findViewById(R.id.loginViaPhoneNumber);
         loginViaPhoneNumBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                loginViaGoogleBut.setEnabled(false);
+                loginViaPhoneNumBut.setEnabled(false);
                 mListener.goToMobileLoginFragment();
             }
         });
@@ -95,6 +102,9 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
             @Override
             public void onClick(View v) {
 
+
+                loginViaGoogleBut.setEnabled(false);
+                loginViaPhoneNumBut.setEnabled(false);
                 Toast.makeText(getContext(), "لطفا چند لحظه صبر کنید...", Toast.LENGTH_LONG).show();
                 loginViaGoogle();
             }
@@ -119,10 +129,9 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
 
     private void loginViaGoogle() {
 
-        Log.d(TAG, "loginViaGoogle() called");
-
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(intent, REQ_CODE);
+
     }
 
     @Override
@@ -143,20 +152,11 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
 
             GoogleSignInAccount account = result.getSignInAccount();
             String googleToken = account.getIdToken();
+            updateUserEntity(account);
 
-            User user = new User();
-            user.setName(account.getDisplayName());
-            user.setEmail(account.getEmail());
-            user.setImage(account.getPhotoUrl().toString());
-            yaraDatabase.insertDao().saveUserInfo(user);
-
-            final String Device_id = Settings.Secure.getString(getContext().getContentResolver(),
-                    Settings.Secure.ANDROID_ID);
-
+            final String Device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
             mPresenter.sendGoogleToken(googleToken, Device_id, Constant.DEVICE_OS, Constant.DEVICE_MODEL);
-           
-            ((DialogFragment) getParentFragment()).dismiss();
-            transferToFragment.goToProfileFragment();
+
             Log.d("TAG", "handleResult() called with: result = [" + account.getDisplayName()  + " , " + account.getEmail() + ", "+ account.getPhotoUrl().toString()+ "]");
 
         } else {
@@ -164,10 +164,32 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
         }
     }
 
+    private void updateUserEntity(GoogleSignInAccount account){
+        User user = new User();
+        user.setName(account.getDisplayName());
+        user.setEmail(account.getEmail());
+        user.setImage(account.getPhotoUrl().toString());
+        yaraDatabase.insertDao().saveUserInfo(user);
+    }
+
+    @Override
+    public void googleLoginIsSuccessful() {
+        ((DialogFragment) getParentFragment()).dismiss();
+        transferToFragment.goToProfileFragment();
+    }
+
     @Override
     public void showMessage(String message) {
-        Log.d(TAG, "showMessage() called with: message = [" + message + "," + this.getContext() + "]");
-//        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void showProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgressBar() {
+        progressBar.setVisibility(View.GONE);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.categoryPage;
+package com.example.yaratech.yaratube.ui.home.categorypage;
 
 import com.example.yaratech.yaratube.util.BaseView;
 import com.example.yaratech.yaratube.data.model.Category;

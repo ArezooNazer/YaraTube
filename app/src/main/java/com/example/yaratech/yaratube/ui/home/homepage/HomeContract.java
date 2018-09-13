@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.homePage;
+package com.example.yaratech.yaratube.ui.home.homepage;
 
 import com.example.yaratech.yaratube.util.BaseView;
 import com.example.yaratech.yaratube.data.model.Store;

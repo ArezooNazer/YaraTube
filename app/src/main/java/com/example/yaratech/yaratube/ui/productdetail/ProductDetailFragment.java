@@ -176,7 +176,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
     }
 
-    public void showMassage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 

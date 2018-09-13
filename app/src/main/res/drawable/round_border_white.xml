@@ -6,7 +6,7 @@
         android:width="5dp"
         android:color="@color/white" />
 
-    // The desired corner radius. reduce it to keep it less rounded
+
     <corners android:radius="5dp" />
     <solid android:color="@color/white"/>
 

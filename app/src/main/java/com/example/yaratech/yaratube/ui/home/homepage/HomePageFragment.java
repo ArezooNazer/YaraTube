@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.homePage;
+package com.example.yaratech.yaratube.ui.home.homepage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -86,7 +86,7 @@ public class HomePageFragment extends Fragment implements HomeContract.View, Pro
     }
 
     @Override
-    public void showMassage(String massage) {
+    public void showMessage(String massage) {
         Toast.makeText(getContext(), massage, Toast.LENGTH_LONG).show();
     }
 

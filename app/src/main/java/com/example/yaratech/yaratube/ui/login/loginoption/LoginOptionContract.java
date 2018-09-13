@@ -5,7 +5,9 @@ import com.example.yaratech.yaratube.util.BaseView;
 
 public interface LoginOptionContract {
 
-    interface View extends MainLoginContract.View{}
+    interface View extends BaseView{
+        void googleLoginIsSuccessful();
+    }
 
 
     interface Presenter {

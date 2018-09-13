@@ -25,6 +25,10 @@ public class User {
     private String email;
     private String image;
 
+    /*profile info*/
+    String gender;
+    String birthDate;
+
 
     public int getId() {
         return id;
@@ -112,5 +116,21 @@ public class User {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 }

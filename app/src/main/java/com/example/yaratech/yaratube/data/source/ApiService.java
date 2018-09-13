@@ -5,6 +5,7 @@ import com.example.yaratech.yaratube.data.model.Comment;
 import com.example.yaratech.yaratube.data.model.GoogleLogin;
 import com.example.yaratech.yaratube.data.model.Login;
 import com.example.yaratech.yaratube.data.model.Product;
+import com.example.yaratech.yaratube.data.model.Profile;
 import com.example.yaratech.yaratube.data.model.Register;
 import com.example.yaratech.yaratube.data.model.SendComment;
 import com.example.yaratech.yaratube.data.model.Store;
@@ -12,6 +13,7 @@ import com.example.yaratech.yaratube.data.model.Store;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -77,6 +79,21 @@ public interface ApiService {
                                          @Field("comment_text") String commentText,
                                          @Path("product_id") int productId,
                                          @Header("Authorization") String token);
+
+    //just send avatar
+    @POST("/profile")
+    @FormUrlEncoded
+    Call<Profile> sendProfileAvatarRequest(@Field("avatar") String title,
+                                           @Header("Authorization") String token);
+
+
+    //send other profile fields
+    @POST("/profile")
+    @FormUrlEncoded
+    Call<Profile> sendProfileFieldRequest(@Field("nickname") String nickname,
+                                          @Field("gender") String gender,
+                                          @Field("date_of_birth") String dateOfBirth,
+                                          @Header("Authorization") String token);
 
 
 }

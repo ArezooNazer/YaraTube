@@ -148,7 +148,7 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
     }
 
     @Override
-    public void showMassage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 

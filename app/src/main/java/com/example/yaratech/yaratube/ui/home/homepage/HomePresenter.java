@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.homePage;
+package com.example.yaratech.yaratube.ui.home.homepage;
 
 import com.example.yaratech.yaratube.data.model.Store;
 import com.example.yaratech.yaratube.data.source.ApiResult;
@@ -29,7 +29,7 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.showMassage(massage);
+                mView.showMessage(massage);
             }
 
         });

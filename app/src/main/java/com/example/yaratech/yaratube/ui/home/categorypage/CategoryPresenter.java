@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.categoryPage;
+package com.example.yaratech.yaratube.ui.home.categorypage;
 
 import com.example.yaratech.yaratube.data.model.Category;
 import com.example.yaratech.yaratube.data.source.ApiResult;
@@ -33,7 +33,7 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.showMassage(massage);
+                mView.showMessage(massage);
             }
 
         });

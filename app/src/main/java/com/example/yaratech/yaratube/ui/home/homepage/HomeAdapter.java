@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.homePage;
+package com.example.yaratech.yaratube.ui.home.homepage;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,7 +14,7 @@ import com.example.yaratech.yaratube.data.model.Homeitem;
 import com.example.yaratech.yaratube.data.model.Product;
 import com.example.yaratech.yaratube.data.model.Store;
 import com.example.yaratech.yaratube.data.source.UpdateListData;
-import com.example.yaratech.yaratube.ui.home.homePage.header.HeaderViewHolder;
+import com.example.yaratech.yaratube.ui.home.homepage.header.HeaderViewHolder;
 import com.example.yaratech.yaratube.ui.productgrid.ProductGridContract;
 
 import java.util.List;

@@ -32,7 +32,7 @@ public class CommentPresenter implements CommentContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.showMassage("error!");
+                mView.showMessage("error!");
             }
         });
 
@@ -44,13 +44,13 @@ public class CommentPresenter implements CommentContract.Presenter {
         commentRepository.sendCommentRepo(title, score, commentText,productId, token, new ApiResult<SendComment>() {
             @Override
             public void onSuccess(SendComment result) {
-                mView.showMassage("نظر شما بعد از بررسی ثبت خواهد شد");
+                mView.showMessage("نظر شما بعد از بررسی ثبت خواهد شد");
                 mView.commentIsSuccessfullySent();
                 }
 
             @Override
             public void onError(String massage) {
-                mView.showMassage("دوباره تلاش کنید");
+                mView.showMessage("دوباره تلاش کنید");
             }
         });
 

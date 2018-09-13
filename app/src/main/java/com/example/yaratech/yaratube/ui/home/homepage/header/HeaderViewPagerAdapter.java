@@ -1,13 +1,11 @@
-package com.example.yaratech.yaratube.ui.home.homePage.header;
+package com.example.yaratech.yaratube.ui.home.homepage.header;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import com.example.yaratech.yaratube.data.model.Headeritem;
-import com.example.yaratech.yaratube.data.model.Producer;
+
 import com.example.yaratech.yaratube.data.model.Product;
 import com.example.yaratech.yaratube.data.source.UpdateListData;
-import com.example.yaratech.yaratube.ui.home.homePage.header.HeaderItemFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.homePage.header;
+package com.example.yaratech.yaratube.ui.home.homepage.header;
 
 import android.content.Context;
 import android.os.Bundle;

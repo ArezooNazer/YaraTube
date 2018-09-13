@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.categoryPage;
+package com.example.yaratech.yaratube.ui.home.categorypage;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -79,7 +79,7 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     }
 
     @Override
-    public void showMassage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
     }
 

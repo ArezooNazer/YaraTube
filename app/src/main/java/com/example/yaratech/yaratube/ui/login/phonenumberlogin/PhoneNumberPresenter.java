@@ -14,8 +14,6 @@ public class PhoneNumberPresenter implements PhoneNumberContract.Presenter {
     private LoginRepository loginRepository;
     private PhoneNumberContract.View mView;
 
-
-
     public PhoneNumberPresenter(PhoneNumberContract.View mView) {
 
         loginRepository = new LoginRepository();
@@ -49,8 +47,5 @@ public class PhoneNumberPresenter implements PhoneNumberContract.Presenter {
             }
         });
     }
-
-
-
 
 }

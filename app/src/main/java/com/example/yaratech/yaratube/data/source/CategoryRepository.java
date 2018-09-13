@@ -34,7 +34,7 @@ public class CategoryRepository {
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                callback.onError("No response");
+                callback.onError("اتصال دستگاه خود را با اینترنت چک کنید");
             }
         });
 

@@ -6,6 +6,7 @@ import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.LoginRepository;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
+import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ActivationPresenter implements ActivationContract.Presenter {
 
@@ -24,13 +25,9 @@ public class ActivationPresenter implements ActivationContract.Presenter {
             @Override
             public void onSuccess(Register result) {
 
-               User user = yaraDatabase.selectDao().getUserRecord();
-               user.setFinoToken(result.getFinoToken());
-               user.setNickname(result.getNickname());
-               user.setToken(result.getToken());
-               yaraDatabase.insertDao().updateUserInfo(user);
-
-               mView.activationCodIsValid();
+                updateUserEntity(result);
+                mView.showMessage("خوش آمدید");
+                mView.activationCodIsValid();
 
             }
 
@@ -42,4 +39,22 @@ public class ActivationPresenter implements ActivationContract.Presenter {
         });
 
     }
+
+    private void updateUserEntity(Register result) {
+
+        User user = yaraDatabase.selectDao().getUserRecord();
+        user.setFinoToken(result.getFinoToken());
+        user.setToken(result.getToken());
+
+        if (result.getNickname() == null) {
+            String userGeneratedName = stringGenerator();
+            user.setName(userGeneratedName);
+            user.setNickname(userGeneratedName);
+        } else {
+            user.setName(result.getNickname());
+            user.setNickname(result.getNickname());
+        }
+        yaraDatabase.insertDao().updateUserInfo(user);
+    }
+
 }

@@ -101,7 +101,7 @@ public class CommentDialogFragment extends DialogFragment implements CommentCont
         getDialog().dismiss();
     }
 
-    public void showMassage(String message) {
+    public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
 

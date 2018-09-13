@@ -14,11 +14,11 @@ public class ProductGridPresenter implements ProductGridContract.Presenter{
 
     public ProductGridPresenter(ProductGridContract.View mView) {
         this.mView = mView;
+        productListRepository = new ProductGridRepository();
     }
 
     @Override
     public void getProductList(Category category , int offset) {
-        productListRepository = new ProductGridRepository();
 
         mView.showProgressBar();
         productListRepository.getProductList(category,offset, new ApiResult<List<Product>>() {
@@ -32,7 +32,7 @@ public class ProductGridPresenter implements ProductGridContract.Presenter{
             @Override
             public void onError(String massage) {
                 mView.hideProgressBar();
-                mView.showMassage(massage);
+                mView.showMessage(massage);
             }
         });
 

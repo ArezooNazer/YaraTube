@@ -64,5 +64,9 @@ dependencies {
     implementation 'com.google.android.exoplayer:exoplayer:2.8.4'
     //google sign
     implementation 'com.google.android.gms:play-services-auth:16.0.0'
+    //circular imageview for profile avatar
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    //persian date picker
+    implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
 }
 apply plugin: 'com.google.gms.google-services'

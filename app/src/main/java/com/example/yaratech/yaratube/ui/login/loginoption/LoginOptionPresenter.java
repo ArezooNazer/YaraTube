@@ -6,13 +6,13 @@ import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.GoogleLogin;
 import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.GoogleLoginRepository;
-import com.example.yaratech.yaratube.ui.login.MainLoginContract;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
+import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class LoginOptionPresenter implements LoginOptionContract.Presenter {
 
-String TOKEN = LoginOptionPresenter.class.getName();
+    String TOKEN = LoginOptionPresenter.class.getName();
     private GoogleLoginRepository googleLoginRepository;
     private LoginOptionContract.View mView;
 
@@ -24,20 +24,15 @@ String TOKEN = LoginOptionPresenter.class.getName();
     @Override
     public void sendGoogleToken(String googleToken, final String deviceId, final String deviceOs, final String deviceModel) {
 
+        mView.showProgressBar();
         googleLoginRepository.sendGoogleTokenRepository(googleToken, deviceId, deviceOs, deviceModel, new ApiResult<GoogleLogin>() {
             @Override
             public void onSuccess(GoogleLogin result) {
 
-                User user = yaraDatabase.selectDao().getUserRecord();
-                user.setDeviceId(deviceId);
-                user.setDeviceModel(deviceModel);
-                user.setDeviceOs(deviceOs);
-                user.setNickname(result.getNickname());
-                user.setToken(result.getToken());
-                Log.d("TOKEN", "onSuccess() called with: result = [" + result.getToken() + "]");
-                yaraDatabase.insertDao().updateUserInfo(user);
-
+                updateUserEntity(result, deviceId, deviceModel, deviceOs);
+                mView.hideProgressBar();
                 mView.showMessage("خوش آمدید");
+                mView.googleLoginIsSuccessful();
             }
 
             @Override
@@ -47,4 +42,26 @@ String TOKEN = LoginOptionPresenter.class.getName();
         });
 
     }
+
+
+    private void updateUserEntity(GoogleLogin result, String deviceId, String deviceModel, String deviceOs) {
+        User user = yaraDatabase.selectDao().getUserRecord();
+        user.setDeviceId(deviceId);
+        user.setDeviceModel(deviceModel);
+        user.setDeviceOs(deviceOs);
+        user.setToken(result.getToken());
+
+        if (result.getNickname() == null) {
+            String userGeneratedName = stringGenerator();
+            user.setName(userGeneratedName);
+            user.setNickname(userGeneratedName);
+        } else {
+            user.setName(result.getNickname());
+            user.setNickname(result.getNickname());
+        }
+        yaraDatabase.insertDao().updateUserInfo(user);
+        Log.d("TOKEN", "onSuccess() called with: result = [" + result.getToken() + "]");
+    }
+
+
 }

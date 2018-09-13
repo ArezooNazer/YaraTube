@@ -1,4 +1,4 @@
-package com.example.yaratech.yaratube.ui.home.categoryPage;
+package com.example.yaratech.yaratube.ui.home.categorypage;
 
 
 import android.content.Context;

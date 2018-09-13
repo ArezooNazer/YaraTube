@@ -117,9 +117,6 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
     @Override
     public void activationCodIsValid() {
         ((DialogFragment) getParentFragment()).dismiss();
-//        if (LOGIN_FROM_COMMENT)
-//            transferToFragment.goToCommentDialogFragment();
-//        else
         transferToFragment.goToProfileFragment();
     }
 

@@ -14,8 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.yaratech.yaratube.R;
-import com.example.yaratech.yaratube.ui.home.categoryPage.CategoryFragment;
-import com.example.yaratech.yaratube.ui.home.homePage.HomePageFragment;
+import com.example.yaratech.yaratube.ui.home.categorypage.CategoryFragment;
+import com.example.yaratech.yaratube.ui.home.homepage.HomePageFragment;
+import com.example.yaratech.yaratube.ui.home.moreitem.MoreItemFragment;
 
 
 public class MainContainerFragment extends Fragment {
