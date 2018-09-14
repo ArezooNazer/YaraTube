@@ -1,7 +1,6 @@
 package com.example.yaratech.yaratube.util;
 
 import com.example.yaratech.yaratube.data.model.Category;
-import com.example.yaratech.yaratube.data.model.File;
 import com.example.yaratech.yaratube.data.model.Product;
 
 public interface TransferToFragment {
@@ -13,4 +12,5 @@ public interface TransferToFragment {
     void goToMainLoginDialogFragment();
     void goToCommentDialogFragment(int productId);
     void goToVideoPlayerActivity(String file);
+    void goToAvatarOptionDialogFragment();
 }

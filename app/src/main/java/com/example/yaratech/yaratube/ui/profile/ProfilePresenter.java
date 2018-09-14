@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.Profile;
+import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.ProfileRepository;
 
@@ -21,19 +22,45 @@ public class ProfilePresenter implements ProfileContract.Presenter{
     }
 
     @Override
-    public void sendProfileAvatar(String Avatar) {
+    public void getProfileFiledFromDb() {
+        mView.showProgressBar();
+        User user = yaraDatabase.selectDao().getUserRecord();
+        if(user != null)
+            mView.showProfileFieldFromDb(user);
+        mView.hideProgressBar();
 
+    }
+
+    @Override
+    public void getProfileFieldFromServer(String token) {
+
+        mView.showProgressBar();
+        profileRepository.getProfileFieldsRepository(token, new ApiResult<ProfileGetResponse>() {
+            @Override
+            public void onSuccess(ProfileGetResponse result) {
+
+                mView.showProfileField(result);
+                mView.hideProgressBar();
+            }
+
+            @Override
+            public void onError(String massage) {
+                mView.showMessage("خطا در نمایش اطلاعات");
+            }
+        });
     }
 
     @Override
     public void sendProfileField(final String nickName, final String dateOfBirth, final String gender, final String token) {
 
+        mView.showProgressBar();
         profileRepository.sendProfileFieldRepository(nickName, gender, dateOfBirth, token, new ApiResult<Profile>() {
             @Override
             public void onSuccess(Profile result) {
 
                 updateUserEntity(nickName,dateOfBirth,gender);
-                mView.readUserInfoAndSetProfileFields();
+                getProfileFieldFromServer(token);
+                mView.hideProgressBar();
                 mView.showMessage("تغییرات با موفقیت ذخیره شد");
 
             }
@@ -44,6 +71,13 @@ public class ProfilePresenter implements ProfileContract.Presenter{
             }
         });
     }
+
+    @Override
+    public User getUserInfo() {
+        User user = yaraDatabase.selectDao().getUserRecord();
+        return user;
+    }
+
 
     private void updateUserEntity(String nickName, String dateOfBirth ,String gender){
 

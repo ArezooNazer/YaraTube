@@ -2,7 +2,6 @@ package com.example.yaratech.yaratube.ui.login.activationcodelogin;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -73,8 +72,7 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
         sendActivationCodeBut = view.findViewById(R.id.sendActivationCodeBut);
         editPhoneNumberBut = view.findViewById(R.id.editPhoneNumberBut);
 
-        if(Build.VERSION.SDK_INT >=6)
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
+        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
 
         SMSListener.bindListener(new ActivationContract.OTPListener() {
             @Override

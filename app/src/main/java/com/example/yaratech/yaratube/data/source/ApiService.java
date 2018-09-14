@@ -6,19 +6,22 @@ import com.example.yaratech.yaratube.data.model.GoogleLogin;
 import com.example.yaratech.yaratube.data.model.Login;
 import com.example.yaratech.yaratube.data.model.Product;
 import com.example.yaratech.yaratube.data.model.Profile;
+import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 import com.example.yaratech.yaratube.data.model.Register;
 import com.example.yaratech.yaratube.data.model.SendComment;
 import com.example.yaratech.yaratube.data.model.Store;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -81,19 +84,21 @@ public interface ApiService {
                                          @Header("Authorization") String token);
 
     //just send avatar
+    @Multipart
     @POST("/profile")
-    @FormUrlEncoded
-    Call<Profile> sendProfileAvatarRequest(@Field("avatar") String title,
-                                           @Header("Authorization") String token);
+    Call<Profile> sendProfileAvatarRequest( @Part MultipartBody.Part avatarFile,
+                                            @Header("Authorization") String token);
 
 
     //send other profile fields
     @POST("/profile")
     @FormUrlEncoded
     Call<Profile> sendProfileFieldRequest(@Field("nickname") String nickname,
-                                          @Field("gender") String gender,
-                                          @Field("date_of_birth") String dateOfBirth,
+                                          @Field("gender") Object gender,
+                                          @Field("date_of_birth") Object dateOfBirth,
                                           @Header("Authorization") String token);
 
+    @GET("/profile")
+    Call<ProfileGetResponse> getProfileFieldsRequest(@Header("Authorization") String token);
 
 }

@@ -20,7 +20,6 @@ import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.source.Constant;
 import com.example.yaratech.yaratube.ui.login.MainLoginContract;
-import com.example.yaratech.yaratube.ui.login.MainLoginDialogFragment;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -165,6 +164,8 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     }
 
     private void updateUserEntity(GoogleSignInAccount account){
+
+        //TODO : if user logout and lig ing with another option?
         User user = new User();
         user.setName(account.getDisplayName());
         user.setEmail(account.getEmail());

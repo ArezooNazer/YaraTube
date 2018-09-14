@@ -1,5 +1,6 @@
 package com.example.yaratech.yaratube.ui.profile;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,12 +15,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.yaratech.yaratube.MainActivity;
 import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.data.entity.User;
+import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
+import com.example.yaratech.yaratube.util.TransferToFragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -28,7 +34,8 @@ import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
-import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
+import static com.example.yaratech.yaratube.data.source.Constant.BASE_URL;
+import static com.example.yaratech.yaratube.data.source.Constant.TOKEN;
 import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
@@ -38,21 +45,31 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private Button cancelBut, saveBut;
     private RadioGroup radioGroup;
     private RadioButton selectedRadioBut, man, woman;
-    private ImageView datePicker;
+    private ImageView datePicker, profileAvatar;
     private PersianDatePickerDialog picker;
     private ProfileContract.Presenter mPresenter;
     private String nickname, gender, birthDate;
+    private ProgressBar progressBar;
     private User user;
+    private TransferToFragment transferToFragment;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity)
+            transferToFragment = (TransferToFragment) context;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new ProfilePresenter(this);
+
     }
 
     @Override
@@ -67,10 +84,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         radioGroup = view.findViewById(R.id.radioGroup);
         man = view.findViewById(R.id.radioMan);
         woman = view.findViewById(R.id.radioWoman);
-        user = yaraDatabase.selectDao().getUserRecord();
+        user = mPresenter.getUserInfo();
         gender = user.getGender();
         datePicker = view.findViewById(R.id.editProfileBirthButton);
+        profileAvatar = view.findViewById(R.id.profileAvatar);
+        progressBar = view.findViewById(R.id.profileProgress);
 
+        //set profile fields
+//        mPresenter.getProfileFieldFromServer("Token " + TOKEN);
+        mPresenter.getProfileFiledFromDb();
 
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -81,9 +103,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
             actionBar.setTitle("پروفایل");
         }
-
-        //set profile fields
-        readUserInfoAndSetProfileFields();
 
         cancelBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,11 +127,17 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             }
         });
 
+        profileAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                transferToFragment.goToAvatarOptionDialogFragment();
+            }
+        });
+
         saveBut.setOnClickListener(new MyOnClickListener());
 
         return view;
     }
-
 
     @Override
     public void showMessage(String message) {
@@ -121,20 +146,53 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     @Override
     public void showProgressBar() {
-
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgressBar() {
 
+        progressBar.setVisibility(View.GONE);
+    }
+
+
+    //TODO: check best practice for filling profile fields : server or db?
+
+    @Override
+    public void showProfileField(ProfileGetResponse profileGetResponse) {
+
+        String avatarUrl = profileGetResponse.getAvatar();
+        String name = profileGetResponse.getNickname();
+        Object gender = profileGetResponse.getGender();
+        Object birthDate = profileGetResponse.getDateOfBirth();
+
+        if (avatarUrl != null)
+            Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
+
+        if (name != null) {
+            nicknameET.setText(name);
+        }
+
+        //TODO: gender and date of birth are null
+
+        Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + "name" + name);
+
     }
 
     @Override
-    public void readUserInfoAndSetProfileFields() {
+    public void showProfileFieldFromDb(User user) {
+        String avatarUrl = user.getImage();
+        String name = user.getNickname();
+        String gender = user.getGender();
+        String birthDate = user.getBirthDate();
 
-        user = yaraDatabase.selectDao().getUserRecord();
-        if (user.getName() != null) {
-            nicknameET.setText(user.getName());
+        Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + " name" + name);
+
+        if (avatarUrl != null && avatarUrl.startsWith(BASE_URL))
+            Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
+
+        if (name != null) {
+            nicknameET.setText(name);
         }
 
         if (gender != null && gender.equals("زن"))
@@ -142,7 +200,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         else if (gender != null && gender.equals("مرد"))
             man.setChecked(true);
 
-        if (user.getBirthDate() != null) {
+        if (birthDate != null) {
             birthDateET.setText(user.getBirthDate());
         }
     }
@@ -153,10 +211,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
             nickname = nicknameET.getText().toString();
             birthDate = birthDateET.getText().toString();
-            final String token = yaraDatabase.selectDao().selectToken();
-
-            Log.d("PROFILE_FRAGMENT", "gender  = [" + gender + "], user.getGender() = [" + user.getGender() + "]\n " +
-                    "nickname =  [" + nickname + "], user.getName() = [" + user.getName() + "]\n");
 
             if (isAnyFieldChanged(nickname, gender, birthDate)) {
                 if (nickname.equals(""))
@@ -166,7 +220,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                     showMessage("تاریخ وارد شده معتبر نیست");
 
                 else
-                    mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + token);
+                    mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + TOKEN);
             } else {
                 showMessage("تغییری ایجاد نشده است");
             }
@@ -193,13 +247,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     private boolean isAnyFieldChanged(String currentNickname, String currentGender, String currentBirthDate) {
 
-        user = yaraDatabase.selectDao().getUserRecord();
+        user = mPresenter.getUserInfo();
         if (currentNickname.equals(user.getName()) && (currentGender == null || currentGender.equals(user.getGender())) && currentBirthDate.equals(user.getBirthDate()))
             return false;
         else
             return true;
     }
-
 
     public void showCalendar(View v) {
 

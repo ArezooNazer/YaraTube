@@ -3,22 +3,12 @@ package com.example.yaratech.yaratube;
 import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.yaratech.yaratube.data.YaraDatabase;
 import com.example.yaratech.yaratube.data.model.Category;
 import com.example.yaratech.yaratube.data.model.Product;
-import com.example.yaratech.yaratube.data.source.LoginRepository;
 import com.example.yaratech.yaratube.ui.exoplayer.VideoPlayerActivity;
 import com.example.yaratech.yaratube.ui.home.MainContainerFragment;
 import com.example.yaratech.yaratube.ui.login.MainLoginContract;
@@ -27,6 +17,7 @@ import com.example.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.yaratech.yaratube.ui.productdetail.comment.CommentDialogFragment;
 import com.example.yaratech.yaratube.ui.productgrid.ProductGridFragment;
 import com.example.yaratech.yaratube.ui.profile.ProfileFragment;
+import com.example.yaratech.yaratube.ui.profile.pickavatar.PickAvatarDialogFragment;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 
 import static com.example.yaratech.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
@@ -166,6 +157,14 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
         videoPlayerActivity.putExtra("file", file);
         startActivity(videoPlayerActivity);
 
+    }
+
+    @Override
+    public void goToAvatarOptionDialogFragment() {
+
+        PickAvatarDialogFragment avatarOptionDialogFragment = new PickAvatarDialogFragment();
+        avatarOptionDialogFragment.setCancelable(false);
+        avatarOptionDialogFragment.show(getSupportFragmentManager(), "avatarDialog");
     }
 
     @Override

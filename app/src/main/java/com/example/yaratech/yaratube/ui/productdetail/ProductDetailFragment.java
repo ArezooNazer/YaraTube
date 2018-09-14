@@ -106,6 +106,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
         mPresenter.getCommentList(product);
         detailPresenter.getProductDetail(product);
+        //TODO: this must be called in presenter
         setProductDetailData(view);
 
         Button sendCommentButton = view.findViewById(R.id.sendCommentButton);
