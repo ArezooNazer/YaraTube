@@ -21,6 +21,7 @@ import com.example.yaratech.yaratube.ui.login.MainLoginContract;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
+import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ActivationFragment extends Fragment implements ActivationContract.View {
 
@@ -86,9 +87,9 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
             @Override
             public void onClick(View view) {
 
+                String nickname = stringGenerator();
                 mPresenter.sendActivationCode(mobileNumber, deviceId,
-                        activationEditText.getText().toString().trim(),
-                        "Arezoo");
+                        activationEditText.getText().toString().trim(), nickname);
 
                 SMSListener.unbindListener();
 

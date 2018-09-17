@@ -68,5 +68,7 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     //persian date picker
     implementation 'com.github.aliab:Persian-Date-Picker-Dialog:1.4'
+    //crop
+    implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/round_border_white"
-    tools:context="com.example.yaratech.yaratube.ui.profile.pickavatar.PickAvatarDialogFragment">
+    tools:context="com.example.yaratech.yaratube.ui.profile.PickAvatarDialogFragment">
 
 
     <LinearLayout

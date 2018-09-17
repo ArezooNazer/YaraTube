@@ -4,17 +4,29 @@ import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 import com.example.yaratech.yaratube.util.BaseView;
 
+import okhttp3.MultipartBody;
+
 public interface ProfileContract {
 
-    interface View extends BaseView{
+    interface View extends BaseView {
         void showProfileField(ProfileGetResponse profileGetResponse);
+
         void showProfileFieldFromDb(User user);
     }
 
-    interface Presenter{
+    interface Presenter {
         void getProfileFiledFromDb();
+
         void getProfileFieldFromServer(String token);
+
         void sendProfileField(String nickName, String birthDate, String gender, String token);
+
+        void sendUserAvatarToServer(MultipartBody.Part body, String token);
+
         User getUserInfo();
-     }
+    }
+
+    interface Listener {
+        void photoSelectedListener(String imagePath);
+    }
 }

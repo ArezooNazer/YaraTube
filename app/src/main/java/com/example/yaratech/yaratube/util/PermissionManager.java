@@ -27,9 +27,6 @@ public class PermissionManager {
         ActivityCompat.requestPermissions(activity, PERMISSIONS, REQUEST_CODE);
     }
 
-
-
-
     public static void requestPermissionReadSms(Activity activity){
         ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.RECEIVE_SMS},REQUEST_CODE_READ_SMS);
     }

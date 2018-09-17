@@ -45,22 +45,17 @@ public class LoginOptionPresenter implements LoginOptionContract.Presenter {
 
 
     private void updateUserEntity(GoogleLogin result, String deviceId, String deviceModel, String deviceOs) {
+        String userGeneratedName = stringGenerator();
         User user = yaraDatabase.selectDao().getUserRecord();
         user.setDeviceId(deviceId);
         user.setDeviceModel(deviceModel);
         user.setDeviceOs(deviceOs);
         user.setToken(result.getToken());
+        user.setName(userGeneratedName);
+        user.setNickname(userGeneratedName);
 
-        if (result.getNickname() == null) {
-            String userGeneratedName = stringGenerator();
-            user.setName(userGeneratedName);
-            user.setNickname(userGeneratedName);
-        } else {
-            user.setName(result.getNickname());
-            user.setNickname(result.getNickname());
-        }
         yaraDatabase.insertDao().updateUserInfo(user);
-        Log.d("TOKEN", "onSuccess() called with: result = [" + result.getToken() + "]");
+        Log.d("TOKEN", "onSuccess() called with: result = [" + result.getNickname()+" " + user.getName()+"]");
     }
 
 

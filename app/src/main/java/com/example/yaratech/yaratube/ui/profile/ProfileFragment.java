@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -27,28 +28,32 @@ import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.File;
 
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.example.yaratech.yaratube.data.source.Constant.BASE_URL;
 import static com.example.yaratech.yaratube.data.source.Constant.TOKEN;
+import static com.example.yaratech.yaratube.ui.profile.PickAvatarDialogFragment.AVATAR_OPTION_DIALOG;
 import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     public static String PROFILE_FRAGMENT = ProfileFragment.class.getName();
-    private EditText nicknameET, birthDateET;
+    private EditText nicknameET;
+    private TextView birthDateET;
     private Button cancelBut, saveBut;
     private RadioGroup radioGroup;
     private RadioButton selectedRadioBut, man, woman;
     private ImageView datePicker, profileAvatar;
     private PersianDatePickerDialog picker;
     private ProfileContract.Presenter mPresenter;
-    private String nickname, gender, birthDate;
+    private String nickname, gender, birthDate, avatarUrl, avatarPath;
     private ProgressBar progressBar;
     private User user;
     private TransferToFragment transferToFragment;
@@ -69,7 +74,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPresenter = new ProfilePresenter(this);
-
+        gender = mPresenter.getUserInfo().getGender();
+//        avatarUrl = mPresenter.getUserInfo().getImage();
     }
 
     @Override
@@ -84,8 +90,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         radioGroup = view.findViewById(R.id.radioGroup);
         man = view.findViewById(R.id.radioMan);
         woman = view.findViewById(R.id.radioWoman);
-        user = mPresenter.getUserInfo();
-        gender = user.getGender();
         datePicker = view.findViewById(R.id.editProfileBirthButton);
         profileAvatar = view.findViewById(R.id.profileAvatar);
         progressBar = view.findViewById(R.id.profileProgress);
@@ -122,20 +126,46 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int selectedId) {
                 selectedRadioBut = view.findViewById(selectedId);
-                gender = selectedRadioBut.getText().toString();
-                Log.d("PROFILE_FRAGMENT", "selectedRadioBut.getText() = [" + gender + "]");
+                String genderET = selectedRadioBut.getText().toString();
+                if (genderET.equals("مرد"))
+                    gender = "male";
+                else
+                    gender = "female";
+                Log.d("PROFILE_FRAGMENT", "TOKEN = [" + TOKEN + "]");
             }
         });
 
         profileAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                transferToFragment.goToAvatarOptionDialogFragment();
+
+                final PickAvatarDialogFragment pickAvatarDialogFragment = PickAvatarDialogFragment.newInstance();
+                pickAvatarDialogFragment.setPhotoSelectedListener(new ProfileContract.Listener() {
+                    @Override
+                    public void photoSelectedListener(String imagePath) {
+                        pickAvatarDialogFragment.dismiss();
+
+                        File file = new File(imagePath);
+                        long imageSize = file.length() / 1024;
+
+                        if (imageSize > 1024)
+                            //TODO: reduce image size
+                            showMessage("حجم عکس بیشتر از 1mb است");
+                        else {
+
+                            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
+                            MultipartBody.Part body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+                            mPresenter.sendUserAvatarToServer(body, "Token " + TOKEN);
+                        }
+                    }
+                });
+
+                pickAvatarDialogFragment.show(getChildFragmentManager(), AVATAR_OPTION_DIALOG);
+
             }
         });
 
         saveBut.setOnClickListener(new MyOnClickListener());
-
         return view;
     }
 
@@ -151,20 +181,17 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     @Override
     public void hideProgressBar() {
-
         progressBar.setVisibility(View.GONE);
     }
 
-
-    //TODO: check best practice for filling profile fields : server or db?
 
     @Override
     public void showProfileField(ProfileGetResponse profileGetResponse) {
 
         String avatarUrl = profileGetResponse.getAvatar();
         String name = profileGetResponse.getNickname();
-        Object gender = profileGetResponse.getGender();
-        Object birthDate = profileGetResponse.getDateOfBirth();
+        String gender = (String) profileGetResponse.getGender();
+        String birthDate = (String) profileGetResponse.getDateOfBirth();
 
         if (avatarUrl != null)
             Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
@@ -173,7 +200,14 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             nicknameET.setText(name);
         }
 
-        //TODO: gender and date of birth are null
+        if (gender != null && gender.equals("female"))
+            woman.setChecked(true);
+        else if (gender != null && gender.equals("male"))
+            man.setChecked(true);
+
+        if (birthDate != null) {
+            birthDateET.setText(user.getBirthDate());
+        }
 
         Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + "name" + name);
 
@@ -186,18 +220,18 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         String gender = user.getGender();
         String birthDate = user.getBirthDate();
 
-        Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + " name" + name);
+        Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + " gender " + gender);
 
-        if (avatarUrl != null && avatarUrl.startsWith(BASE_URL))
+        if (avatarUrl != null && avatarUrl.startsWith("16/static_files/users"))
             Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
 
         if (name != null) {
             nicknameET.setText(name);
         }
 
-        if (gender != null && gender.equals("زن"))
+        if (gender != null && gender.equals("female"))
             woman.setChecked(true);
-        else if (gender != null && gender.equals("مرد"))
+        else if (gender != null && gender.equals("male"))
             man.setChecked(true);
 
         if (birthDate != null) {
@@ -215,12 +249,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             if (isAnyFieldChanged(nickname, gender, birthDate)) {
                 if (nickname.equals(""))
                     nickname = stringGenerator();
-
-                if (!birthDate.equals("") && !dateValidate(birthDate))
-                    showMessage("تاریخ وارد شده معتبر نیست");
-
                 else
                     mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + TOKEN);
+
             } else {
                 showMessage("تغییری ایجاد نشده است");
             }
@@ -233,16 +264,20 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         fm.popBackStack();
     }
 
-    private boolean dateValidate(String date) {
+    private String dateValidate(int day, int month) {
 
-        String regex = "^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9]{2})?[0-9]{2}$";
+        String validDay, validMonth, validDate;
+        validDay = String.valueOf(day);
+        validMonth = String.valueOf(month);
 
-        Pattern pattern = Pattern.compile(regex);
+        if (validDay.length() == 1)
+            validDay = "0" + String.valueOf(day);
+        if (validMonth.length() == 1)
+            validMonth = "0" + String.valueOf(month);
 
-        Matcher matcher = pattern.matcher(date);
-        System.out.println(date + " : " + matcher.matches());
+        validDate = validMonth + "-" + validDay;
 
-        return matcher.matches();
+        return validDate;
     }
 
     private boolean isAnyFieldChanged(String currentNickname, String currentGender, String currentBirthDate) {
@@ -257,7 +292,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void showCalendar(View v) {
 
         PersianCalendar initDate = new PersianCalendar();
-        initDate.setPersianDate(1370, 3, 13);
+        initDate.setPersianDate(1370, 03, 13);
 
         picker = new PersianDatePickerDialog(getContext())
                 .setPositiveButtonString("باشه")
@@ -271,7 +306,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
-                        birthDateET.setText(persianCalendar.getPersianDay() + "/" + persianCalendar.getPersianMonth() + "/" + persianCalendar.getPersianYear());
+
+                        String monthAndDate = dateValidate(persianCalendar.getPersianDay(), persianCalendar.getPersianMonth());
+                        birthDateET.setText(persianCalendar.getPersianYear() + "-" + monthAndDate);
+
                     }
 
                     @Override

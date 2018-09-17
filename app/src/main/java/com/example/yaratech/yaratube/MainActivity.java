@@ -17,7 +17,7 @@ import com.example.yaratech.yaratube.ui.productdetail.ProductDetailFragment;
 import com.example.yaratech.yaratube.ui.productdetail.comment.CommentDialogFragment;
 import com.example.yaratech.yaratube.ui.productgrid.ProductGridFragment;
 import com.example.yaratech.yaratube.ui.profile.ProfileFragment;
-import com.example.yaratech.yaratube.ui.profile.pickavatar.PickAvatarDialogFragment;
+import com.example.yaratech.yaratube.ui.profile.PickAvatarDialogFragment;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 
 import static com.example.yaratech.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
@@ -25,7 +25,6 @@ import static com.example.yaratech.yaratube.ui.productgrid.ProductGridFragment.P
 import static com.example.yaratech.yaratube.ui.profile.ProfileFragment.PROFILE_FRAGMENT;
 
 public class MainActivity extends AppCompatActivity implements TransferToFragment {
-
 
     private static final String DATABASE_NAME = "yara_db";
     private MainLoginContract.onChildButtonClickListener mListener;
@@ -39,9 +38,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-//        drawerLayout = findViewById(R.id.homePage);
+        //        drawerLayout = findViewById(R.id.homePage);
 //        NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
 
         yaraDatabase = Room.databaseBuilder(getApplicationContext(), YaraDatabase.class, DATABASE_NAME)

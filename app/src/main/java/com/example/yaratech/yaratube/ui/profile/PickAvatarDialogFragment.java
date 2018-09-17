@@ -1,60 +1,68 @@
-package com.example.yaratech.yaratube.ui.profile.pickavatar;
+package com.example.yaratech.yaratube.ui.profile;
 
+import android.Manifest;
 import android.app.Dialog;
-import android.content.ClipData;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.yaratech.yaratube.R;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 import static android.app.Activity.RESULT_OK;
-import static com.example.yaratech.yaratube.data.source.Constant.TOKEN;
 
-public class PickAvatarDialogFragment extends DialogFragment implements PickAvatarContract.View {
+public class PickAvatarDialogFragment extends DialogFragment  {
 
+
+    public static String AVATAR_OPTION_DIALOG = PickAvatarDialogFragment.class.getName();
     public static final int GALLERY_REQUEST = 9002;
     public static final int CAMERA_REQUEST = 9003;
-    public static String AVATAR_OPTION_DIALOG = PickAvatarDialogFragment.class.getName();
+    public static final int GALLERY_PERMISSION = 9004;
+    public static final int CAMERA_PERMISSION = 9005;
+
     private ImageView galleryBut, cameraBut;
     private Button closeBut;
-    private PickAvatarContract.Presenter mPresenter;
+    //    private PickAvatarContract.Presenter mPresenter;
+    private ProfileContract.Listener mListener;
 
     public PickAvatarDialogFragment() {
-        // Required empty public constructor
+
     }
+
+    public static PickAvatarDialogFragment newInstance() {
+        Bundle bundle = new Bundle();
+        PickAvatarDialogFragment pickAvatarDialogFragment = new PickAvatarDialogFragment();
+        pickAvatarDialogFragment.setArguments(bundle);
+        return pickAvatarDialogFragment;
+    }
+
+    public void setPhotoSelectedListener(ProfileContract.Listener listener) {
+        mListener = listener;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new PickAvatarPresenter(this);
+//        mPresenter = new PickAvatarPresenter(this);
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
@@ -68,11 +76,14 @@ public class PickAvatarDialogFragment extends DialogFragment implements PickAvat
         cameraBut = view.findViewById(R.id.cameraBut);
         closeBut = view.findViewById(R.id.dialogDismissBut);
 
-        //TODO: check camera and gallery permissions
         //TODO: provide image cropper!!
         galleryBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION);
+                }
                 takePhotoFromGallery();
             }
         });
@@ -80,11 +91,12 @@ public class PickAvatarDialogFragment extends DialogFragment implements PickAvat
         cameraBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    takePhotoFromCamera();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) !=
+                        PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSION);
                 }
+
+                takePhotoFromCamera();
             }
         });
 
@@ -112,34 +124,11 @@ public class PickAvatarDialogFragment extends DialogFragment implements PickAvat
     }
 
 
-    private void takePhotoFromCamera() throws IOException {
+    private void takePhotoFromCamera() {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photoFile = createImageFileWith();
-
-        String path = photoFile.getPath();
-        Uri cameraUri = Uri.parse(path);
-
-//                FileProvider.getUriForFile(getActivity(),
-//                getString(R.string.file_provider_authority),
-//                photoFile);
-
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
-            cameraIntent.setClipData(ClipData.newRawUri("", cameraUri));
-            cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        }
-
         startActivityForResult(cameraIntent, CAMERA_REQUEST);
 
-    }
-
-    public File createImageFileWith() throws IOException {
-        final String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        final String imageFileName = "JPEG_" + timestamp;
-        File storageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "pics");
-        storageDir.mkdirs();
-        return File.createTempFile(imageFileName, ".jpg", storageDir);
     }
 
     @Override
@@ -147,66 +136,30 @@ public class PickAvatarDialogFragment extends DialogFragment implements PickAvat
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-            if (requestCode == GALLERY_REQUEST)
-                userSelectGallery(data);
+            if (requestCode == GALLERY_REQUEST) {
 
-            else if (requestCode == CAMERA_REQUEST)
-                userSelectCamera(data);
+                Uri selectedImage = data.getData();
+                mListener.photoSelectedListener(createFilePath(selectedImage));
+            } else if (requestCode == CAMERA_REQUEST) {
+
+                Uri selectedImage = data.getData();
+                mListener.photoSelectedListener(createFilePath(selectedImage));
+            }
+            getDialog().dismiss();
         }
     }
 
-    private void userSelectGallery(Intent data) {
 
-        //the address of the image on the SD card
-        Uri selectedImage = data.getData();
+    private String createFilePath(Uri selectedImage) {
+
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
         android.database.Cursor cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-        if (cursor == null)
-            return;
-
         cursor.moveToFirst();
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         String filePath = cursor.getString(columnIndex);
         cursor.close();
-
-        File file = new File(filePath);
-        long imageSize = file.length() /1024;
-
-        if(imageSize > 1000)
-            showMessage("حجم عکس بیشتر از 1mb است");
-       else {
-
-            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("picture", file.getName(), requestFile);
-            mPresenter.sendUserAvatarToServer(body, "Token " + TOKEN);
-        }
-
-
+        return filePath;
     }
 
-    private void userSelectCamera(Intent data) {
-        showMessage("camera selected");
-    }
-
-
-    @Override
-    public void dismissDialog() {
-        getDialog().dismiss();
-    }
-
-    @Override
-    public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
-    }
-
-    @Override
-    public void showProgressBar() {
-
-    }
-
-    @Override
-    public void hideProgressBar() {
-
-    }
 }
