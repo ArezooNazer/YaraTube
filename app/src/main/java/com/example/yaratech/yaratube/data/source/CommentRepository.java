@@ -32,7 +32,7 @@ public class CommentRepository {
 
                     @Override
                     public void onFailure(Call<List<Comment>> call, Throwable t) {
-                        callback.onError("Error");
+//                        callback.onError("Error");
                     }
                 });
     }
@@ -59,7 +59,7 @@ public class CommentRepository {
 
                     @Override
                     public void onFailure(Call<SendComment> call, Throwable t) {
-                        callback.onError("on error");
+                        callback.onError("دوباره تلاش کنید");
                     }
                 });
     }

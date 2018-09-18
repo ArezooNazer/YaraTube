@@ -9,7 +9,7 @@ import okhttp3.MultipartBody;
 public interface ProfileContract {
 
     interface View extends BaseView {
-        void showProfileField(ProfileGetResponse profileGetResponse);
+        void showProfileFieldFromServer(ProfileGetResponse profileGetResponse);
 
         void showProfileFieldFromDb(User user);
     }

@@ -21,14 +21,14 @@ public class ProductDetailRepository {
                             Product responseProduct = response.body();
                             callback.onSuccess(responseProduct);
                         }else {
-                            callback.onError("Response was not successful!");
+                            callback.onError("خطا در به روز رسانی");
                         }
 
                     }
 
                     @Override
                     public void onFailure(Call<Product> call, Throwable t) {
-                        callback.onError("Error : onFailure!");
+                        callback.onError("خطا د به روز رسانی");
                     }
                 });
     }

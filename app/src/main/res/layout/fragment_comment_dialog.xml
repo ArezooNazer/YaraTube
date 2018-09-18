@@ -12,14 +12,6 @@
         android:orientation="vertical"
         android:padding="21dp">
 
-        <Button
-            android:id="@+id/dialogDismissBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_close_black_24dp" />
-
         <RatingBar
             android:id="@+id/ratingBar"
             android:theme="@style/RatingBar"

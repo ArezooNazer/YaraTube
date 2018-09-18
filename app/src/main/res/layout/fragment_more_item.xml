@@ -44,19 +44,6 @@
            android:padding="10dp"
            android:fontFamily="@font/iran_sans"/>
 
-       <View
-           android:layout_width="match_parent"
-           android:layout_height="1dp"
-           android:background="#ccc"/>
-
-       <TextView
-           android:id="@+id/logOut"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="خروج"
-           android:padding="10dp"
-           android:fontFamily="@font/iran_sans"/>
-
    </LinearLayout>
 
 </FrameLayout>

@@ -5,26 +5,35 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.yaratech.yaratube.R;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.app.Activity.RESULT_OK;
 
-public class PickAvatarDialogFragment extends DialogFragment  {
+public class PickAvatarDialogFragment extends DialogFragment {
 
 
     public static String AVATAR_OPTION_DIALOG = PickAvatarDialogFragment.class.getName();
@@ -34,7 +43,7 @@ public class PickAvatarDialogFragment extends DialogFragment  {
     public static final int CAMERA_PERMISSION = 9005;
 
     private ImageView galleryBut, cameraBut;
-    private Button closeBut;
+    private String imageFilePath = "";
     //    private PickAvatarContract.Presenter mPresenter;
     private ProfileContract.Listener mListener;
 
@@ -57,7 +66,6 @@ public class PickAvatarDialogFragment extends DialogFragment  {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        mPresenter = new PickAvatarPresenter(this);
     }
 
     @Override
@@ -71,20 +79,20 @@ public class PickAvatarDialogFragment extends DialogFragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pick_avatar_dialog, container, false);
+        getDialog().setCanceledOnTouchOutside(false);
 
         galleryBut = view.findViewById(R.id.galleryBut);
         cameraBut = view.findViewById(R.id.cameraBut);
-        closeBut = view.findViewById(R.id.dialogDismissBut);
 
-        //TODO: provide image cropper!!
         galleryBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
                         PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION);
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION);
+                } else {
+                    takePhotoFromGallery();
                 }
-                takePhotoFromGallery();
             }
         });
 
@@ -93,23 +101,26 @@ public class PickAvatarDialogFragment extends DialogFragment  {
             public void onClick(View view) {
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) !=
                         PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSION);
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+                } else {
+                    takePhotoFromCamera();
                 }
-
-                takePhotoFromCamera();
-            }
-        });
-
-        closeBut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
             }
         });
 
         return view;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CAMERA_PERMISSION && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(getContext(), "Thanks for granting Permission", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
     private void takePhotoFromGallery() {
 
@@ -127,7 +138,13 @@ public class PickAvatarDialogFragment extends DialogFragment  {
     private void takePhotoFromCamera() {
 
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                openCameraIntent();
+            else
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        }
 
     }
 
@@ -140,13 +157,29 @@ public class PickAvatarDialogFragment extends DialogFragment  {
 
                 Uri selectedImage = data.getData();
                 mListener.photoSelectedListener(createFilePath(selectedImage));
-            } else if (requestCode == CAMERA_REQUEST) {
+//                cropImage(selectedImage);
 
-                Uri selectedImage = data.getData();
-                mListener.photoSelectedListener(createFilePath(selectedImage));
+            } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+
+                Uri selectedImage = result.getUri();
+                mListener.photoSelectedListener(selectedImage.getPath());
+            } else if (requestCode == CAMERA_REQUEST) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                    mListener.photoSelectedListener(imageFilePath);
+                    Log.d("imageFilePath", "onActivityResult() called with:  imageFilePath" + imageFilePath);
+                }else {
+                    Uri selectedImage = data.getData();
+                    mListener.photoSelectedListener(createFilePath(selectedImage));
+                }
+
             }
+
+            Log.d("result", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
             getDialog().dismiss();
         }
+
+
     }
 
 
@@ -160,6 +193,49 @@ public class PickAvatarDialogFragment extends DialogFragment  {
         String filePath = cursor.getString(columnIndex);
         cursor.close();
         return filePath;
+    }
+
+    private File createImageFile() throws IOException {
+
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "IMG_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        imageFilePath = image.getAbsolutePath();
+
+        return image;
+    }
+
+    private void openCameraIntent() {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+            Uri photoURI = FileProvider.getUriForFile(
+                    getContext(),
+                    getContext().getPackageName() + ".provider",
+                    photoFile);;
+            pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+            startActivityForResult(pictureIntent, CAMERA_REQUEST);
+        }
+    }
+
+
+    public void cropImage(Uri imagePath) {
+        CropImage
+                .activity(imagePath)
+                .setAllowFlipping(true)
+                .setAllowRotation(true)
+                .setCropShape(CropImageView.CropShape.RECTANGLE)
+                .setMaxCropResultSize(1024, 1024)
+                .start(getContext(), this);
     }
 
 }

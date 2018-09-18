@@ -17,21 +17,20 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
     public void getProductDetail(Product product) {
 
         productDetailRepository = new ProductDetailRepository();
-//        mView.showProgressBar();
+        mView.showProgressBar();
 
         productDetailRepository.getProductDetail(product, new ApiResult<Product>() {
 
             @Override
             public void onSuccess(Product result) {
-//                mView.hideProgressBar();
+                mView.hideProgressBar();
                 mView.showProductDetail(result);
             }
 
             @Override
             public void onError(String massage) {
-
-//                mView.hideProgressBar();
-//                mView.showMessage(massage);
+                mView.hideProgressBar();
+                mView.showMessage(massage);
             }
         });
     }

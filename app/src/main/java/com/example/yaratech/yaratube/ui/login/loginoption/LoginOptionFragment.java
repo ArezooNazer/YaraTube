@@ -128,6 +128,8 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
 
     private void loginViaGoogle() {
 
+        loginViaGoogleBut.setEnabled(true);
+        loginViaPhoneNumBut.setEnabled(true);
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(intent, REQ_CODE);
 

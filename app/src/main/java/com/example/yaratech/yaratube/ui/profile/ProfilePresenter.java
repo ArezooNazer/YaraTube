@@ -17,7 +17,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public static String ProfilePresenter = ProfilePresenter.class.getName();
     private ProfileRepository profileRepository;
     private ProfileContract.View mView;
-//    private String resultNickname, resultGender, resultBirthDate;
 
     public ProfilePresenter(ProfileContract.View mView) {
         this.mView = mView;
@@ -42,12 +41,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             @Override
             public void onSuccess(ProfileGetResponse result) {
 
-                mView.showProfileField(result);
                 mView.hideProgressBar();
+                mView.showProfileFieldFromServer(result);
             }
 
             @Override
             public void onError(String massage) {
+                mView.hideProgressBar();
                 mView.showMessage("خطا در نمایش اطلاعات");
             }
         });
@@ -62,25 +62,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             public void onSuccess(Profile result) {
 
                 Log.d("ProfilePresenter", "nickname : " + result.getData().getNickname() + " gender : " + result.getData().getGender() + " dateOfBirth : " + result.getData().getDateOfBirth());
-                //if user registered before, user data is still on sever
-
-//                if(result.getData().getNickname() != null)
-//                    resultNickname = result.getData().getNickname();
-//                else
-//                    resultNickname = nickName;
-//
-//                if( result.getData().getGender() != null)
-//                    resultGender = (String) result.getData().getGender();
-//                else
-//                    resultGender = gender;
-//
-//                if ( result.getData().getDateOfBirth() != null)
-//                    resultBirthDate = (String) result.getData().getDateOfBirth();
-//                else
-//                    resultBirthDate = dateOfBirth;
 
                 updateUserEntity(nickName, dateOfBirth, gender);
-//                getProfileFieldFromServer(token);
                 getProfileFiledFromDb();
                 mView.hideProgressBar();
                 mView.showMessage("تغییرات با موفقیت ذخیره شد");
@@ -89,7 +72,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.showMessage("عملیات ناموفق، دوباره تلاش کنید");
+                mView.hideProgressBar();
+                mView.showMessage(massage);
             }
         });
     }
@@ -110,7 +94,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
 
             @Override
             public void onError(String massage) {
-                mView.showMessage("حجم فایل باید کمتر از 1m و نوع فایل jpg باشد!!!!");
+                mView.hideProgressBar();
+                mView.showMessage(massage);
             }
         });
     }

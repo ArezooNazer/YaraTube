@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 
 import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.ui.login.activationcodelogin.ActivationFragment;
@@ -31,6 +30,7 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         loginOptionFragment = new LoginOptionFragment();
         mobileLoginDialogFragment = new PhoneNumberFragment();
         activationLoginDialogFragment = new ActivationFragment();
@@ -46,7 +46,6 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
 
-        // request a window without the title
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         return dialog;
     }
@@ -55,15 +54,9 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
         View view = inflater.inflate(R.layout.fragment_main_login_dialog, container, false);
-        Button button = view.findViewById(R.id.dialogDismissBut);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
-            }
-        });
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
+        getDialog().setCanceledOnTouchOutside(false);
         return view;
     }
 

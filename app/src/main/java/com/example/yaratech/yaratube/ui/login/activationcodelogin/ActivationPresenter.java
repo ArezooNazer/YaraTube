@@ -6,7 +6,6 @@ import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.LoginRepository;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
-import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ActivationPresenter implements ActivationContract.Presenter {
 
@@ -25,15 +24,17 @@ public class ActivationPresenter implements ActivationContract.Presenter {
             @Override
             public void onSuccess(Register result) {
 
-                updateUserEntity(result);
-                mView.showMessage("خوش آمدید");
-                mView.activationCodIsValid();
-
+                if(result != null) {
+                    updateUserEntity(result);
+                    if( yaraDatabase.selectDao().getUserRecord().getToken() !=null) {
+                        mView.showMessage("خوش آمدید");
+                        mView.activationCodIsValid();
+                    }
+                }
             }
 
             @Override
             public void onError(String massage) {
-
                 mView.showMessage("ارسال با موفقیت انجام نشد، دوباره تلاش کنید");
             }
         });
@@ -43,17 +44,17 @@ public class ActivationPresenter implements ActivationContract.Presenter {
     private void updateUserEntity(Register result) {
 
         User user = yaraDatabase.selectDao().getUserRecord();
-        user.setFinoToken(result.getFinoToken());
         user.setToken(result.getToken());
+        user.setFinoToken(result.getFinoToken());
 
-        if (result.getNickname() == null) {
-            String userGeneratedName = stringGenerator();
-            user.setName(userGeneratedName);
-            user.setNickname(userGeneratedName);
-        } else {
-            user.setName(result.getNickname());
-            user.setNickname(result.getNickname());
-        }
+//        if (result.getNickname() == null ) {
+//            String userGeneratedName = stringGenerator();
+//            user.setName(userGeneratedName);
+//            user.setNickname(userGeneratedName);
+//        } else {
+//            user.setName(result.getNickname());
+//            user.setNickname(result.getNickname());
+//        }
         yaraDatabase.insertDao().updateUserInfo(user);
     }
 

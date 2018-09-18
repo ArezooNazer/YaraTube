@@ -16,16 +16,14 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.example.yaratech.yaratube.R;
-import com.example.yaratech.yaratube.data.YaraDatabase;
 import com.example.yaratech.yaratube.data.model.Comment;
-import com.example.yaratech.yaratube.data.model.Product;
 
 import java.util.List;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
 
 
-public class CommentDialogFragment extends DialogFragment implements CommentContract.View{
+public class CommentDialogFragment extends DialogFragment implements CommentContract.View {
 
     private CommentContract.Presenter mPresenter;
     private int productId;
@@ -38,18 +36,15 @@ public class CommentDialogFragment extends DialogFragment implements CommentCont
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new CommentPresenter(this);
 
+        mPresenter = new CommentPresenter(this);
         productId = getArguments().getInt("productId");
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
         dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
         return dialog;
     }
 
@@ -57,17 +52,10 @@ public class CommentDialogFragment extends DialogFragment implements CommentCont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
         View view = inflater.inflate(R.layout.fragment_comment_dialog, container, false);
+        getDialog().setCanceledOnTouchOutside(false);
 
-        Button button = view.findViewById(R.id.dialogDismissBut);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
-            }
-        });
-        return view;
+               return view;
     }
 
     @Override
@@ -83,8 +71,8 @@ public class CommentDialogFragment extends DialogFragment implements CommentCont
         sendCommentBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.sendComment("" , score, commentET.getText().toString(), productId,"Token " + token);
-                Log.d("TAG" ,String.valueOf(productId) );
+                mPresenter.sendComment("", score, commentET.getText().toString(), productId, "Token " + token);
+                Log.d("TAG", String.valueOf(productId));
 
             }
         });
@@ -106,7 +94,7 @@ public class CommentDialogFragment extends DialogFragment implements CommentCont
     }
 
     @Override
-    public void showProgressBar(){
+    public void showProgressBar() {
     }
 
 
@@ -115,10 +103,10 @@ public class CommentDialogFragment extends DialogFragment implements CommentCont
 
     }
 
-    public static CommentDialogFragment newInstance(int productId){
+    public static CommentDialogFragment newInstance(int productId) {
 
         Bundle arg = new Bundle();
-        arg.putInt("productId" , productId);
+        arg.putInt("productId", productId);
 
         CommentDialogFragment commentDialogFragment = new CommentDialogFragment();
         commentDialogFragment.setArguments(arg);

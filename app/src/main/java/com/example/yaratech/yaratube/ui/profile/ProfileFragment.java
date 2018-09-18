@@ -1,8 +1,9 @@
 package com.example.yaratech.yaratube.ui.profile;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -22,11 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.yaratech.yaratube.MainActivity;
 import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
-import com.example.yaratech.yaratube.util.TransferToFragment;
 
 import java.io.File;
 
@@ -40,7 +39,6 @@ import okhttp3.RequestBody;
 import static com.example.yaratech.yaratube.data.source.Constant.BASE_URL;
 import static com.example.yaratech.yaratube.data.source.Constant.TOKEN;
 import static com.example.yaratech.yaratube.ui.profile.PickAvatarDialogFragment.AVATAR_OPTION_DIALOG;
-import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
@@ -56,18 +54,9 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private String nickname, gender, birthDate, avatarUrl, avatarPath;
     private ProgressBar progressBar;
     private User user;
-    private TransferToFragment transferToFragment;
+    private String token;
 
     public ProfileFragment() {
-        // Required empty public constructor
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        if (context instanceof MainActivity)
-            transferToFragment = (TransferToFragment) context;
     }
 
     @Override
@@ -75,7 +64,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         super.onCreate(savedInstanceState);
         mPresenter = new ProfilePresenter(this);
         gender = mPresenter.getUserInfo().getGender();
-//        avatarUrl = mPresenter.getUserInfo().getImage();
+        token = mPresenter.getUserInfo().getToken();
+
     }
 
     @Override
@@ -94,9 +84,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         profileAvatar = view.findViewById(R.id.profileAvatar);
         progressBar = view.findViewById(R.id.profileProgress);
 
-        //set profile fields
-//        mPresenter.getProfileFieldFromServer("Token " + TOKEN);
-        mPresenter.getProfileFiledFromDb();
 
         Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
         if (mToolbar != null) {
@@ -128,11 +115,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 selectedRadioBut = view.findViewById(selectedId);
                 String genderET = selectedRadioBut.getText().toString();
                 if (genderET.equals("مرد"))
-                    gender = "male";
+                    gender = "Male";
                 else
-                    gender = "female";
-                Log.d("PROFILE_FRAGMENT", "TOKEN = [" + TOKEN + "]");
-            }
+                    gender = "Female";
+                }
         });
 
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -170,6 +156,15 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //set profile fields
+        mPresenter.getProfileFiledFromDb();
+        mPresenter.getProfileFieldFromServer("Token " + token);
+    }
+
+    @Override
     public void showMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
@@ -186,30 +181,32 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
 
     @Override
-    public void showProfileField(ProfileGetResponse profileGetResponse) {
+    public void showProfileFieldFromServer(ProfileGetResponse profileGetResponse) {
 
         String avatarUrl = profileGetResponse.getAvatar();
         String name = profileGetResponse.getNickname();
         String gender = (String) profileGetResponse.getGender();
         String birthDate = (String) profileGetResponse.getDateOfBirth();
 
-        if (avatarUrl != null)
-            Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
+        if (avatarUrl != null && avatarUrl.startsWith("16/static_files/users"))
+            Glide.with(getContext())
+                    .load(BASE_URL + avatarUrl)
+                    .into(profileAvatar);
 
         if (name != null) {
             nicknameET.setText(name);
         }
 
-        if (gender != null && gender.equals("female"))
+        if (gender != null && gender.equals("Female"))
             woman.setChecked(true);
-        else if (gender != null && gender.equals("male"))
+        else if (gender != null && gender.equals("Male"))
             man.setChecked(true);
 
         if (birthDate != null) {
-            birthDateET.setText(user.getBirthDate());
+            birthDateET.setText(birthDate);
         }
 
-        Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + "name" + name);
+        Log.d("showProfileFromServer", "showProfileFieldFromServer() avatarUrl " + avatarUrl + "gender" + gender);
 
     }
 
@@ -220,18 +217,20 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         String gender = user.getGender();
         String birthDate = user.getBirthDate();
 
-        Log.d("PROFILE_FRAGMENT", "showProfileField() avatarUrl " + avatarUrl + " gender " + gender);
+        Log.d("showProfileFromDb", "showProfileFieldFromDb() avatarUrl " + avatarUrl + " gender " + gender);
 
         if (avatarUrl != null && avatarUrl.startsWith("16/static_files/users"))
-            Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
+            Glide.with(getContext())
+                    .load(BASE_URL + avatarUrl)
+                    .into(profileAvatar);
 
         if (name != null) {
             nicknameET.setText(name);
         }
 
-        if (gender != null && gender.equals("female"))
+        if (gender != null && gender.equals("Female"))
             woman.setChecked(true);
-        else if (gender != null && gender.equals("male"))
+        else if (gender != null && gender.equals("Male"))
             man.setChecked(true);
 
         if (birthDate != null) {
@@ -247,10 +246,10 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             birthDate = birthDateET.getText().toString();
 
             if (isAnyFieldChanged(nickname, gender, birthDate)) {
-                if (nickname.equals(""))
-                    nickname = stringGenerator();
-                else
-                    mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + TOKEN);
+//                if (nickname.equals(""))
+//                    nickname = stringGenerator();
+//                else
+                    mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + token);
 
             } else {
                 showMessage("تغییری ایجاد نشده است");
@@ -306,10 +305,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
-
                         String monthAndDate = dateValidate(persianCalendar.getPersianDay(), persianCalendar.getPersianMonth());
                         birthDateET.setText(persianCalendar.getPersianYear() + "-" + monthAndDate);
-
                     }
 
                     @Override
@@ -320,5 +317,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         picker.show();
     }
+
 
 }

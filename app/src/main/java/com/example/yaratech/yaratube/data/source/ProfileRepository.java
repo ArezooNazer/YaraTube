@@ -64,12 +64,12 @@ public class ProfileRepository {
                         if (response.isSuccessful()) {
                             callback.onSuccess(response.body());
                         } else
-                            callback.onError("error");
+                            callback.onError("خطا در آپلود تصویر");
                     }
 
                     @Override
                     public void onFailure(Call<Profile> call, Throwable t) {
-                        callback.onError("on error");
+                        callback.onError("خطا در آپلود تصویر");
                     }
                 });
 

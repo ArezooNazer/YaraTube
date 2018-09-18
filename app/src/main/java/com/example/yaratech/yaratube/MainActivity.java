@@ -135,7 +135,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public void goToMainLoginDialogFragment() {
 
         MainLoginDialogFragment mainLoginDialogFragment = new MainLoginDialogFragment();
-        mainLoginDialogFragment.setCancelable(false);
         mainLoginDialogFragment.show(getSupportFragmentManager(), "LoginDialog");
     }
 
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public void goToCommentDialogFragment(int productId) {
 
         CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(productId);
-        commentDialogFragment.setCancelable(false);
+//        commentDialogFragment.setCancelable(false);
         commentDialogFragment.show(getSupportFragmentManager(), "commentDialog");
     }
 
@@ -160,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public void goToAvatarOptionDialogFragment() {
 
         PickAvatarDialogFragment avatarOptionDialogFragment = new PickAvatarDialogFragment();
-        avatarOptionDialogFragment.setCancelable(false);
         avatarOptionDialogFragment.show(getSupportFragmentManager(), "avatarDialog");
     }
 

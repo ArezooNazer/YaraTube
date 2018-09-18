@@ -49,8 +49,6 @@ public class MoreItemFragment extends Fragment {
        profile = view.findViewById(R.id.profile);
        aboutUs = view.findViewById(R.id.aboutUs);
        contactUs = view.findViewById(R.id.contactUs);
-       logOut = view.findViewById(R.id.logOut);
-
        return view;
     }
 
