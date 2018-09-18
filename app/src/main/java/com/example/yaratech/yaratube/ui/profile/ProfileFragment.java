@@ -118,7 +118,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                     gender = "Male";
                 else
                     gender = "Female";
-                }
+            }
         });
 
         profileAvatar.setOnClickListener(new View.OnClickListener() {
@@ -189,9 +189,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         String birthDate = (String) profileGetResponse.getDateOfBirth();
 
         if (avatarUrl != null && avatarUrl.startsWith("16/static_files/users"))
-            Glide.with(getContext())
-                    .load(BASE_URL + avatarUrl)
-                    .into(profileAvatar);
+            Glide.with(getContext()).load(BASE_URL + avatarUrl).into(profileAvatar);
 
         if (name != null) {
             nicknameET.setText(name);
@@ -249,7 +247,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 //                if (nickname.equals(""))
 //                    nickname = stringGenerator();
 //                else
-                    mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + token);
+                mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + token);
 
             } else {
                 showMessage("تغییری ایجاد نشده است");

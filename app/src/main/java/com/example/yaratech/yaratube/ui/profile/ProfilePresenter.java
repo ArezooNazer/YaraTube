@@ -41,8 +41,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             @Override
             public void onSuccess(ProfileGetResponse result) {
 
-                mView.hideProgressBar();
                 mView.showProfileFieldFromServer(result);
+                mView.hideProgressBar();
             }
 
             @Override

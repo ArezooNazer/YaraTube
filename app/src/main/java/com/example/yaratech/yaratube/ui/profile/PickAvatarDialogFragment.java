@@ -156,29 +156,33 @@ public class PickAvatarDialogFragment extends DialogFragment {
             if (requestCode == GALLERY_REQUEST) {
 
                 Uri selectedImage = data.getData();
-                mListener.photoSelectedListener(createFilePath(selectedImage));
-//                cropImage(selectedImage);
+                cropImage(selectedImage);
 
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
 
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 Uri selectedImage = result.getUri();
+                Log.d("avatar", "cropped called" + selectedImage.getPath());
                 mListener.photoSelectedListener(selectedImage.getPath());
+                getDialog().dismiss();
+
             } else if (requestCode == CAMERA_REQUEST) {
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                    mListener.photoSelectedListener(imageFilePath);
-                    Log.d("imageFilePath", "onActivityResult() called with:  imageFilePath" + imageFilePath);
+
+                    cropImage(Uri.fromFile(new File(imageFilePath)));
+//                    mListener.photoSelectedListener(imageFilePath);
+                    Log.d("avatar", "camera plus called" + imageFilePath);
                 }else {
                     Uri selectedImage = data.getData();
-                    mListener.photoSelectedListener(createFilePath(selectedImage));
+                    Log.d("avatar", "camera called" + selectedImage.getPath());
+                    cropImage(selectedImage);
                 }
-
             }
 
             Log.d("result", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
-            getDialog().dismiss();
-        }
 
+        }
 
     }
 
@@ -234,7 +238,8 @@ public class PickAvatarDialogFragment extends DialogFragment {
                 .setAllowFlipping(true)
                 .setAllowRotation(true)
                 .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .setMaxCropResultSize(1024, 1024)
+                .setOutputCompressQuality(50)
+                .setFixAspectRatio(true)
                 .start(getContext(), this);
     }
 
