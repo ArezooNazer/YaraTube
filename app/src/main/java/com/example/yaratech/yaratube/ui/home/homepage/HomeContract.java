@@ -7,6 +7,8 @@ public interface HomeContract {
 
     interface View extends BaseView{
         void showHomeItemList(Store store);
+        void showRetryOption();
+        void hideRetryOption();
     }
 
     interface Presenter{

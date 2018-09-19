@@ -12,4 +12,5 @@
     <string name="more">بیشتر</string>
 
     <string name="file_provider_authority" translatable="false">com.quiro.fileproviderexample.fileprovider</string>
+    <string name="retry">دوباره تلاش کنید</string>
 </resources>

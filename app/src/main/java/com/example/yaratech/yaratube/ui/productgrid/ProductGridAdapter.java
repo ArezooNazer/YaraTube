@@ -61,7 +61,6 @@ public class ProductGridAdapter extends RecyclerView.Adapter<ProductGridViewHold
 
     //in this case using this method is best practice
     public void updateData(List<Product> products){
-
         for (Product product : products) {
             addItem(product);
         }

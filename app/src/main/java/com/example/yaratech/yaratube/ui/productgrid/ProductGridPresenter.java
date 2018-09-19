@@ -18,21 +18,23 @@ public class ProductGridPresenter implements ProductGridContract.Presenter{
     }
 
     @Override
-    public void getProductList(Category category , int offset) {
+    public void getProductList(Category category , final int offset) {
 
         mView.showProgressBar();
         productListRepository.getProductList(category,offset, new ApiResult<List<Product>>() {
             @Override
             public void onSuccess(List<Product> result) {
-
+                mView.hideRetryOption();
                 mView.hideProgressBar();
                 mView.showProductList(result);
             }
 
             @Override
-            public void onError(String massage) {
+            public void onError(String message) {
+                if(offset == 0)
+                    mView.showRetryOption();
                 mView.hideProgressBar();
-                mView.showMessage(massage);
+                mView.showMessage(message);
             }
         });
 

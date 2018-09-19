@@ -9,6 +9,8 @@ public interface CategoryContract {
 
     interface View extends BaseView {
         void showCategoryList(List<Category> categoryList);
+        void showRetryOption();
+        void hideRetryOption();
     }
 
     interface Presenter {
@@ -16,7 +18,6 @@ public interface CategoryContract {
     }
 
     interface OnCategoryItemListener {
-
         void onCategoryItemClick(Category category);
     }
 

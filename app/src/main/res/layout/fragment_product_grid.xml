@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.productgrid.ProductGridFragment"
-    android:background="@color/white" >
+    android:background="@color/white"
+    tools:context=".ui.productgrid.ProductGridFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:fontFamily="@font/iran_sans"
         android:theme="@style/ToolbarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -18,30 +19,41 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.001"
-        app:titleTextColor="@color/white"
-        android:fontFamily="@font/iran_sans"/>
+        app:titleTextColor="@color/white" />
+
+    <Button
+        android:id="@+id/retryButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_gray_border_white_back"
+        android:drawableLeft="@drawable/ic_refresh_black_24dp"
+        android:fontFamily="@font/iran_sans"
+        android:foregroundGravity="center"
+        android:padding="10dp"
+        android:text="@string/retry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        app:layout_constraintVertical_bias="0.555">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/ProductListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:foregroundGravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
         <ProgressBar
             android:id="@+id/ProductListProgressBar"
@@ -57,7 +69,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </android.support.constraint.ConstraintLayout>
-
 
 
 </android.support.constraint.ConstraintLayout>

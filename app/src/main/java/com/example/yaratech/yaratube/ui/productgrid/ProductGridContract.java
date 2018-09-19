@@ -10,6 +10,8 @@ public interface ProductGridContract {
 
     interface View extends BaseView {
         void showProductList(List<Product> productList);
+        void showRetryOption();
+        void hideRetryOption();
     }
 
     interface Presenter {

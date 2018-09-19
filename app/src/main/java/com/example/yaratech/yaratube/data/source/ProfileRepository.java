@@ -20,12 +20,12 @@ public class ProfileRepository {
                         if (response.isSuccessful())
                             callback.onSuccess(response.body());
                         else
-                            callback.onError("خطا در نمایش اطلاعات");
+                            callback.onError("به روز رسانی اطلاعات ممکن نیست");
                     }
 
                     @Override
                     public void onFailure(Call<ProfileGetResponse> call, Throwable t) {
-                        callback.onError("خطا در نمایش اطلاعات");
+                        callback.onError("به روز رسانی اطلاعات ممکن نیست");
                     }
                 });
     }

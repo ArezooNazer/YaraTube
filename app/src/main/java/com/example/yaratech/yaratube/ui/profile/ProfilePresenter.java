@@ -46,9 +46,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             }
 
             @Override
-            public void onError(String massage) {
+            public void onError(String message) {
                 mView.hideProgressBar();
-                mView.showMessage("خطا در نمایش اطلاعات");
+                mView.showMessage(message);
             }
         });
     }
@@ -71,9 +71,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             }
 
             @Override
-            public void onError(String massage) {
+            public void onError(String message) {
                 mView.hideProgressBar();
-                mView.showMessage(massage);
+                mView.showMessage(message);
             }
         });
     }
@@ -93,9 +93,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             }
 
             @Override
-            public void onError(String massage) {
+            public void onError(String message) {
                 mView.hideProgressBar();
-                mView.showMessage(massage);
+                mView.showMessage(message);
             }
         });
     }

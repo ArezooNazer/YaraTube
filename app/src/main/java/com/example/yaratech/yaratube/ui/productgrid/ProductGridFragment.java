@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -46,9 +47,10 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
     private RecyclerView recyclerView;
     private Category category;
     private TransferToFragment goToProductDetailFragment;
+    private Button retryBut;
 
     public ProductGridFragment() {
-        // Required empty public constructor
+
     }
 
 
@@ -83,22 +85,22 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_product_grid, container, false);
 
         progressBar = view.findViewById(R.id.ProductListProgressBar);
-
-        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        retryBut = view.findViewById(R.id.retryButton);
+        retryBut.setVisibility(View.GONE);
+        retryBut.bringToFront(); // for on click works on android 4.3!!!!
+        Toolbar mToolbar =  view.findViewById(R.id.toolbar);
 
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
             actionBar.setTitle(category.getTitle());
         }
-
 
         return view;
     }
@@ -148,8 +150,24 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
     }
 
     @Override
+    public void showRetryOption() {
+        retryBut.setVisibility(View.VISIBLE);
+        retryBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.getProductList(category, 0);
+            }
+        });
+    }
+
+    @Override
+    public void hideRetryOption() {
+        retryBut.setVisibility(View.GONE);
+    }
+
+    @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

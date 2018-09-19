@@ -22,19 +22,17 @@ public class HomeRepository {
 
                 Log.i("homeItem", "onResponse: " + response.body().toString());
                 if(response.isSuccessful()){
-
                     Store store = response.body();
                     callback.onSuccess(store);
 
                 }else{
-                    Log.e(TAG, "get user onResponse ErrorBody ");
-                    callback.onError("Connection Error");
+                    callback.onError("اتصال دستگاه خود را به اینترنت چک کنید");
                 }
             }
 
             @Override
             public void onFailure(Call<Store> call, Throwable t) {
-                callback.onError("اتصال دستگاه خود را با اینترنت چک کنید");
+                callback.onError("اتصال دستگاه خود را به اینترنت چک کنید");
             }
         });
     }

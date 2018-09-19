@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -21,26 +22,26 @@ import com.example.yaratech.yaratube.data.model.Category;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryFragment extends Fragment implements CategoryContract.View , CategoryContract.OnCategoryItemListener{
+public class CategoryFragment extends Fragment implements CategoryContract.View, CategoryContract.OnCategoryItemListener {
 
     private List<Category> categoryList = new ArrayList<>();
+    private TransferToFragment goToProductListFragment;
     private CategoryContract.Presenter mPresenter;
     private CategoryAdapter categoryAdapter;
     private ProgressBar progressBar;
-    private TransferToFragment goToProductListFragment;
+    private Button retryBut;
 
     public CategoryFragment() {
-        // Required empty public constructor
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if(context instanceof MainActivity) {
+        if (context instanceof MainActivity) {
             goToProductListFragment = (TransferToFragment) context;
-        }else{
-            throw new ClassCastException(context.toString()+" must implement OnMainActivityCallback!");
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
         }
 
     }
@@ -48,16 +49,20 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        categoryAdapter = new CategoryAdapter(categoryList,getContext(),this);
+        categoryAdapter = new CategoryAdapter(categoryList, getContext(), this);
         mPresenter = new CategoryPresenter(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false);
+        View view = inflater.inflate(R.layout.fragment_category, container, false);
+
+        retryBut = view.findViewById(R.id.retryButton);
+        retryBut.setVisibility(View.GONE);
+        retryBut.bringToFront(); // for on click works on android 4.3!!!!
+        progressBar = view.findViewById(R.id.categoryProgressBar);
+        return view;
     }
 
     @Override
@@ -68,8 +73,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(categoryAdapter);
 
-        progressBar = view.findViewById(R.id.categoryProgressBar);
-
         mPresenter.getCategoryList();
     }
 
@@ -79,8 +82,24 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
     }
 
     @Override
+    public void showRetryOption() {
+        retryBut.setVisibility(View.VISIBLE);
+        retryBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.getCategoryList();
+            }
+        });
+    }
+
+    @Override
+    public void hideRetryOption() {
+        retryBut.setVisibility(View.GONE);
+    }
+
+    @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(),message,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -96,7 +115,6 @@ public class CategoryFragment extends Fragment implements CategoryContract.View 
 
     @Override
     public void onCategoryItemClick(Category category) {
-
         goToProductListFragment.goToProductGridFragment(category);
     }
 }

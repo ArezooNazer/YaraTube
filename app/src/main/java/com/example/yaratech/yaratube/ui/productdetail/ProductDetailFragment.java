@@ -47,8 +47,8 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     private CommentAdapter commentAdapter;
     private ProgressBar progressBar;
     private Product product;
-    private ImageView playBut,  productDetailImage;
-
+    private ImageView playBut, productDetailImage;
+    private Button retryBut;
 
     public ProductDetailFragment() {
         // Required empty public constructor
@@ -80,19 +80,21 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_prodcut_detail, container, false);
 
         progressBar = view.findViewById(R.id.detailProgressBar);
+        retryBut = view.findViewById(R.id.retryButton);
+        retryBut.setVisibility(View.GONE);
+        retryBut.bringToFront(); // for on click works on android 4.3!!!!
 
-        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar mToolbar = view.findViewById(R.id.toolbar);
 
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
             actionBar.setTitle("جزییات محصول");
         }
 
@@ -116,9 +118,8 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
                 if (LoginRepository.isLogin()) {
                     transferToFragment.goToCommentDialogFragment(product.getId());
-                    Log.d("TAG" ,product.getId().toString() );
-                }
-                else {
+                    Log.d("TAG", product.getId().toString());
+                } else {
                     LOGIN_FROM_COMMENT = true;
                     transferToFragment.goToMainLoginDialogFragment();
                 }
@@ -178,7 +179,7 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     }
 
     public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -197,8 +198,29 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
         this.product = product;
     }
 
+    @Override
+    public void enableExoPlayer() {
+        playBut.setClickable(true);
+        productDetailImage.setClickable(true);
+        retryBut.setVisibility(View.GONE);
+    }
 
-    public void videoPlayerListener(){
+    @Override
+    public void disableExoPlayer() {
+        playBut.setClickable(false);
+        productDetailImage.setClickable(false);
+        retryBut.setVisibility(View.VISIBLE);
+        retryBut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.getCommentList(product);
+                detailPresenter.getProductDetail(product);
+            }
+        });
+    }
+
+
+    public void videoPlayerListener() {
 
 //        ctrl+shift+a : anonymous -> create inner class
         playBut.setOnClickListener(new MyOnClickListener());
@@ -212,9 +234,8 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
             if (!LoginRepository.isLogin()) {
                 transferToFragment.goToMainLoginDialogFragment();
-                Log.d("TAG" ,product.getId().toString() );
-            }
-            else {
+                Log.d("TAG", product.getId().toString());
+            } else {
                 LOGIN_FROM_COMMENT = true;
                 transferToFragment.goToVideoPlayerActivity(product.getFiles().get(0).getFile());
             }

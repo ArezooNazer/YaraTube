@@ -123,7 +123,7 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Toast.makeText(getContext(), "ارتباط ناموفق، دوباره تلاش کنید.", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "ارتباط ناموفق، دوباره تلاش کنید.", Toast.LENGTH_SHORT).show();
     }
 
     private void loginViaGoogle() {
@@ -183,7 +183,7 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

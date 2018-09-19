@@ -22,14 +22,16 @@ public class HomePresenter implements HomeContract.Presenter {
 
             @Override
             public void onSuccess(Store result) {
-
-                mView.hideProgressBar();
+                mView.hideRetryOption();
                 mView.showHomeItemList(result);
+                mView.hideProgressBar();
             }
 
             @Override
-            public void onError(String massage) {
-                mView.showMessage(massage);
+            public void onError(String message) {
+                mView.hideProgressBar();
+                mView.showMessage(message);
+                mView.showRetryOption();
             }
 
         });

@@ -11,26 +11,27 @@ public class ProductDetailPresenter implements ProductDetailContract.Presenter {
 
     public ProductDetailPresenter(ProductDetailContract.View mView) {
         this.mView = mView;
+        productDetailRepository = new ProductDetailRepository();
     }
 
     @Override
     public void getProductDetail(Product product) {
 
-        productDetailRepository = new ProductDetailRepository();
         mView.showProgressBar();
-
         productDetailRepository.getProductDetail(product, new ApiResult<Product>() {
 
             @Override
             public void onSuccess(Product result) {
-                mView.hideProgressBar();
+                mView.enableExoPlayer();
                 mView.showProductDetail(result);
+                mView.hideProgressBar();
             }
 
             @Override
-            public void onError(String massage) {
+            public void onError(String message) {
+                mView.disableExoPlayer();
                 mView.hideProgressBar();
-                mView.showMessage(massage);
+                mView.showMessage(message);
             }
         });
     }

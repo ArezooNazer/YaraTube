@@ -65,7 +65,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         mPresenter = new ProfilePresenter(this);
         gender = mPresenter.getUserInfo().getGender();
         token = mPresenter.getUserInfo().getToken();
-
     }
 
     @Override
@@ -85,7 +84,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         progressBar = view.findViewById(R.id.profileProgress);
 
 
-        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        Toolbar mToolbar = view.findViewById(R.id.toolbar);
         if (mToolbar != null) {
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
 
@@ -278,9 +277,18 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     }
 
     private boolean isAnyFieldChanged(String currentNickname, String currentGender, String currentBirthDate) {
-
         user = mPresenter.getUserInfo();
-        if (currentNickname.equals(user.getName()) && (currentGender == null || currentGender.equals(user.getGender())) && currentBirthDate.equals(user.getBirthDate()))
+        Log.d("isAnyFieldChanged()", "isAnyFieldChanged() called with:\n currentNickname = [" + currentNickname + "]," +
+                "user.getName() = [" + user.getName() + "],\n" +
+                " currentGender = [" + currentGender + "]," +
+                "user.getGender() = [" + user.getGender() + "],\n" +
+                " currentBirthDate = [" + currentBirthDate + "],"
+                + "user.getBirthDate() = [" + user.getBirthDate() + "]"
+        );
+
+        if ((currentNickname.equals(user.getName()) || (currentNickname.equals("") && user.getName() == null))
+                && (currentGender == null || currentGender.equals(user.getGender()))
+                && (currentBirthDate.equals(user.getBirthDate()) || (currentBirthDate.equals("") && user.getBirthDate() == null)))
             return false;
         else
             return true;
@@ -289,7 +297,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     public void showCalendar(View v) {
 
         PersianCalendar initDate = new PersianCalendar();
-        initDate.setPersianDate(1370, 03, 13);
+        initDate.setPersianDate(1370, 01, 01);
 
         picker = new PersianDatePickerDialog(getContext())
                 .setPositiveButtonString("باشه")
@@ -315,6 +323,4 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         picker.show();
     }
-
-
 }

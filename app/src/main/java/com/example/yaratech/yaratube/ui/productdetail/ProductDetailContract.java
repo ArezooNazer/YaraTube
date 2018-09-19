@@ -7,6 +7,8 @@ public interface ProductDetailContract {
 
     interface View extends BaseView{
         void showProductDetail(Product product);
+        void enableExoPlayer();
+        void disableExoPlayer();
 
     }
 

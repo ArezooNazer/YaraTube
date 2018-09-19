@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.yaratech.yaratube.MainActivity;
 import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.data.source.LoginRepository;
+import com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 
 
@@ -20,6 +21,7 @@ public class MoreItemFragment extends Fragment {
 
     private TextView profile, aboutUs, contactUs, logOut;
     private TransferToFragment transferToFragment;
+    private AboutUsFragment aboutUsFragment;
 
     public MoreItemFragment() {
         // Required empty public constructor
@@ -38,7 +40,7 @@ public class MoreItemFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        aboutUsFragment = new AboutUsFragment();
     }
 
     @Override
@@ -58,6 +60,12 @@ public class MoreItemFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         profile.setOnClickListener(new MyOnClickListener());
+        aboutUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                aboutUsFragment.show(getChildFragmentManager(),"aboutUsDialog");
+            }
+        });
     }
 
     private class MyOnClickListener implements View.OnClickListener {

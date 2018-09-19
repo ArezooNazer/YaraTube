@@ -9,7 +9,7 @@ import retrofit2.Response;
 public class ProductDetailRepository {
 
 
-    public  void getProductDetail(Product product , final ApiResult<Product> callback){
+    public void getProductDetail(Product product, final ApiResult<Product> callback) {
 
         ServiceGenerator.getInstance().create(ApiService.class)
                 .getProductDetailRequest(product.getId())
@@ -17,18 +17,17 @@ public class ProductDetailRepository {
                     @Override
                     public void onResponse(Call<Product> call, Response<Product> response) {
 
-                        if(response.isSuccessful()){
+                        if (response.isSuccessful()) {
                             Product responseProduct = response.body();
                             callback.onSuccess(responseProduct);
-                        }else {
-                            callback.onError("خطا در به روز رسانی");
+                        } else {
+                            callback.onError("خطا در نمایش اطلاعات");
                         }
-
                     }
 
                     @Override
                     public void onFailure(Call<Product> call, Throwable t) {
-                        callback.onError("خطا د به روز رسانی");
+                        callback.onError("اتصال دستگاه خود را به اینترنت چک کنید");
                     }
                 });
     }

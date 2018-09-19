@@ -117,7 +117,7 @@ public class PickAvatarDialogFragment extends DialogFragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION && grantResults.length > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(getContext(), "Thanks for granting Permission", Toast.LENGTH_SHORT).show();
+
             }
         }
     }
@@ -180,7 +180,7 @@ public class PickAvatarDialogFragment extends DialogFragment {
                 }
             }
 
-            Log.d("result", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
+//            Log.d("result", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
 
         }
 

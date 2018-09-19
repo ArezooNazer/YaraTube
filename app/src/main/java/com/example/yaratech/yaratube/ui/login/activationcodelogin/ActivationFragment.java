@@ -109,7 +109,7 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
 

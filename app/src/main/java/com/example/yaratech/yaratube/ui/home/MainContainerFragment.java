@@ -47,7 +47,7 @@ public class MainContainerFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
-        Toolbar mToolbar = (Toolbar) homeView.findViewById(R.id.toolbar);
+        Toolbar mToolbar =  homeView.findViewById(R.id.toolbar);
 
 
         if (mToolbar != null) {
@@ -55,7 +55,7 @@ public class MainContainerFragment extends Fragment {
 
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
+            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
             actionBar.setTitle("یارا تیوب");
 
         }

@@ -23,8 +23,6 @@ public class HeaderItemFragment extends Fragment {
     private TransferToFragment goToProductDetailFragment;
 
     public HeaderItemFragment() {
-        // Required empty public constructor
-
     }
 
     @Override
@@ -42,7 +40,6 @@ public class HeaderItemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.home_header_item, container, false);
     }
 

@@ -28,13 +28,13 @@ public class CategoryRepository {
                     }
                 }else{
                     Log.e(TAG, "get user onResponse ErrorBody ");
-                    callback.onError("Connection Error");
+                    callback.onError("اتصال دستگاه خود را به اینترنت چک کنید");
                 }
             }
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable t) {
-                callback.onError("اتصال دستگاه خود را با اینترنت چک کنید");
+                callback.onError("اتصال دستگاه خود را به اینترنت چک کنید");
             }
         });
 

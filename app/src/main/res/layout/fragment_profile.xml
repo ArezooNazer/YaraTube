@@ -33,8 +33,8 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/nestedScrollView"
-            app:layout_constraintTop_toTopOf="@+id/nestedScrollView" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <android.support.v4.widget.NestedScrollView
@@ -207,7 +207,7 @@
                         android:layout_height="48dp"
                         android:layout_marginLeft="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/round_border_blue"
+                        android:background="@drawable/round_blue_border_blue_back"
                         android:fontFamily="@font/iran_sans"
                         android:text="ثبت تغییرات"
                         android:textColor="@color/white" />
@@ -218,7 +218,7 @@
                         android:layout_height="48dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
-                        android:background="@drawable/round_border_transparent"
+                        android:background="@drawable/round_blue_border_transparent_back"
                         android:fontFamily="@font/iran_sans"
                         android:text="انصراف"
                         android:textColor="@color/colorPrimary" />

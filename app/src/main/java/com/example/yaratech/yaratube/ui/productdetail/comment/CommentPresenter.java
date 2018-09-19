@@ -31,8 +31,8 @@ public class CommentPresenter implements CommentContract.Presenter {
             }
 
             @Override
-            public void onError(String massage) {
-                mView.showMessage("error!");
+            public void onError(String message) {
+                mView.showMessage(message);
             }
         });
 
@@ -49,8 +49,8 @@ public class CommentPresenter implements CommentContract.Presenter {
                 }
 
             @Override
-            public void onError(String massage) {
-                mView.showMessage("دوباره تلاش کنید");
+            public void onError(String message) {
+                mView.showMessage(message);
             }
         });
 

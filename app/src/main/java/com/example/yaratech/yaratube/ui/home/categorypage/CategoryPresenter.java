@@ -14,26 +14,27 @@ public class CategoryPresenter implements CategoryContract.Presenter {
 
     public CategoryPresenter(CategoryContract.View mView) {
         this.mView = mView;
+        categoryRepository = new CategoryRepository();
 
     }
 
     @Override
     public void getCategoryList() {
 
-        categoryRepository = new CategoryRepository();
-
         mView.showProgressBar();
         categoryRepository.getCategoryList(new ApiResult<List<Category>>() {
             @Override
             public void onSuccess(List<Category> result) {
-
+                mView.hideRetryOption();
                 mView.showCategoryList(result);
                 mView.hideProgressBar();
             }
 
             @Override
-            public void onError(String massage) {
-                mView.showMessage(massage);
+            public void onError(String message) {
+                mView.hideProgressBar();
+                mView.showMessage(message);
+                mView.showRetryOption();
             }
 
         });

@@ -55,7 +55,7 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_main_login_dialog, container, false);
-        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_border_white);
+        getDialog().getWindow().setBackgroundDrawableResource(R.drawable.round_white_border_white_back);
         getDialog().setCanceledOnTouchOutside(false);
         return view;
     }

@@ -51,7 +51,7 @@
                 android:layout_height="48dp"
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_border_blue"
+                android:background="@drawable/round_blue_border_blue_back"
                 android:fontFamily="@font/iran_sans"
                 android:text="ثبت "
                 android:textColor="@color/white" />
@@ -62,7 +62,7 @@
                 android:layout_height="48dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="2"
-                android:background="@drawable/round_border_transparent"
+                android:background="@drawable/round_blue_border_transparent_back"
                 android:fontFamily="@font/iran_sans"
                 android:text="تصحیح شماره"
                 android:textColor="@color/colorPrimary" />

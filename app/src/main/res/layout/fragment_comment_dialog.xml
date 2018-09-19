@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.productdetail.comment.CommentDialogFragment"
-    android:background="@drawable/round_border_white">
+    android:background="@drawable/round_white_border_white_back">
 
     <LinearLayout
         android:layout_width="300dp"
@@ -34,7 +34,7 @@
             android:id="@+id/sendCommentButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/round_border_blue"
+            android:background="@drawable/round_blue_border_blue_back"
             android:layout_marginTop="21dp"
             android:text="ثبت"
             android:textColor="@color/white"
