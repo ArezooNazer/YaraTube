@@ -24,7 +24,6 @@ public class MainLoginDialogFragment extends DialogFragment implements MainLogin
     private ActivationFragment activationLoginDialogFragment;
 
     public MainLoginDialogFragment() {
-        // Required empty public constructor
     }
 
     @Override

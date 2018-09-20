@@ -24,6 +24,8 @@ public interface ProfileContract {
         void sendUserAvatarToServer(MultipartBody.Part body, String token);
 
         User getUserInfo();
+
+        void logOut();
     }
 
     interface Listener {

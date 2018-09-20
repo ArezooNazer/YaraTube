@@ -65,7 +65,6 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
         }
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

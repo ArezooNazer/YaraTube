@@ -2,6 +2,7 @@ package com.example.yaratech.yaratube.ui.profile;
 
 import android.util.Log;
 
+import com.example.yaratech.yaratube.data.YaraDatabase;
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.Profile;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
@@ -30,7 +31,6 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         if (user != null)
             mView.showProfileFieldFromDb(user);
         mView.hideProgressBar();
-
     }
 
     @Override
@@ -40,9 +40,9 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         profileRepository.getProfileFieldsRepository(token, new ApiResult<ProfileGetResponse>() {
             @Override
             public void onSuccess(ProfileGetResponse result) {
-
                 mView.showProfileFieldFromServer(result);
                 mView.hideProgressBar();
+                updateUserEntity(result.getNickname(), String.valueOf(result.getDateOfBirth()), String.valueOf(result.getGender()));
             }
 
             @Override
@@ -89,13 +89,14 @@ public class ProfilePresenter implements ProfileContract.Presenter {
                 updateUserEntity(result.getData().getAvatar());
                 getProfileFiledFromDb();
                 mView.hideProgressBar();
-                Log.d("TAG", "onSuccess() called with: result = [" + result.getError() + "]");
+
             }
 
             @Override
             public void onError(String message) {
                 mView.hideProgressBar();
                 mView.showMessage(message);
+
             }
         });
     }
@@ -104,6 +105,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     public User getUserInfo() {
         User user = yaraDatabase.selectDao().getUserRecord();
         return user;
+    }
+
+    @Override
+    public void logOut() {
+        User user = yaraDatabase.selectDao().getUserRecord();
+        yaraDatabase.deleteDao().deleteUser(user);
+        mView.showMessage("شما با موفقیت خارج شدید");
     }
 
     private void updateUserEntity(String nickName, String dateOfBirth, String gender) {

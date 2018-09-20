@@ -166,22 +166,19 @@ public class PickAvatarDialogFragment extends DialogFragment {
                 mListener.photoSelectedListener(selectedImage.getPath());
                 getDialog().dismiss();
 
+//                Log.d("Crop", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
+
             } else if (requestCode == CAMERA_REQUEST) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     cropImage(Uri.fromFile(new File(imageFilePath)));
-//                    mListener.photoSelectedListener(imageFilePath);
                     Log.d("avatar", "camera plus called" + imageFilePath);
-                }else {
+                } else {
                     Uri selectedImage = data.getData();
                     Log.d("avatar", "camera called" + selectedImage.getPath());
                     cropImage(selectedImage);
                 }
             }
-
-//            Log.d("result", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
-
         }
 
     }
@@ -217,15 +214,15 @@ public class PickAvatarDialogFragment extends DialogFragment {
             File photoFile = null;
             try {
                 photoFile = createImageFile();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
                 return;
             }
             Uri photoURI = FileProvider.getUriForFile(
                     getContext(),
                     getContext().getPackageName() + ".provider",
-                    photoFile);;
+                    photoFile);
+            ;
             pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
             startActivityForResult(pictureIntent, CAMERA_REQUEST);
         }

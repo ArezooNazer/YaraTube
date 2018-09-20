@@ -17,12 +17,12 @@ public class HomePresenter implements HomeContract.Presenter {
     @Override
     public void getHomeItems() {
 
+        mView.hideRetryOption();
         mView.showProgressBar();
-        homeRepository.getHomeItems(new ApiResult<Store>() {
 
+        homeRepository.getHomeItems(new ApiResult<Store>() {
             @Override
             public void onSuccess(Store result) {
-                mView.hideRetryOption();
                 mView.showHomeItemList(result);
                 mView.hideProgressBar();
             }

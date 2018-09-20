@@ -21,11 +21,12 @@ public class CategoryPresenter implements CategoryContract.Presenter {
     @Override
     public void getCategoryList() {
 
+        mView.hideRetryOption();
         mView.showProgressBar();
+
         categoryRepository.getCategoryList(new ApiResult<List<Category>>() {
             @Override
             public void onSuccess(List<Category> result) {
-                mView.hideRetryOption();
                 mView.showCategoryList(result);
                 mView.hideProgressBar();
             }

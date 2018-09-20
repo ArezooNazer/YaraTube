@@ -1,5 +1,6 @@
 package com.example.yaratech.yaratube.ui.profile;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,9 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.yaratech.yaratube.MainActivity;
 import com.example.yaratech.yaratube.R;
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
+import com.example.yaratech.yaratube.util.TransferToFragment;
 
 import java.io.File;
 
@@ -37,14 +40,13 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import static com.example.yaratech.yaratube.data.source.Constant.BASE_URL;
-import static com.example.yaratech.yaratube.data.source.Constant.TOKEN;
 import static com.example.yaratech.yaratube.ui.profile.PickAvatarDialogFragment.AVATAR_OPTION_DIALOG;
 
 public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     public static String PROFILE_FRAGMENT = ProfileFragment.class.getName();
     private EditText nicknameET;
-    private TextView birthDateET;
+    private TextView birthDateET , logOut;
     private Button cancelBut, saveBut;
     private RadioGroup radioGroup;
     private RadioButton selectedRadioBut, man, woman;
@@ -55,8 +57,20 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
     private ProgressBar progressBar;
     private User user;
     private String token;
+    private TransferToFragment goToMoreItemFragment;
 
     public ProfileFragment() {
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainActivity) {
+            goToMoreItemFragment = (TransferToFragment) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnMainActivityCallback!");
+        }
     }
 
     @Override
@@ -82,6 +96,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         datePicker = view.findViewById(R.id.editProfileBirthButton);
         profileAvatar = view.findViewById(R.id.profileAvatar);
         progressBar = view.findViewById(R.id.profileProgress);
+        logOut = view.findViewById(R.id.logOut);
+        logOut.setVisibility(View.GONE);
 
 
         Toolbar mToolbar = view.findViewById(R.id.toolbar);
@@ -140,7 +156,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
                             RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
                             MultipartBody.Part body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
-                            mPresenter.sendUserAvatarToServer(body, "Token " + TOKEN);
+                            mPresenter.sendUserAvatarToServer(body, "Token " + token);
                         }
                     }
                 });
@@ -151,6 +167,14 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         });
 
         saveBut.setOnClickListener(new MyOnClickListener());
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.logOut();
+                goToMoreItemFragment.goToMainContainerFragment();
+            }
+        });
         return view;
     }
 
@@ -243,9 +267,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             birthDate = birthDateET.getText().toString();
 
             if (isAnyFieldChanged(nickname, gender, birthDate)) {
-//                if (nickname.equals(""))
-//                    nickname = stringGenerator();
-//                else
                 mPresenter.sendProfileField(nickname, birthDate, gender, "Token " + token);
 
             } else {

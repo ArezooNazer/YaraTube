@@ -18,10 +18,15 @@ import com.example.yaratech.yaratube.ui.home.categorypage.CategoryFragment;
 import com.example.yaratech.yaratube.ui.home.homepage.HomePageFragment;
 import com.example.yaratech.yaratube.ui.home.moreitem.MoreItemFragment;
 
+import static com.example.yaratech.yaratube.ui.home.categorypage.CategoryFragment.CATEGORY_FRAGMENT;
+import static com.example.yaratech.yaratube.ui.home.homepage.HomePageFragment.HOME_PAGE_FRAGMENT;
+import static com.example.yaratech.yaratube.ui.home.moreitem.MoreItemFragment.MORE_ITEM_FRAGMENT;
+
 
 public class MainContainerFragment extends Fragment {
 
     private static final String TAG = MainContainerFragment.class.getName();
+    private static String ACTIVE_FRAGMENT;
     private HomePageFragment homePageFragment;
     private CategoryFragment categoryFragment;
     private MoreItemFragment moreItemFragment;
@@ -70,7 +75,6 @@ public class MainContainerFragment extends Fragment {
                 .commit();
 
         activeFragment = homePageFragment;
-
         onBottomNavigationListener(homeView);
 
         return homeView;

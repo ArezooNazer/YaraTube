@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent"
     tools:context="com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment"
     android:orientation="vertical">
@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="Developed by Arezoo Nazer"
-        android:padding="20dp"/>
+        android:padding="20dp"
+        android:paddingBottom="10dp"/>
 
 </LinearLayout>

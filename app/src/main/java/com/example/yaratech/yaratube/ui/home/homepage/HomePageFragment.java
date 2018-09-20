@@ -24,6 +24,7 @@ import com.example.yaratech.yaratube.ui.productgrid.ProductGridContract;
 
 public class HomePageFragment extends Fragment implements HomeContract.View, ProductGridContract.OnProductListItemListener {
 
+    public static final String  HOME_PAGE_FRAGMENT = HomePageFragment.class.getName();
     private TransferToFragment goToDetailFragment;
     private HomeContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;

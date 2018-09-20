@@ -24,6 +24,7 @@ import java.util.List;
 
 public class CategoryFragment extends Fragment implements CategoryContract.View, CategoryContract.OnCategoryItemListener {
 
+    public static final String  CATEGORY_FRAGMENT = CategoryFragment.class.getName();
     private List<Category> categoryList = new ArrayList<>();
     private TransferToFragment goToProductListFragment;
     private CategoryContract.Presenter mPresenter;

@@ -158,14 +158,14 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
             final String Device_id = Settings.Secure.getString(getContext().getContentResolver(), Settings.Secure.ANDROID_ID);
             mPresenter.sendGoogleToken(googleToken, Device_id, Constant.DEVICE_OS, Constant.DEVICE_MODEL);
 
-            Log.d("TAG", "handleResult() called with: result = [" + account.getDisplayName()  + " , " + account.getEmail() + ", "+ account.getPhotoUrl().toString()+ "]");
+            Log.d("TAG", "handleResult() called with: result = [" + account.getDisplayName() + " , " + account.getEmail() + ", " + account.getPhotoUrl().toString() + "]");
 
         } else {
             Log.d("TAG", "result is not successful");
         }
     }
 
-    private void updateUserEntity(GoogleSignInAccount account){
+    private void updateUserEntity(GoogleSignInAccount account) {
 
         //TODO : if user logout and lig ing with another option?
         User user = new User();
@@ -195,4 +195,5 @@ public class LoginOptionFragment extends Fragment implements GoogleApiClient.OnC
     public void hideProgressBar() {
         progressBar.setVisibility(View.GONE);
     }
+
 }

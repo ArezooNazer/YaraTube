@@ -8,6 +8,7 @@ import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.GoogleLoginRepository;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
+import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class LoginOptionPresenter implements LoginOptionContract.Presenter {
 
@@ -44,17 +45,23 @@ public class LoginOptionPresenter implements LoginOptionContract.Presenter {
 
 
     private void updateUserEntity(GoogleLogin result, String deviceId, String deviceModel, String deviceOs) {
-//        String userGeneratedName = stringGenerator();
+
         User user = yaraDatabase.selectDao().getUserRecord();
         user.setDeviceId(deviceId);
         user.setDeviceModel(deviceModel);
         user.setDeviceOs(deviceOs);
         user.setToken(result.getToken());
-//        user.setName(userGeneratedName);
-//        user.setNickname(userGeneratedName);
-
+        //if user already didn't set any name, don't let it be null(for comment)
+        if (result.getNickname() == null || result.getNickname().equals("")) {
+            String userGeneratedName = stringGenerator();
+            user.setName(userGeneratedName);
+            user.setNickname(userGeneratedName);
+        }else{
+            user.setName(result.getNickname());
+            user.setNickname(result.getNickname());
+        }
         yaraDatabase.insertDao().updateUserInfo(user);
-        Log.d("TOKEN", "onSuccess() called with: result = [" + result.getNickname()+" " + user.getName()+"]");
+        Log.d("TOKEN", "onSuccess() called with: result = [" + result.getNickname() + " " + user.getName() + "]");
     }
 
 

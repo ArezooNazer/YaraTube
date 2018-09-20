@@ -1,5 +1,8 @@
 package com.example.yaratech.yaratube.data.source;
 
+import android.util.Log;
+
+import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.Profile;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 
@@ -63,13 +66,16 @@ public class ProfileRepository {
 
                         if (response.isSuccessful()) {
                             callback.onSuccess(response.body());
-                        } else
+                        } else {
                             callback.onError("خطا در آپلود تصویر");
+                            Log.d("uploadError", "onResponse() called with: call = [" + call + "], response = [" + response.errorBody() + "]");
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<Profile> call, Throwable t) {
                         callback.onError("خطا در آپلود تصویر");
+                        Log.d("uploadError", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
                     }
                 });
 

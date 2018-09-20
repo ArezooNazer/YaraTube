@@ -19,6 +19,7 @@ import com.example.yaratech.yaratube.util.TransferToFragment;
 
 public class MoreItemFragment extends Fragment {
 
+    public static final String  MORE_ITEM_FRAGMENT = MoreItemFragment.class.getName();
     private TextView profile, aboutUs, contactUs, logOut;
     private TransferToFragment transferToFragment;
     private AboutUsFragment aboutUsFragment;

@@ -1,11 +1,14 @@
 package com.example.yaratech.yaratube.ui.login.activationcodelogin;
 
+import android.util.Log;
+
 import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.Register;
 import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.LoginRepository;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
+import static com.example.yaratech.yaratube.util.StringGenerator.stringGenerator;
 
 public class ActivationPresenter implements ActivationContract.Presenter {
 
@@ -42,20 +45,24 @@ public class ActivationPresenter implements ActivationContract.Presenter {
     }
 
     private void updateUserEntity(Register result) {
-
         User user = yaraDatabase.selectDao().getUserRecord();
         user.setToken(result.getToken());
         user.setFinoToken(result.getFinoToken());
 
-//        if (result.getNickname() == null ) {
-//            String userGeneratedName = stringGenerator();
-//            user.setName(userGeneratedName);
-//            user.setNickname(userGeneratedName);
-//        } else {
-//            user.setName(result.getNickname());
-//            user.setNickname(result.getNickname());
-//        }
+        if (result.getNickname() == null || result.getNickname().equals("") ) {
+            String userGeneratedName = stringGenerator();
+            user.setName(userGeneratedName);
+            user.setNickname(userGeneratedName);
+        } else {
+            user.setName(result.getNickname());
+            user.setNickname(result.getNickname());
+        }
         yaraDatabase.insertDao().updateUserInfo(user);
+
+        Log.d("mobileLogin", "updateUserEntity() called with: result.getNickname() = [" +result.getNickname() + "] \n" +
+                "user.getNickname = [" + user.getName() + "]\n"+
+                "user.getGender = [" + user.getGender() + "]\n" +
+                "user.getBirth = [" + user.getBirthDate() + "]");
     }
 
 }

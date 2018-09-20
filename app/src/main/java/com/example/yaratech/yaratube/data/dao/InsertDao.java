@@ -8,8 +8,6 @@ import com.example.yaratech.yaratube.data.entity.User;
 
 @Dao
 public interface InsertDao {
-
-
     @Insert
     void saveUserInfo(User userInfo);
 
