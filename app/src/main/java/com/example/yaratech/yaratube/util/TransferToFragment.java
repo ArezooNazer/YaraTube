@@ -12,5 +12,7 @@ public interface TransferToFragment {
     void goToMainLoginDialogFragment();
     void goToCommentDialogFragment(int productId);
     void goToVideoPlayerActivity(String file);
-    void goToAvatarOptionDialogFragment();
+//    void goToAvatarOptionDialogFragment();
+    void goToAboutUsFragment();
+
 }

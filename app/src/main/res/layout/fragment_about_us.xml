@@ -1,16 +1,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context="com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment">
 
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:fontFamily="@font/iran_sans"
+        android:theme="@style/ToolbarTheme"
+        app:titleTextColor="@color/white" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Developed by Arezoo Nazer"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/iran_sans"
+        android:gravity="center|top"
         android:padding="20dp"
-        android:paddingBottom="10dp"/>
+        android:text="@string/aboutMe"
+        android:textSize="16sp" />
 
 </LinearLayout>

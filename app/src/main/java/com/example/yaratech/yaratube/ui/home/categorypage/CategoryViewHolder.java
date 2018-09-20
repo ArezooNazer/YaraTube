@@ -2,6 +2,7 @@ package com.example.yaratech.yaratube.ui.home.categorypage;
 
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -32,7 +33,8 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         categoryTitle.setText(category.getTitle());
 
         String url =  category.getAvatarUrl();
-        Glide.with(itemView.getContext()).load(url).into(categoryAvatar);
+        if(url != null)
+            Glide.with(itemView.getContext()).load(url).into(categoryAvatar);
 
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override

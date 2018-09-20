@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import com.example.yaratech.yaratube.data.YaraDatabase;
 import com.example.yaratech.yaratube.data.model.Category;
 import com.example.yaratech.yaratube.data.model.Product;
+import com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment;
 import com.example.yaratech.yaratube.ui.exoplayer.VideoPlayerActivity;
 import com.example.yaratech.yaratube.ui.home.MainContainerFragment;
 import com.example.yaratech.yaratube.ui.login.MainLoginContract;
@@ -21,6 +22,7 @@ import com.example.yaratech.yaratube.ui.profile.ProfileFragment;
 import com.example.yaratech.yaratube.ui.profile.PickAvatarDialogFragment;
 import com.example.yaratech.yaratube.util.TransferToFragment;
 
+import static com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment.ABOUT_US_FRAGMENT;
 import static com.example.yaratech.yaratube.ui.productdetail.ProductDetailFragment.PRODUCT_DETAIL_FRAGMENT;
 import static com.example.yaratech.yaratube.ui.productgrid.ProductGridFragment.PRODUCT_LIST_FRAGMENT;
 import static com.example.yaratech.yaratube.ui.profile.ProfileFragment.PROFILE_FRAGMENT;
@@ -141,7 +143,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public void goToCommentDialogFragment(int productId) {
 
         CommentDialogFragment commentDialogFragment = CommentDialogFragment.newInstance(productId);
-//        commentDialogFragment.setCancelable(false);
         commentDialogFragment.show(getSupportFragmentManager(), "commentDialog");
     }
 
@@ -155,11 +156,20 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
     @Override
-    public void goToAvatarOptionDialogFragment() {
+    public void goToAboutUsFragment() {
 
-        PickAvatarDialogFragment avatarOptionDialogFragment = new PickAvatarDialogFragment();
-        avatarOptionDialogFragment.show(getSupportFragmentManager(), "avatarDialog");
+        AboutUsFragment aboutUsFragment = new AboutUsFragment();
+        fragmentManager.beginTransaction()
+                .addToBackStack(ABOUT_US_FRAGMENT)
+                .add(R.id.mainContainer, aboutUsFragment).commit();
     }
+
+//    @Override
+//    public void goToAvatarOptionDialogFragment() {
+//
+//        PickAvatarDialogFragment avatarOptionDialogFragment = new PickAvatarDialogFragment();
+//        avatarOptionDialogFragment.show(getSupportFragmentManager(), "avatarDialog");
+//    }
 
     @Override
     public void onBackPressed() {

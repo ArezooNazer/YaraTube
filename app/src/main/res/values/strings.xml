@@ -13,4 +13,19 @@
 
     <string name="file_provider_authority" translatable="false">com.quiro.fileproviderexample.fileprovider</string>
     <string name="retry">دوباره تلاش کنید</string>
+    <string name="logOut">خروج</string>
+    <string name="send">ثبت تغییرات</string>
+    <string name="cancle">انصراف</string>
+    <string name="loginViaMobile">ورود از طریق شماره موبایل</string>
+    <string name="enterPhoneNumber">شماره موبایل خود را وارد کنید</string>
+    <string name="aboutMe">
+        آرزو ناظردیلمی
+        \n
+        دوره کارآموزی اندروید
+        \n
+        مرکز رشد یارا
+        \n
+        تابستان 1397
+
+    </string>
 </resources>

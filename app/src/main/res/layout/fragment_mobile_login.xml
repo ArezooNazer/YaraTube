@@ -20,7 +20,7 @@
             android:layout_marginBottom="21dp"
             android:layout_marginTop="11dp"
             android:fontFamily="@font/iran_sans"
-            android:text="ورود از طریق شماره موبایل"
+            android:text="@string/loginViaMobile"
             android:textSize="18dp" />
 
         <EditText
@@ -29,8 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="21dp"
             android:fontFamily="@font/iran_sans"
-
-            android:hint="شماره موبایل خود را وارد کنید"
+            android:hint="@string/enterPhoneNumber"
             android:textSize="16dp"
             android:layoutDirection="ltr"/>
 

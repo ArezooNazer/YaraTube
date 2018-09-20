@@ -64,7 +64,7 @@ public class MoreItemFragment extends Fragment {
         aboutUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                aboutUsFragment.show(getChildFragmentManager(),"aboutUsDialog");
+               transferToFragment.goToAboutUsFragment();
             }
         });
     }
