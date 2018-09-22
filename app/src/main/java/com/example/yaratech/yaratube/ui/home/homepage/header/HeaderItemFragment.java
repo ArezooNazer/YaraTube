@@ -58,7 +58,7 @@ public class HeaderItemFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                goToProductDetailFragment.goToProductDetailFragment(headeritem);
+                goToProductDetailFragment.goToProductDetailFragment(headeritem,"");
             }
         });
 

@@ -76,6 +76,7 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
         productGridAdapter = new ProductGridAdapter(productList, getContext(), this);
         gridLayoutManager = new GridLayoutManager(getContext(), 2);
         mPresenter = new ProductGridPresenter(this);
+        getActivity().setTitle(category.getTitle());
 
     }
 
@@ -90,16 +91,6 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
         retryBut = view.findViewById(R.id.retryButton);
         retryBut.setVisibility(View.GONE);
         retryBut.bringToFront(); // for on click works on android 4.3!!!!
-        Toolbar mToolbar =  view.findViewById(R.id.toolbar);
-
-        if (mToolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
-            actionBar.setTitle(category.getTitle());
-        }
 
         return view;
     }
@@ -135,6 +126,12 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
         });
         mPresenter.getProductList(category, 0);
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setTitle(R.string.app_name);
     }
 
     @Override
@@ -182,8 +179,7 @@ public class ProductGridFragment extends Fragment implements ProductGridContract
 
     @Override
     public void onProductListItemClick(Product product) {
-
-        goToProductDetailFragment.goToProductDetailFragment(product);
+        goToProductDetailFragment.goToProductDetailFragment(product, category.getTitle());
     }
 
     //local methods

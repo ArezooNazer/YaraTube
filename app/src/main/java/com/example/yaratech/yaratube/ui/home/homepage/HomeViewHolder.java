@@ -49,6 +49,6 @@ public class HomeViewHolder extends RecyclerView.ViewHolder implements ProductGr
     @Override
     public void onProductListItemClick(Product product) {
 
-        goToProductDetailFragment.goToProductDetailFragment(product);
+        goToProductDetailFragment.goToProductDetailFragment(product, "");
     }
 }

@@ -31,6 +31,7 @@
             android:fontFamily="@font/iran_sans"
             android:hint="@string/enterPhoneNumber"
             android:textSize="16dp"
+            android:inputType="phone"
             android:layoutDirection="ltr"/>
 
         <Button

@@ -34,7 +34,7 @@ public class LoginRepository {
                             callback.onSuccess(result);
 
                         } else
-                            callback.onError("دوباره تلاش کنید");
+                            callback.onError("دوباره تلاش کنید: " + response.message());
                     }
 
                     @Override
@@ -66,7 +66,7 @@ public class LoginRepository {
                             Log.d("TAG", result.getToken());
                             callback.onSuccess(result);
                         } else
-                            callback.onError("دوباره تلاش کنید");
+                            callback.onError("دوباره تلاش کنید: " + response.message());
 
                     }
 

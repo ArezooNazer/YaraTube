@@ -7,15 +7,6 @@
     android:orientation="vertical"
     tools:context="com.example.yaratech.yaratube.ui.abuteus.AboutUsFragment">
 
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:fontFamily="@font/iran_sans"
-        android:theme="@style/ToolbarTheme"
-        app:titleTextColor="@color/white" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

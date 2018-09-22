@@ -48,15 +48,8 @@ public class ActivationPresenter implements ActivationContract.Presenter {
         User user = yaraDatabase.selectDao().getUserRecord();
         user.setToken(result.getToken());
         user.setFinoToken(result.getFinoToken());
-
-        if (result.getNickname() == null || result.getNickname().equals("") ) {
-            String userGeneratedName = stringGenerator();
-            user.setName(userGeneratedName);
-            user.setNickname(userGeneratedName);
-        } else {
-            user.setName(result.getNickname());
-            user.setNickname(result.getNickname());
-        }
+        user.setName(result.getNickname());
+        user.setNickname(result.getNickname());
         yaraDatabase.insertDao().updateUserInfo(user);
 
         Log.d("mobileLogin", "updateUserEntity() called with: result.getNickname() = [" +result.getNickname() + "] \n" +

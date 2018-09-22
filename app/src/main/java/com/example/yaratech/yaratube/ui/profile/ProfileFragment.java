@@ -46,7 +46,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
     public static String PROFILE_FRAGMENT = ProfileFragment.class.getName();
     private EditText nicknameET;
-    private TextView birthDateET , logOut;
+    private TextView birthDateET, logOut;
     private Button cancelBut, saveBut;
     private RadioGroup radioGroup;
     private RadioButton selectedRadioBut, man, woman;
@@ -79,6 +79,8 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         mPresenter = new ProfilePresenter(this);
         gender = mPresenter.getUserInfo().getGender();
         token = mPresenter.getUserInfo().getToken();
+        user = mPresenter.getUserInfo();
+        getActivity().setTitle(getString(R.string.profile));
     }
 
     @Override
@@ -98,17 +100,6 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         progressBar = view.findViewById(R.id.profileProgress);
         logOut = view.findViewById(R.id.logOut);
         logOut.setVisibility(View.GONE);
-
-
-        Toolbar mToolbar = view.findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
-            actionBar.setTitle("پروفایل");
-        }
 
         cancelBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -227,7 +218,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
             birthDateET.setText(birthDate);
         }
 
-        Log.d("showProfileFromServer", "showProfileFieldFromServer() avatarUrl " + avatarUrl + "gender" + gender);
+        Log.d("showProfileFromServer", "showProfileFieldFromServer() avatarUrl " + avatarUrl + " gender " + gender + " birthDate " + birthDate);
 
     }
 
@@ -309,7 +300,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
 
         if ((currentNickname.equals(user.getName()) || (currentNickname.equals("") && user.getName() == null))
                 && (currentGender == null || currentGender.equals(user.getGender()))
-                && (currentBirthDate.equals(user.getBirthDate()) || (currentBirthDate.equals("") && user.getBirthDate() == null)))
+                && (currentBirthDate.equals(user.getBirthDate()) || (currentBirthDate.equals("") && user.getBirthDate().equals("null"))))
             return false;
         else
             return true;

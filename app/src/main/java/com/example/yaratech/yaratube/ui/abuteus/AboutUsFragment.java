@@ -21,26 +21,14 @@ public class AboutUsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.aboutUs);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_about_us, container, false);
-
-        Toolbar mToolbar = view.findViewById(R.id.toolbar);
-        if (mToolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
-            actionBar.setTitle("درباره ما");
-        }
-
-        return view;
+        return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 
 }

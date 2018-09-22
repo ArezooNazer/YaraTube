@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.activationcodelogin.ActivationFragment"
-    android:layoutDirection="rtl">
+    android:layoutDirection="rtl"
+    tools:context=".ui.login.activationcodelogin.ActivationFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,10 +66,6 @@
                 android:fontFamily="@font/iran_sans"
                 android:text="تصحیح شماره"
                 android:textColor="@color/colorPrimary" />
-
-
         </LinearLayout>
-
     </LinearLayout>
-
 </FrameLayout>

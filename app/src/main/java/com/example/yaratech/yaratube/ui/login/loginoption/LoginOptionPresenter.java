@@ -51,17 +51,11 @@ public class LoginOptionPresenter implements LoginOptionContract.Presenter {
         user.setDeviceModel(deviceModel);
         user.setDeviceOs(deviceOs);
         user.setToken(result.getToken());
-        //if user already didn't set any name, don't let it be null(for comment)
-        if (result.getNickname() == null || result.getNickname().equals("")) {
-            String userGeneratedName = stringGenerator();
-            user.setName(userGeneratedName);
-            user.setNickname(userGeneratedName);
-        }else{
-            user.setName(result.getNickname());
-            user.setNickname(result.getNickname());
-        }
+        user.setName(result.getNickname());
+        user.setNickname(result.getNickname());
         yaraDatabase.insertDao().updateUserInfo(user);
-        Log.d("TOKEN", "onSuccess() called with: result = [" + result.getNickname() + " " + user.getName() + "]");
+        Log.d("TOKEN", "user nickname = [" + result.getNickname() + " " + user.getName() + "]");
+        Log.d("TOKEN", "date of birth = [" +  user.getBirthDate() + "]");
     }
 
 

@@ -61,13 +61,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
             @Override
             public void onSuccess(Profile result) {
 
-                Log.d("ProfilePresenter", "nickname : " + result.getData().getNickname() + " gender : " + result.getData().getGender() + " dateOfBirth : " + result.getData().getDateOfBirth());
+                Log.d("ProfilePresenter", "nickname : " + result.getData().getNickname() + " gender : " + result.getData().getGender() + " dateOfBirth : " + result.getData().getDateOfBirth() + " "+ dateOfBirth);
 
                 updateUserEntity(nickName, dateOfBirth, gender);
                 getProfileFiledFromDb();
+//                getProfileFieldFromServer(token);
                 mView.hideProgressBar();
                 mView.showMessage("تغییرات با موفقیت ذخیره شد");
-
             }
 
             @Override
@@ -120,6 +120,8 @@ public class ProfilePresenter implements ProfileContract.Presenter {
         user.setName(nickName);
         user.setNickname(nickName);
         user.setGender(gender);
+        if(dateOfBirth.equals("null"))
+            dateOfBirth = "";
         user.setBirthDate(dateOfBirth);
         yaraDatabase.insertDao().updateUserInfo(user);
 

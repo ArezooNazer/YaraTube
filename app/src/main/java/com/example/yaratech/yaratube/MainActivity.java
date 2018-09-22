@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.yaratech.yaratube.data.YaraDatabase;
 import com.example.yaratech.yaratube.data.model.Category;
@@ -34,47 +35,17 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     private FragmentManager fragmentManager = getSupportFragmentManager();
     private ProfileFragment profileFragment = new ProfileFragment();
     public static YaraDatabase yaraDatabase;
-//    private DrawerLayout drawerLayout;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //        drawerLayout = findViewById(R.id.homePage);
-//        NavigationView navigationView = findViewById(R.id.homeDrawerLayout);
 
+        getWindow().getDecorView().setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         yaraDatabase = Room.databaseBuilder(getApplicationContext(), YaraDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration()
                 .allowMainThreadQueries()
                 .build();
-
-//        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//
-//                item.setChecked(true);
-//                drawerLayout.closeDrawers();
-//
-//                switch (item.getItemId()) {
-//
-//                        case R.id.drawerProfile:
-//                            if (LoginRepository.isLogin())
-//                                goToProfileFragment();
-//                            else
-//                                goToMainLoginDialogFragment();
-//
-//                }
-//                return false;
-//            }
-//        });
-
-
-//        //set a user profile photo on drawer header
-//        View header = navigationView.getHeaderView(0);
-//        ImageView imageView = header.findViewById(R.id.drawerUserPhoto);
-//        Glide.with(this).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTWkfQwNEw7GXCwMekUtAZIkIl3qowafpYe2Icr-e9wF46V0O5").into(imageView);
-
         goToMainContainerFragment();
 
     }
@@ -83,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-//                drawerLayout.openDrawer(Gravity.RIGHT);
                 onBackPressed();
         }
         return super.onOptionsItemSelected(item);
@@ -107,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
     }
 
     @Override
-    public void goToProductDetailFragment(Product product) {
+    public void goToProductDetailFragment(Product product, String categoryTitle) {
 
-        ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product);
+        ProductDetailFragment productDetailFragment = ProductDetailFragment.newInstance(product,categoryTitle);
         fragmentManager.beginTransaction()
                 .addToBackStack(PRODUCT_DETAIL_FRAGMENT)
                 .add(R.id.mainContainer, productDetailFragment).commit();
@@ -127,9 +97,7 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
 
             fragmentManager.beginTransaction()
                     .show(profileFragment);
-
         }
-
     }
 
     @Override
@@ -164,20 +132,8 @@ public class MainActivity extends AppCompatActivity implements TransferToFragmen
                 .add(R.id.mainContainer, aboutUsFragment).commit();
     }
 
-//    @Override
-//    public void goToAvatarOptionDialogFragment() {
-//
-//        PickAvatarDialogFragment avatarOptionDialogFragment = new PickAvatarDialogFragment();
-//        avatarOptionDialogFragment.show(getSupportFragmentManager(), "avatarDialog");
-//    }
-
     @Override
     public void onBackPressed() {
-
-//        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-//            drawerLayout.closeDrawer(GravityCompat.START);
-//        }
-
         super.onBackPressed();
 
     }

@@ -115,6 +115,6 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> i
 
     @Override
     public void onProductListItemClick(Product product) {
-        goToProductDetailFragment.goToProductDetailFragment(product);
+        goToProductDetailFragment.goToProductDetailFragment(product,"");
     }
 }

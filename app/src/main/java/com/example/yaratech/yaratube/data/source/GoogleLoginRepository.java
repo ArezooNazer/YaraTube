@@ -31,7 +31,7 @@ public class GoogleLoginRepository {
                             callback.onSuccess(result);
 
                         } else
-                            callback.onError("دوباره تلاش کنید");
+                            callback.onError("دوباره تلاش کنید: " + response.message());
                     }
 
                     @Override

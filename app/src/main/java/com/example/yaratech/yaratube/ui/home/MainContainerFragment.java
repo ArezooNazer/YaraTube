@@ -52,19 +52,6 @@ public class MainContainerFragment extends Fragment {
         // Inflate the layout for this fragment
         View homeView = inflater.inflate(R.layout.fragment_main_container, container, false);
 
-        Toolbar mToolbar =  homeView.findViewById(R.id.toolbar);
-
-
-        if (mToolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
-            actionBar.setTitle("یارا تیوب");
-
-        }
-
         getChildFragmentManager().beginTransaction()
                 .add(R.id.homeContainer, homePageFragment)
                 .add(R.id.homeContainer, categoryFragment)

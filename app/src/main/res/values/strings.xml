@@ -1,7 +1,6 @@
 <resources>
-    <string name="app_name">yaratube</string>
+    <string name="app_name">یارا تیوب</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="category">دسته بندی</string>
     <string name="mainPage">صفحه اصلی</string>
@@ -15,7 +14,7 @@
     <string name="retry">دوباره تلاش کنید</string>
     <string name="logOut">خروج</string>
     <string name="send">ثبت تغییرات</string>
-    <string name="cancle">انصراف</string>
+    <string name="cancel">انصراف</string>
     <string name="loginViaMobile">ورود از طریق شماره موبایل</string>
     <string name="enterPhoneNumber">شماره موبایل خود را وارد کنید</string>
     <string name="aboutMe">
@@ -28,4 +27,5 @@
         تابستان 1397
 
     </string>
+    <string name="productDetail">جزییات محصول</string>
 </resources>

@@ -38,22 +38,24 @@ import java.util.List;
 public class ProductDetailFragment extends Fragment implements CommentContract.View, ProductDetailContract.View {
 
     final public static String PRODUCT_DETAIL_FRAGMENT = ProductDetailFragment.class.getSimpleName();
+    final public static String PRODUCT = "product";
+    final public static String TITLE = "categoryTitle";
+    public static boolean LOGIN_FROM_COMMENT = false;
+
     private ProductDetailContract.Presenter detailPresenter;
     private List<Comment> commentList = new ArrayList<>();
-    public static boolean LOGIN_FROM_COMMENT = false;
-    final public static String PRODUCT = "product";
     private TransferToFragment transferToFragment;
+    private ImageView playBut, productDetailImage;
     private CommentContract.Presenter mPresenter;
     private CommentAdapter commentAdapter;
     private ProgressBar progressBar;
+    private static String categoryTitle;
     private Product product;
-    private ImageView playBut, productDetailImage;
     private Button retryBut;
 
     public ProductDetailFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -71,10 +73,12 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
         Bundle arg = getArguments();
         if (arg == null) return;
         setProduct((Product) arg.getParcelable(PRODUCT));
+        this.categoryTitle = arg.getString(TITLE);
 
         commentAdapter = new CommentAdapter(commentList);
         mPresenter = new CommentPresenter(this);
         detailPresenter = new ProductDetailPresenter(this);
+        getActivity().setTitle(getString(R.string.productDetail));
     }
 
     @Override
@@ -86,17 +90,6 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
         retryBut = view.findViewById(R.id.retryButton);
         retryBut.setVisibility(View.GONE);
         retryBut.bringToFront(); // for on click works on android 4.3!!!!
-
-        Toolbar mToolbar = view.findViewById(R.id.toolbar);
-
-        if (mToolbar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
-
-            ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_forward_black_24dp);
-            actionBar.setTitle("جزییات محصول");
-        }
 
         return view;
 
@@ -133,6 +126,16 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
 
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if(categoryTitle.equals(""))
+            getActivity().setTitle(R.string.app_name);
+        else
+            getActivity().setTitle(categoryTitle);
+    }
+
     public void setProductDetailData(View view) {
 
         ImageView productDetailImageView = view.findViewById(R.id.productDetailIv);
@@ -154,10 +157,11 @@ public class ProductDetailFragment extends Fragment implements CommentContract.V
     }
 
 
-    public static ProductDetailFragment newInstance(Product product) {
+    public static ProductDetailFragment newInstance(Product product , String categoryTitle) {
 
         Bundle arg = new Bundle();
         arg.putParcelable(PRODUCT, (Parcelable) product);
+        arg.putString(TITLE, categoryTitle);
 
         ProductDetailFragment productDetailFragment = new ProductDetailFragment();
         productDetailFragment.setArguments(arg);

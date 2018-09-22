@@ -121,7 +121,7 @@ public class HomePageFragment extends Fragment implements HomeContract.View, Pro
 
     @Override
     public void onProductListItemClick(Product product) {
-        goToDetailFragment.goToProductDetailFragment(product);
+        goToDetailFragment.goToProductDetailFragment(product, "");
     }
 
 }
