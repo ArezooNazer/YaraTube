@@ -78,15 +78,18 @@ public class ActivationFragment extends Fragment implements ActivationContract.V
             @Override
             public void onOTPReceived(String extractedOTP) {
                 activationEditText.setText(extractedOTP);
+                String nickname ="";
+                mPresenter.sendActivationCode(mobileNumber, deviceId,
+                        activationEditText.getText().toString().trim(), nickname);
+                SMSListener.unbindListener();
+
             }
         });
-
 
         sendActivationCodeBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//                String nickname = stringGenerator();
                 String nickname ="";
                 mPresenter.sendActivationCode(mobileNumber, deviceId,
                         activationEditText.getText().toString().trim(), nickname);
