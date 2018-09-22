@@ -38,6 +38,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
+        getSupportActionBar().hide();
 
         Intent intent = getIntent();
         String productVideo = intent.getStringExtra("file");
