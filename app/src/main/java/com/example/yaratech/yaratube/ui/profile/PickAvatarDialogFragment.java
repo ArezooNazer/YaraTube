@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -35,7 +36,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class PickAvatarDialogFragment extends DialogFragment {
 
-
     public static String AVATAR_OPTION_DIALOG = PickAvatarDialogFragment.class.getName();
     public static final int GALLERY_REQUEST = 9002;
     public static final int CAMERA_REQUEST = 9003;
@@ -43,8 +43,8 @@ public class PickAvatarDialogFragment extends DialogFragment {
     public static final int CAMERA_PERMISSION = 9005;
 
     private ImageView galleryBut, cameraBut;
-    private String imageFilePath = "";
-    //    private PickAvatarContract.Presenter mPresenter;
+    private String imageFilePath;
+
     private ProfileContract.Listener mListener;
 
     public PickAvatarDialogFragment() {
@@ -59,7 +59,7 @@ public class PickAvatarDialogFragment extends DialogFragment {
     }
 
     public void setPhotoSelectedListener(ProfileContract.Listener listener) {
-        mListener = listener;
+        this.mListener = listener;
     }
 
 
@@ -81,69 +81,98 @@ public class PickAvatarDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_pick_avatar_dialog, container, false);
         getDialog().setCanceledOnTouchOutside(false);
 
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         galleryBut = view.findViewById(R.id.galleryBut);
         cameraBut = view.findViewById(R.id.cameraBut);
 
         galleryBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) !=
-                        PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION);
-                } else {
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, GALLERY_PERMISSION);
+                    else
+                        takePhotoFromGallery();
+                } else
                     takePhotoFromGallery();
-                }
             }
         });
 
         cameraBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) !=
-                        PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                            ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+                    else
+                        takePhotoFromCamera();
+
                 } else {
-                    takePhotoFromCamera();
+                    Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(cameraIntent, CAMERA_REQUEST);
                 }
             }
         });
 
-        return view;
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == CAMERA_PERMISSION && grantResults.length > 0) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-            }
+        switch (requestCode) {
+            case CAMERA_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    takePhotoFromCamera();
+                else
+                    Log.d("camera", "onRequestPermissionsResult() : permission denied");
+                break;
+            case GALLERY_PERMISSION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    takePhotoFromGallery();
+                else
+                    Log.d("gallery", "onRequestPermissionsResult() : permission denied");
+                break;
         }
     }
 
     private void takePhotoFromGallery() {
 
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
-        File pictureDirectory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-        String picturePath = pictureDirectory.getPath();
-        Uri galleryUri = Uri.parse(picturePath);
-        galleryIntent.setDataAndType(galleryUri, "image/*");
-
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY_REQUEST);
     }
 
 
     private void takePhotoFromCamera() {
 
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                openCameraIntent();
-            else
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(
+                        getContext(),
+                        getContext().getPackageName() + ".provider",
+                        photoFile);
+                ;
+                pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(pictureIntent, CAMERA_REQUEST);
+            }
         }
 
     }
@@ -154,9 +183,7 @@ public class PickAvatarDialogFragment extends DialogFragment {
 
         if (resultCode == RESULT_OK) {
             if (requestCode == GALLERY_REQUEST) {
-
-                Uri selectedImage = data.getData();
-                cropImage(selectedImage);
+                cropImage(data.getData());
 
             } else if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
 
@@ -166,7 +193,6 @@ public class PickAvatarDialogFragment extends DialogFragment {
                 mListener.photoSelectedListener(selectedImage.getPath());
                 getDialog().dismiss();
 
-//                Log.d("Crop", "onActivityResult() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], Uri = [" + data.getData() + "]");
 
             } else if (requestCode == CAMERA_REQUEST) {
 
@@ -174,27 +200,14 @@ public class PickAvatarDialogFragment extends DialogFragment {
                     cropImage(Uri.fromFile(new File(imageFilePath)));
                     Log.d("avatar", "camera plus called" + imageFilePath);
                 } else {
-                    Uri selectedImage = data.getData();
-                    Log.d("avatar", "camera called" + selectedImage.getPath());
-                    cropImage(selectedImage);
+                    Log.d("avatar", "camera called" + data.getData().getPath());
+                    cropImage(data.getData());
                 }
             }
         }
 
     }
 
-
-    private String createFilePath(Uri selectedImage) {
-
-        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-        android.database.Cursor cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-        cursor.moveToFirst();
-        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-        String filePath = cursor.getString(columnIndex);
-        cursor.close();
-        return filePath;
-    }
 
     private File createImageFile() throws IOException {
 
@@ -206,28 +219,6 @@ public class PickAvatarDialogFragment extends DialogFragment {
 
         return image;
     }
-
-    private void openCameraIntent() {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
-            }
-            Uri photoURI = FileProvider.getUriForFile(
-                    getContext(),
-                    getContext().getPackageName() + ".provider",
-                    photoFile);
-            ;
-            pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-            startActivityForResult(pictureIntent, CAMERA_REQUEST);
-        }
-    }
-
 
     public void cropImage(Uri imagePath) {
         CropImage
