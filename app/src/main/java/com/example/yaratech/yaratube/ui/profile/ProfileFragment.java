@@ -145,9 +145,7 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
                             showMessage("حجم عکس بیشتر از 1mb است");
                         else {
 
-                            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
-                            MultipartBody.Part body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
-                            mPresenter.sendUserAvatarToServer(body, "Token " + token);
+                            mPresenter.sendUserAvatarToServer(file, "Token " + token);
                         }
                     }
                 });
@@ -176,6 +174,12 @@ public class ProfileFragment extends Fragment implements ProfileContract.View {
         //set profile fields
         mPresenter.getProfileFiledFromDb();
         mPresenter.getProfileFieldFromServer("Token " + token);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setTitle(R.string.app_name);
     }
 
     @Override

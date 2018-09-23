@@ -9,7 +9,11 @@ import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 import com.example.yaratech.yaratube.data.source.ApiResult;
 import com.example.yaratech.yaratube.data.source.ProfileRepository;
 
+import java.io.File;
+
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 import static com.example.yaratech.yaratube.MainActivity.yaraDatabase;
 
@@ -79,9 +83,13 @@ public class ProfilePresenter implements ProfileContract.Presenter {
     }
 
     @Override
-    public void sendUserAvatarToServer(MultipartBody.Part body, String token) {
+    public void sendUserAvatarToServer(File file, String token) {
 
         mView.showProgressBar();
+
+        RequestBody requestFile = RequestBody.create(MediaType.parse("image/*"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("avatar", file.getName(), requestFile);
+
         profileRepository.uploadUserAvatar(body, token, new ApiResult<Profile>() {
             @Override
             public void onSuccess(Profile result) {

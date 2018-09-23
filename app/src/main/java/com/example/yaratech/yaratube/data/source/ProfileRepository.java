@@ -56,7 +56,7 @@ public class ProfileRepository {
                 });
     }
 
-    public void uploadUserAvatar(MultipartBody.Part body, String token, final ApiResult<Profile> callback) {
+    public void uploadUserAvatar(final MultipartBody.Part body, String token, final ApiResult<Profile> callback) {
 
         ServiceGenerator.getInstance().create(ApiService.class)
                 .sendProfileAvatarRequest(body, token)
@@ -67,15 +67,13 @@ public class ProfileRepository {
                         if (response.isSuccessful()) {
                             callback.onSuccess(response.body());
                         } else {
-                            callback.onError("خطا در آپلود تصویر");
-                            Log.d("uploadError", "onResponse() called with: call = [" + call + "], response = [" + response.errorBody() + "]");
+                            callback.onError(response.message());
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Profile> call, Throwable t) {
-                        callback.onError("خطا در آپلود تصویر");
-                        Log.d("uploadError", "onFailure() called with: call = [" + call + "], t = [" + t + "]");
+                        callback.onError(t.getMessage());
                     }
                 });
 

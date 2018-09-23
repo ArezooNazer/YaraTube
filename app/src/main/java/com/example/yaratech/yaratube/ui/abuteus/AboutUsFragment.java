@@ -31,4 +31,9 @@ public class AboutUsFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_about_us, container, false);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getActivity().setTitle(R.string.app_name);
+    }
 }

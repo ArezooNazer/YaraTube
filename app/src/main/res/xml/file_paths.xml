@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths >
-    <files-path name="my_file_path" path="."/>
-    <external-files-path name="my_external_file" path="." />
-    <external-path name="my_images" path="Android/data/com.yaratech.yaratube/files/Pictures"/>
-    <root-path name="external_files" path="/storage/" />
+<!--<paths >-->
+    <!--<files-path name="my_file_path" path="."/>-->
+    <!--<external-files-path name="my_external_file" path="." />-->
+    <!--<external-path name="my_images" path="Android/data/com.yaratech.yaratube/files/Pictures"/>-->
+    <!--<root-path name="external_files" path="/storage/" />-->
 
+<!--</paths>-->
+<paths>
+    <external-path
+        name="my_images"
+        path="Android/data/com.yaratech.yaratube/files/Pictures"/>
 </paths>

@@ -85,20 +85,20 @@ public interface ApiService {
 
     //just send avatar
     @Multipart
-    @POST("/profile")
+    @POST("profile")
     Call<Profile> sendProfileAvatarRequest( @Part MultipartBody.Part avatarFile,
                                             @Header("Authorization") String token);
 
 
     //send other profile fields
-    @POST("/profile")
+    @POST("profile")
     @FormUrlEncoded
     Call<Profile> sendProfileFieldRequest(@Field("nickname") String nickname,
                                           @Field("gender") Object gender,
                                           @Field("date_of_birth") Object dateOfBirth,
                                           @Header("Authorization") String token);
 
-    @GET("/profile")
+    @GET("profile")
     Call<ProfileGetResponse> getProfileFieldsRequest(@Header("Authorization") String token);
 
 }

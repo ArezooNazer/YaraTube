@@ -4,6 +4,8 @@ import com.example.yaratech.yaratube.data.entity.User;
 import com.example.yaratech.yaratube.data.model.ProfileGetResponse;
 import com.example.yaratech.yaratube.util.BaseView;
 
+import java.io.File;
+
 import okhttp3.MultipartBody;
 
 public interface ProfileContract {
@@ -21,7 +23,7 @@ public interface ProfileContract {
 
         void sendProfileField(String nickName, String birthDate, String gender, String token);
 
-        void sendUserAvatarToServer(MultipartBody.Part body, String token);
+        void sendUserAvatarToServer(File file, String token);
 
         User getUserInfo();
 

@@ -45,6 +45,11 @@ public class PickAvatarDialogFragment extends DialogFragment {
     private ImageView galleryBut, cameraBut;
     private String imageFilePath;
 
+    String[] CAMERA_PERMISSIONS = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
     private ProfileContract.Listener mListener;
 
     public PickAvatarDialogFragment() {
@@ -109,10 +114,13 @@ public class PickAvatarDialogFragment extends DialogFragment {
             public void onClick(View view) {
 
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
+                    if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA) +
+                            ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) +
                             ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-                        requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.CAMERA}, CAMERA_PERMISSION);
+
+                        requestPermissions(new String[]{Manifest.permission.CAMERA,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_PERMISSION);
                     else
                         takePhotoFromCamera();
 
@@ -156,20 +164,17 @@ public class PickAvatarDialogFragment extends DialogFragment {
 
         Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (pictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
-
+            //Create a file to store the image
             File photoFile = null;
             try {
                 photoFile = createImageFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-                return;
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(
-                        getContext(),
+                Uri photoURI = FileProvider.getUriForFile(getContext(),
                         getContext().getPackageName() + ".provider",
                         photoFile);
-                ;
                 pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(pictureIntent, CAMERA_REQUEST);
             }
@@ -213,7 +218,7 @@ public class PickAvatarDialogFragment extends DialogFragment {
 
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "IMG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         imageFilePath = image.getAbsolutePath();
 
@@ -225,8 +230,7 @@ public class PickAvatarDialogFragment extends DialogFragment {
                 .activity(imagePath)
                 .setAllowFlipping(true)
                 .setAllowRotation(true)
-                .setCropShape(CropImageView.CropShape.RECTANGLE)
-                .setOutputCompressQuality(50)
+                .setOutputCompressQuality(30)
                 .setFixAspectRatio(true)
                 .start(getContext(), this);
     }
